@@ -27,7 +27,7 @@ export function buildClinicJsonLd(): ClinicJsonLd | null {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
-    name: `${brand.name} — ${brand.descriptor}`,
+    name: `${brand.name} ${brand.descriptor}`,
     description: "Fisioterapi dan layanan kesehatan gerak yang personal.",
     medicalSpecialty: "Physiotherapy",
     ...(siteUrl ? { url: siteUrl } : {}),

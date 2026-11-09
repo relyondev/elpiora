@@ -18,7 +18,7 @@ export const routes = [
   ...siteConfig.services.map((s) => `/layanan/${s.id}`),
   "/home-visit",
   "/fasilitas",
-  "/testimoni",
+  ...(siteConfig.testimonials.length > 0 ? ["/testimoni"] : []),
   "/faq",
   "/kontak",
 ];

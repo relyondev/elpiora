@@ -197,7 +197,7 @@ export function BookingForm() {
             <h3 className="t-h3 mt-3">Maaf, permintaan Anda belum dapat terkirim.</h3>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">
               Formulir ini sedang disiapkan dan belum terhubung ke tim kami, sehingga data Anda <strong>tidak terkirim</strong>. Silakan coba
-              lagi nanti — informasi kontak akan segera tersedia di halaman ini.
+              lagi nanti. Informasi kontak akan segera tersedia di halaman ini.
             </p>
           </>
         )}
@@ -459,7 +459,7 @@ export function BookingForm() {
         <button
           type="submit"
           disabled={status.kind === "submitting"}
-          className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-deep px-8 text-[0.9375rem] font-semibold text-paper shadow-[0_10px_30px_-12px_rgb(18_63_67/0.45)] transition-colors hover:bg-ink disabled:cursor-wait disabled:opacity-70"
+          className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-deep px-8 text-[0.9375rem] font-semibold text-paper transition-colors hover:bg-ink disabled:cursor-wait disabled:opacity-70"
         >
           {status.kind === "submitting" ? "Mengirim…" : "Ajukan Janji"}
           <ArrowIcon className="arrow-nudge size-4" />

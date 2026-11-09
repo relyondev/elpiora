@@ -11,7 +11,7 @@ export default function NotFound() {
         <h1 className="t-display mt-6">
           Sepertinya Anda <span className="accent">salah langkah.</span>
         </h1>
-        <p className="t-lead mx-auto mt-6 max-w-[38ch]">Tidak apa-apa — mari kembali ke jalur yang tepat.</p>
+        <p className="t-lead mx-auto mt-6 max-w-[38ch]">Halaman yang Anda cari tidak ada atau sudah dipindahkan.</p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <LinkButton href="/">Kembali ke Beranda</LinkButton>
           <LinkButton href={BOOKING_PATH} variant="secondary" arrow={false}>

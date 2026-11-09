@@ -15,7 +15,7 @@ export function TestimonialList({ limit, compact = false }: { limit?: number; co
       <div className={`relative overflow-hidden rounded-[24px] border border-dashed border-deep/25 bg-surface ${compact ? "p-7" : "p-8 md:p-12"}`}>
         <QuoteIcon className="size-10 text-gold" />
         <p className={`mt-5 font-serif text-deep ${compact ? "text-2xl" : "text-[clamp(1.6rem,1.3rem+1vw,2.25rem)]"} leading-snug`}>
-          Cerita pasien akan kami tampilkan di sini — hanya dengan izin tertulis dari yang bersangkutan.
+          Cerita pasien akan kami tampilkan di sini, hanya dengan izin tertulis dari yang bersangkutan.
         </p>
         <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-muted-text">
           Kami tidak menampilkan testimoni, nama, atau penilaian bintang yang tidak dapat diverifikasi.

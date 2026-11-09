@@ -92,7 +92,7 @@ export function TopicGrid({
                 <div>
                   <h3 className="font-serif text-[1.25rem] leading-snug font-semibold text-deep">{t}</h3>
                   <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-body">{body}</p>
-                  {href ? <span className="mt-2 inline-block text-sm font-semibold text-teal-text">Lihat layanan terkait →</span> : null}
+                  {href ? <span className="mt-2 inline-block text-sm font-semibold text-teal-text">Layanan yang berkaitan</span> : null}
                 </div>
               </>
             );

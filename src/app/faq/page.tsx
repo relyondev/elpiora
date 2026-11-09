@@ -8,7 +8,7 @@ import { faqCategories } from "@/content/faq";
 import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta(
-  "FAQ — Pertanyaan yang Sering Diajukan",
+  "FAQ: Pertanyaan yang Sering Diajukan",
   "Jawaban seputar fisioterapi, janji temu, sesi pertama, layanan, home visit, biaya, dan privasi di ELPIORA.",
   "/faq",
 );
@@ -26,7 +26,7 @@ export default function FaqPage() {
         lead={<p>Kumpulan jawaban seputar fisioterapi, janji temu, sesi pertama, layanan, hingga privasi data Anda.</p>}
         actions={
           <>
-            <LinkButton href="#topik">Lihat Topik</LinkButton>
+            <LinkButton href="#topik">Pilih Topik Pertanyaan</LinkButton>
             <LinkButton href={BOOKING_PATH} variant="champagne">
               Buat Janji
             </LinkButton>
@@ -69,9 +69,9 @@ export default function FaqPage() {
 
       <FinalCta
         title="Belum Menemukan Jawabannya?"
-        lead="Ajukan pertanyaan atau permintaan janji melalui formulir — tim kami akan menghubungi Anda."
+        lead="Ajukan pertanyaan atau permintaan janji melalui formulir, dan tim kami akan menghubungi Anda."
         primaryLabel="Hubungi Kami"
-        secondaryLabel="Lihat Layanan"
+        secondaryLabel="Lihat Daftar Layanan"
       />
     </main>
   );

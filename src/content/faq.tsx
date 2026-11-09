@@ -38,7 +38,7 @@ export const generalFaq: FaqItem[] = [
     q: "Bagaimana mengetahui layanan yang sesuai?",
     a: (
       <p>
-        Anda tidak perlu menentukannya sendiri — pilih &ldquo;Belum yakin&rdquo; pada formulir. Ceritakan keluhan dan tujuan Anda saat
+        Anda tidak perlu menentukannya sendiri. Pilih &ldquo;Belum yakin&rdquo; pada formulir. Ceritakan keluhan dan tujuan Anda saat
         konsultasi, dan fisioterapis akan membantu menjelaskan pilihan yang tersedia. Bila keluhan terasa berat, muncul tiba-tiba, atau Anda
         ragu, sebaiknya konsultasikan juga dengan dokter.
       </p>
@@ -72,8 +72,8 @@ export const servicesFaq: FaqItem[] = [
     q: "Apakah fisioterapi sesuai untuk lansia?",
     a: (
       <p>
-        Fisioterapi dapat disesuaikan untuk berbagai usia. Program untuk lansia disusun dengan memperhatikan kondisi kesehatan secara keseluruhan
-        — termasuk arahan dari dokter yang merawat.
+        Fisioterapi dapat disesuaikan untuk berbagai usia. Program untuk lansia disusun dengan memperhatikan kondisi kesehatan secara
+        keseluruhan, termasuk arahan dari dokter yang merawat.
       </p>
     ),
   },
@@ -106,7 +106,7 @@ export const homeVisitFaq: FaqItem[] = [
 export const contactFaq: FaqItem[] = [
   {
     q: "Apakah permintaan dari formulir langsung menjadi janji?",
-    a: <p>Belum. Formulir adalah permintaan janji — tim kami akan menghubungi Anda untuk mengonfirmasi tanggal dan waktu yang tersedia.</p>,
+    a: <p>Belum. Formulir adalah permintaan janji. Tim kami akan menghubungi Anda untuk mengonfirmasi tanggal dan waktu yang tersedia.</p>,
   },
   {
     q: "Apa yang sebaiknya saya tulis di kolom catatan?",
@@ -161,7 +161,7 @@ export const faqCategories: FaqCategory[] = [
         q: "Apa yang membedakan pendekatan ELPIORA?",
         a: (
           <p>
-            Kami memulai dengan mendengarkan, menjelaskan setiap langkah dengan jelas, dan menyusun program yang personal sesuai tujuan Anda — dalam
+            Kami memulai dengan mendengarkan, menjelaskan setiap langkah dengan jelas, dan menyusun program yang personal sesuai tujuan Anda, dalam
             suasana yang tenang dan nyaman. Selengkapnya di halaman{" "}
             <Link href="/tentang" className={linkCls}>
               Tentang
@@ -234,7 +234,7 @@ export const faqCategories: FaqCategory[] = [
   {
     id: "home-visit",
     title: "Home Visit",
-    intro: "Fisioterapi di rumah — persiapan dan area layanan.",
+    intro: "Persiapan dan area layanan fisioterapi di rumah.",
     items: [...homeVisitFaq, contactFaq[3]],
   },
   {
@@ -260,7 +260,7 @@ export const faqCategories: FaqCategory[] = [
         a: (
           <p>
             Data yang Anda kirim melalui formulir digunakan untuk menghubungi Anda terkait permintaan janji. Hindari mencantumkan detail medis yang
-            tidak diperlukan di formulir — informasi kesehatan akan dibahas langsung bersama fisioterapis.
+            tidak diperlukan di formulir. Informasi kesehatan akan dibahas langsung bersama fisioterapis.
           </p>
         ),
       },

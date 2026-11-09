@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { WaveRibbons } from "./ui/Ornaments";
 import { Reveal } from "./ui/Reveal";
 import { SectionIntro } from "./ui/SectionIntro";
 
@@ -7,7 +8,7 @@ export type Step = { title: string; body: string };
 export const careSteps: Step[] = [
   { title: "Konsultasi Awal", body: "Ceritakan keluhan, riwayat, dan tujuan Anda. Bersama-sama kita menentukan langkah awal yang sesuai." },
   { title: "Asesmen Gerak", body: "Fisioterapis mengamati postur, mobilitas, kekuatan, dan pola gerak untuk memahami kondisi Anda lebih jelas." },
-  { title: "Rencana Terapi", body: "Program disusun sesuai kebutuhan Anda — dapat mencakup sesi di klinik dan latihan pendukung untuk keseharian." },
+  { title: "Rencana Terapi", body: "Program disusun sesuai kebutuhan Anda dan dapat mencakup sesi di klinik dan latihan pendukung untuk keseharian." },
   { title: "Evaluasi Perkembangan", body: "Progres ditinjau secara berkala agar program tetap relevan dengan perubahan kondisi dan tujuan Anda." },
 ];
 
@@ -35,8 +36,7 @@ export function CareJourney({
   return (
     <section aria-labelledby={titleId} className="on-dark relative isolate overflow-hidden bg-deep py-24 text-mint-100 md:py-32">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-1/3 left-1/2 h-[80%] w-[70%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(44_152_160/0.35),rgb(44_152_160/0))]" />
-        <div className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgb(223_242_231/0.025)_0_1px,transparent_1px_120px)]" />
+        <WaveRibbons tone="dark" className="absolute inset-x-0 bottom-0 h-28 w-full" />
       </div>
 
       <div className="shell">

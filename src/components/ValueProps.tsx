@@ -5,7 +5,7 @@ import { SectionIntro } from "./ui/SectionIntro";
 const values = [
   {
     title: "Asesmen yang Menyeluruh",
-    body: "Kami berupaya memahami pola gerak, keluhan, dan kebiasaan sehari-hari yang mungkin berpengaruh — bukan hanya titik yang terasa tidak nyaman.",
+    body: "Kami berupaya memahami pola gerak, keluhan, dan kebiasaan sehari-hari yang mungkin berpengaruh, termasuk di luar titik yang terasa tidak nyaman.",
     Icon: AssessmentIcon,
   },
   {

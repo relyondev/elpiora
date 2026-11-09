@@ -37,7 +37,7 @@ export function About() {
           <Reveal delay={100} className="mt-8 space-y-5 text-[1.0625rem] leading-[1.75] text-body">
             <p>
               Di ELPIORA, pemulihan tidak hanya soal meredakan rasa tidak nyaman, tetapi tentang kembali menjalani hal-hal yang berarti bagi
-              Anda — berjalan tanpa ragu, bekerja dengan nyaman, dan berolahraga dengan lebih percaya diri.
+              Anda, misalnya berjalan tanpa ragu atau kembali berolahraga.
             </p>
             <p>
               Kami memadukan ketelitian klinis dengan suasana yang tenang dan ramah, agar setiap kunjungan terasa jelas, nyaman, dan

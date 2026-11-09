@@ -22,7 +22,7 @@ export function IconCards({ items, columns = 4, footer }: { items: IconCard[]; c
                 </span>
               )}
               <h3 className="t-h3 mt-5 !text-[1.4rem]">{title}</h3>
-              {label ? <p className="mt-1 text-xs font-semibold tracking-[0.12em] text-muted-text uppercase">{label}</p> : null}
+              {label ? <p className="mt-1 text-sm font-semibold text-muted-text">{label}</p> : null}
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-body">{body}</p>
             </div>
           </Reveal>

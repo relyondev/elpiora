@@ -1,5 +1,4 @@
 import { BookingForm } from "@/components/booking/BookingForm";
-import { CareJourney } from "@/components/CareJourney";
 import { Faq } from "@/components/Faq";
 import { ContactCard } from "@/components/Location";
 import { PageHero } from "@/components/PageHero";
@@ -18,12 +17,6 @@ export const metadata = pageMeta(
   "/kontak",
 );
 
-const quickSteps = [
-  { title: "Kirim Permintaan", body: "Isi formulir di halaman ini dengan data dan jadwal yang Anda inginkan." },
-  { title: "Konfirmasi", body: "Tim kami menghubungi Anda untuk memastikan tanggal, waktu, dan lokasi sesi." },
-  { title: "Sesi Pertama", body: "Datang ke klinik — atau terima fisioterapis di rumah bila home visit tersedia." },
-  { title: "Mulai Perawatan", body: "Asesmen dan rencana perawatan yang disusun untuk Anda." },
-];
 
 export default function KontakPage() {
   const wa = whatsappHref();
@@ -83,18 +76,6 @@ export default function KontakPage() {
         </div>
       </section>
 
-      <CareJourney
-        index="02"
-        eyebrow="Alur Pemesanan"
-        title={
-          <>
-            Buat Janji dalam <span className="accent">Empat Langkah.</span>
-          </>
-        }
-        intro="Dari permintaan hingga sesi pertama — sederhana dan jelas."
-        steps={quickSteps}
-        titleId="alur-pesan-title"
-      />
 
       <Faq items={contactFaq} index="03" tone="paper" />
 

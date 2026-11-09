@@ -10,7 +10,7 @@ import { Reveal } from "./ui/Reveal";
 function InfoRow({ icon, label, children, pending }: { icon: ReactNode; label: string; children: ReactNode; pending?: boolean }) {
   return (
     <div className="relative border-t border-line py-5 pl-14 first:border-t-0">
-      <dt className="text-xs font-semibold tracking-[0.12em] text-muted-text uppercase">
+      <dt className="text-sm font-semibold text-muted-text">
         <span aria-hidden="true" className="absolute top-5 left-0 inline-flex size-10 items-center justify-center rounded-full bg-mint-100 text-teal-text">
           {icon}
         </span>

@@ -74,7 +74,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     id: "sports-rehabilitation",
     headline: "Kembali ke lapangan dengan langkah yang terarah.",
     overview: [
-      "Cedera saat berolahraga — baik bagi atlet maupun penggemar olahraga rekreasi — sering kali membutuhkan lebih dari sekadar istirahat. Kembali terlalu cepat dapat meningkatkan risiko cedera berulang, sementara terlalu lama berhenti dapat menurunkan kebugaran.",
+      "Cedera saat berolahraga, baik bagi atlet maupun penggemar olahraga rekreasi, sering kali membutuhkan lebih dari sekadar istirahat. Kembali terlalu cepat dapat meningkatkan risiko cedera berulang, sementara terlalu lama berhenti dapat menurunkan kebugaran.",
       "Sports Rehabilitation di ELPIORA membantu Anda menjalani pemulihan secara bertahap: dari mengembalikan gerak dasar, membangun kekuatan dan stabilitas, hingga latihan yang semakin mendekati tuntutan olahraga Anda.",
       "Program disusun bersama Anda, dengan mempertimbangkan jenis olahraga, target, dan jadwal yang realistis.",
     ],
@@ -115,14 +115,14 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     headline: "Bekerja lebih nyaman, dari meja hingga lapangan.",
     overview: [
       "Duduk berjam-jam di depan layar, mengangkat beban, atau melakukan gerakan berulang dapat memengaruhi kenyamanan tubuh dari waktu ke waktu. Keluhan yang awalnya ringan bisa berkembang bila kebiasaan kerja tidak diperhatikan.",
-      "Layanan Workplace Health & Ergonomics membantu menilai kebutuhan gerak dan pengaturan aktivitas kerja Anda — mulai dari posisi duduk dan layar, cara mengangkat, hingga jeda dan latihan singkat yang dapat dilakukan di sela pekerjaan.",
+      "Layanan Workplace Health & Ergonomics membantu menilai kebutuhan gerak dan pengaturan aktivitas kerja Anda: posisi duduk dan layar, cara mengangkat, hingga jeda dan latihan singkat yang dapat dilakukan di sela pekerjaan.",
       "Layanan ini dapat dijalankan secara individual. Untuk kebutuhan perusahaan atau komunitas, program korporat sedang dipersiapkan.",
     ],
     suitableFor: [
       "Pekerja kantor dengan keluhan leher, bahu, atau punggung",
       "Pekerjaan dengan gerakan berulang atau mengangkat beban",
       "Anda yang bekerja dari rumah dengan pengaturan ruang kerja seadanya",
-      "Perusahaan yang ingin mendukung kesehatan gerak karyawan (program korporat — menunggu konfirmasi)",
+      "Perusahaan yang ingin mendukung kesehatan gerak karyawan (program korporat, menunggu konfirmasi)",
     ],
     goals: [
       "Mengurangi beban berlebih pada tubuh selama bekerja",
@@ -153,7 +153,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     id: "wellness-movement",
     headline: "Menjaga tubuh tetap aktif, seimbang, dan siap bergerak.",
     overview: [
-      "Kesehatan gerak tidak hanya dibutuhkan saat ada keluhan. Menjaga kekuatan, kelenturan, dan keseimbangan membantu tubuh tetap siap menghadapi aktivitas sehari-hari — di usia berapa pun.",
+      "Kesehatan gerak tidak hanya dibutuhkan saat ada keluhan. Menjaga kekuatan, kelenturan, dan keseimbangan membantu tubuh tetap siap menghadapi aktivitas sehari-hari, di usia berapa pun.",
       "Wellness & Movement adalah program kebugaran fungsional yang dipandu fisioterapis. Latihan dirancang sesuai kondisi tubuh, tujuan, dan gaya hidup Anda, dengan perhatian pada teknik gerak yang aman.",
       "Program ini juga dapat menjadi lanjutan setelah Anda menyelesaikan program pemulihan, agar hasil yang sudah dicapai dapat terjaga.",
     ],
@@ -191,7 +191,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     id: "neurological-rehabilitation",
     headline: "Mendukung kemandirian gerak setelah kondisi neurologis.",
     overview: [
-      "Kondisi neurologis — seperti setelah stroke atau kondisi lain yang memengaruhi sistem saraf — dapat berdampak pada kekuatan, keseimbangan, koordinasi, dan kemandirian dalam aktivitas sehari-hari.",
+      "Kondisi neurologis, seperti setelah stroke atau kondisi lain yang memengaruhi sistem saraf, dapat berdampak pada kekuatan, keseimbangan, koordinasi, dan kemandirian dalam aktivitas sehari-hari.",
       "Rehabilitasi neurologis berfokus pada latihan gerak yang bertujuan, berulang, dan bermakna untuk mendukung kemampuan fungsional pasien. Program disusun bersama keluarga dan tim medis yang merawat.",
       "Ketersediaan layanan ini sedang dikonfirmasi. Silakan hubungi tim kami untuk informasi lebih lanjut.",
     ],
@@ -229,9 +229,9 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     headline: "Informasi layanan sedang disiapkan.",
     overview: [
       "Dry needling adalah teknik yang dalam praktik fisioterapi dapat digunakan sebagai bagian dari program penanganan keluhan otot, dan hanya dilakukan oleh tenaga yang memiliki kualifikasi sesuai.",
-      "Informasi lengkap mengenai layanan ini — termasuk kualifikasi terapis dan ketersediaannya di ELPIORA — sedang dikonfirmasi dan akan diperbarui di halaman ini.",
+      "Informasi lengkap mengenai layanan ini, termasuk kualifikasi terapis dan ketersediaannya di ELPIORA, sedang dikonfirmasi dan akan diperbarui di halaman ini.",
     ],
-    suitableFor: ["Kesesuaian teknik ini dinilai oleh fisioterapis setelah asesmen — tidak setiap keluhan memerlukan dry needling."],
+    suitableFor: ["Kesesuaian teknik ini dinilai oleh fisioterapis setelah asesmen. Tidak setiap keluhan memerlukan dry needling."],
     goals: ["Informasi akan diperbarui setelah layanan dikonfirmasi."],
     sessionMayInclude: [
       { title: "Asesmen terlebih dahulu", body: "Setiap teknik dipertimbangkan berdasarkan hasil asesmen dan persetujuan Anda." },
@@ -247,7 +247,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     id: "home-visit",
     headline: "Perawatan fisioterapi di kenyamanan rumah Anda.",
     overview: [
-      "Bagi sebagian orang, datang ke klinik bukan hal yang mudah — karena mobilitas terbatas, masa pemulihan setelah operasi, usia, atau jadwal yang padat.",
+      "Bagi sebagian orang, datang ke klinik bukan hal yang mudah karena mobilitas terbatas, masa pemulihan setelah operasi, usia, atau jadwal yang padat.",
       "Layanan Home Visit membawa sesi fisioterapi ke rumah Anda. Latihan dilakukan di lingkungan yang familiar, sehingga program dapat langsung disesuaikan dengan aktivitas dan kondisi rumah sehari-hari.",
       "Area layanan dan ketersediaan jadwal sedang dikonfirmasi. Ajukan permintaan Anda, dan tim kami akan memastikan apakah alamat Anda dapat dilayani.",
     ],

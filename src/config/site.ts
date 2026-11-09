@@ -100,7 +100,7 @@ export const siteConfig = {
       primary: { src: "/brand/elpiora-logo.png", width: 900, height: 227 }, // wordmark + descriptor
       full: { src: "/brand/elpiora-logo-full.png", width: 1200, height: 414 }, // + "restore function · renew life"
       reversed: { src: "/brand/elpiora-logo-reversed.png", width: 900, height: 240 },
-      alt: "ELPIORA — Physiotherapy and Wellness",
+      alt: "ELPIORA Physiotherapy and Wellness",
     },
     /** Brand traits from the official identity slides (01 / 05). */
     traits: [
@@ -115,7 +115,7 @@ export const siteConfig = {
      * Replace with ELPIORA's own statements (or approve these).
      */
     mission:
-      "Memberikan layanan fisioterapi dan kesehatan gerak yang personal, jelas, dan penuh empati — membantu setiap orang kembali bergerak dengan nyaman.",
+      "Memberikan layanan fisioterapi dan kesehatan gerak yang personal, jelas, dan penuh empati, untuk membantu setiap orang kembali bergerak dengan nyaman.",
     vision:
       "Menjadi tempat pemulihan gerak yang dipercaya karena ketelitian klinis, perhatian personal, dan suasana yang menenangkan.",
     missionIsDraft: true,
@@ -166,7 +166,7 @@ export const siteConfig = {
       title: "Pain & Movement",
       label: "Nyeri & Fungsi Gerak",
       description:
-        "Penanganan keluhan muskuloskeletal — seperti nyeri leher, punggung, atau sendi — dengan fokus pada mobilitas dan fungsi gerak sehari-hari.",
+        "Penanganan keluhan muskuloskeletal (seperti nyeri leher, punggung, atau sendi) dengan fokus pada mobilitas dan fungsi gerak sehari-hari.",
       icon: "movement",
       availability: "listed",
     },
@@ -202,7 +202,7 @@ export const siteConfig = {
       title: "Neurological Rehabilitation",
       label: "Rehabilitasi Neurologis",
       description:
-        "Dukungan latihan gerak, keseimbangan, dan kemandirian setelah kondisi neurologis — disusun bersama tim medis Anda.",
+        "Dukungan latihan gerak, keseimbangan, dan kemandirian setelah kondisi neurologis, disusun bersama tim medis Anda.",
       icon: "neuro",
       availability: "unconfirmed", // TODO_CONFIRM — appears in mockups only
     },
@@ -331,7 +331,8 @@ export const navigation: NavItem[] = [
   },
   { label: "Home Visit", href: "/home-visit" },
   { label: "Fasilitas", href: "/fasilitas" },
-  { label: "Testimoni", href: "/testimoni" },
+  // antislop R-18/R-24: the testimonials page is linked only once real, consented testimonials exist
+  ...(siteConfig.testimonials.length > 0 ? [{ label: "Testimoni", href: "/testimoni" }] : []),
   { label: "FAQ", href: "/faq" },
   { label: "Kontak", href: "/kontak" },
 ];

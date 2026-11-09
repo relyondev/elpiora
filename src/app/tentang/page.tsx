@@ -17,7 +17,7 @@ import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta(
   "Tentang ELPIORA",
-  "Mengenal ELPIORA Physiotherapy and Wellness — pendekatan fisioterapi yang personal, jelas, dan penuh empati.",
+  "Mengenal ELPIORA Physiotherapy and Wellness: pendekatan fisioterapi yang personal, jelas, dan penuh empati.",
   "/tentang",
 );
 
@@ -42,12 +42,12 @@ export default function TentangPage() {
             Fisioterapi yang Personal untuk <span className="accent">Kualitas Hidup</span> yang Lebih Baik.
           </>
         }
-        lead={<p>Kami memadukan ketelitian klinis dengan perhatian yang tulus — membantu Anda bergerak lebih nyaman dan kembali menjalani keseharian.</p>}
+        lead={<p>Kami memadukan ketelitian klinis dengan perhatian yang tulus untuk membantu Anda bergerak lebih nyaman dan kembali menjalani keseharian.</p>}
         actions={
           <>
             <LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>
             <LinkButton href="/layanan" variant="secondary" arrow={false}>
-              Lihat Layanan
+              Lihat Daftar Layanan
             </LinkButton>
           </>
         }
@@ -68,7 +68,7 @@ export default function TentangPage() {
                 <div className="relative h-full rounded-[24px] bg-mint-100 p-8 md:p-10">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <h2 className="t-h3 accent !text-[clamp(1.75rem,1.4rem+1vw,2.4rem)]">{block.label}</h2>
-                    {brand.missionIsDraft ? <PlaceholderTag>Draf — menunggu persetujuan</PlaceholderTag> : null}
+                    {brand.missionIsDraft ? <PlaceholderTag>Draf, menunggu persetujuan</PlaceholderTag> : null}
                   </div>
                   <p className="mt-5 font-serif text-[clamp(1.25rem,1.1rem+0.5vw,1.6rem)] leading-snug text-deep">{block.text}</p>
                 </div>
@@ -93,25 +93,25 @@ export default function TentangPage() {
             <Logo variant="full" className="w-full max-w-[420px]" />
           </Reveal>
           <Reveal delay={100} className="lg:col-span-6 lg:col-start-7">
-            <SectionIntro eyebrow="Filosofi Kami" titleId="filosofi-title" title={<>Dua Langkah, <span className="accent">Satu Tujuan.</span></>} />
+            <SectionIntro eyebrow="Filosofi Kami" titleId="filosofi-title" title={<>Makna di Balik <span className="accent">Tagline Kami.</span></>} />
             <p className="t-script mt-8 inline-block -rotate-2 text-3xl text-deep md:text-4xl">{siteConfig.brand.tagline}</p>
             <BrushUnderline className="mt-1 h-3 w-64" />
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               <div>
                 <p className="font-serif text-xl font-semibold text-deep italic">Restore function</p>
                 <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
-                  Memulihkan fungsi gerak — kemampuan untuk berjalan, bekerja, berolahraga, dan merawat diri dengan nyaman.
+                  Memulihkan fungsi gerak: kemampuan untuk berjalan, bekerja, berolahraga, dan merawat diri dengan nyaman.
                 </p>
               </div>
               <div>
                 <p className="font-serif text-xl font-semibold text-deep italic">Renew life</p>
                 <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
-                  Memperbarui kualitas hidup — kembali pada hal-hal yang Anda sukai, dengan tubuh yang lebih siap dan percaya diri.
+                  Memperbarui kualitas hidup: kembali pada hal-hal yang Anda sukai, dengan tubuh yang lebih siap dan percaya diri.
                 </p>
               </div>
             </div>
             <p className="mt-6 text-[0.9375rem] leading-relaxed text-body">
-              Figur dalam logo ELPIORA — sosok yang bergerak dengan tulang belakang bertitik emas — menggambarkan hal yang sama: gerak yang pulih,
+              Figur dalam logo ELPIORA, sosok yang bergerak dengan tulang belakang bertitik emas, menggambarkan hal yang sama: gerak yang pulih,
               tubuh yang tegak, dan semangat untuk melangkah lagi.
             </p>
           </Reveal>
@@ -150,24 +150,25 @@ export default function TentangPage() {
         items={[
           { title: "Persetujuan Anda", body: "Setiap penanganan dijelaskan terlebih dahulu dan dilakukan dengan persetujuan Anda." },
           { title: "Komunikasi yang jelas", body: "Temuan asesmen, rencana, dan perkembangan disampaikan dengan bahasa yang mudah dipahami." },
-          { title: "Praktik berbasis bukti", body: "Program disusun dengan mengacu pada praktik fisioterapi yang didukung ilmu pengetahuan terkini." },
           { title: "Kerahasiaan data", body: "Informasi kesehatan Anda diperlakukan secara rahasia dan hanya digunakan untuk keperluan perawatan." },
           { title: "Rujukan bila diperlukan", body: "Bila ada tanda yang memerlukan pemeriksaan lain, kami akan menyarankan Anda berkonsultasi dengan dokter." },
         ]}
       />
 
-      <Team showPlaceholder />
+      <Team />
 
+      {siteConfig.testimonials.length > 0 ? (
       <section aria-labelledby="kata-title" className="pb-24 md:pb-32">
-        <div className="shell">
-          <Reveal className="max-w-3xl">
-            <SectionIntro eyebrow="Kata Pasien" titleId="kata-title" title="Cerita dari Pasien." />
-          </Reveal>
-          <div className="mt-10">
-            <TestimonialList limit={3} />
+          <div className="shell">
+            <Reveal className="max-w-3xl">
+              <SectionIntro eyebrow="Kata Pasien" titleId="kata-title" title="Cerita dari Pasien." />
+            </Reveal>
+            <div className="mt-10">
+              <TestimonialList limit={3} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <FinalCta />
     </main>

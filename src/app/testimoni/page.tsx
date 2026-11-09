@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { FinalCta } from "@/components/FinalCta";
 import { ChecklistSection } from "@/components/ContentSections";
 import { PageHero } from "@/components/PageHero";
@@ -9,16 +10,19 @@ import { SectionIntro } from "@/components/ui/SectionIntro";
 import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { pageMeta } from "@/lib/meta";
 
-export const metadata = pageMeta("Testimoni", "Cerita pasien ELPIORA — dipublikasikan hanya dengan izin tertulis.", "/testimoni");
+export const metadata = pageMeta("Testimoni", "Cerita pasien ELPIORA, dipublikasikan hanya dengan izin tertulis.", "/testimoni");
 
 const policy = [
   "Setiap testimoni dipublikasikan hanya dengan izin tertulis dari pasien.",
   "Kami tidak mengubah isi cerita menjadi klaim hasil yang lebih kuat.",
   "Kami tidak menampilkan penilaian bintang atau angka yang tidak dapat diverifikasi.",
-  "Pengalaman setiap orang dapat berbeda — testimoni bukan jaminan hasil.",
+  "Pengalaman setiap orang dapat berbeda, dan testimoni bukan jaminan hasil.",
 ];
 
 export default function TestimoniPage() {
+  // antislop R-18: no testimonials section until real, consented testimonials exist
+  if (siteConfig.testimonials.length === 0) notFound();
+
   return (
     <main id="konten">
       <PageHero
@@ -28,7 +32,7 @@ export default function TestimoniPage() {
             Cerita dari <span className="accent">Pasien Kami.</span>
           </>
         }
-        lead={<p>Pengalaman nyata dari orang-orang yang kembali bergerak bersama ELPIORA — dibagikan dengan izin mereka.</p>}
+        lead={<p>Pengalaman nyata dari orang-orang yang kembali bergerak bersama ELPIORA, dibagikan dengan izin mereka.</p>}
         actions={<LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>}
         image={siteConfig.images.about}
       />

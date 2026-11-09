@@ -37,9 +37,8 @@ export function PlaceholderTag({ children = "Placeholder", tone = "on-light", cl
   const styles = tone === "on-dark" ? "border-mint-100/30 text-mint-100" : "border-deep/20 bg-paper/80 text-muted-text";
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border border-dashed px-2.5 py-1 text-[0.625rem] font-semibold uppercase tracking-[0.14em] ${styles} ${className}`}
+      className={`inline-flex items-center rounded-md border border-dashed px-2.5 py-1 text-xs font-semibold ${styles} ${className}`}
     >
-      <span className="size-1 rounded-full bg-current" aria-hidden="true" />
       {children}
     </span>
   );

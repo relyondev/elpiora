@@ -29,7 +29,7 @@ const kaushan = Kaushan_Script({
   display: "swap",
 });
 
-const title = "ELPIORA — Fisioterapi & Wellness | restore function · renew life";
+const title = "ELPIORA Physiotherapy and Wellness | restore function · renew life";
 const description =
   "ELPIORA Physiotherapy and Wellness: pendekatan fisioterapi yang personal untuk membantu Anda memahami tubuh, memulihkan fungsi gerak, dan kembali beraktivitas dengan percaya diri.";
 
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    siteName: "ELPIORA — Physiotherapy and Wellness",
+    siteName: "ELPIORA Physiotherapy and Wellness",
     title,
     description,
     url: siteConfig.siteUrl ?? undefined,

@@ -9,10 +9,10 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-deep text-paper shadow-[0_1px_0_rgb(255_255_255/0.08)_inset,0_10px_30px_-12px_rgb(18_63_67/0.45)] hover:bg-ink",
+    "bg-deep text-paper hover:bg-ink",
   secondary: "border border-deep/25 text-deep hover:border-deep/60 hover:bg-paper",
   champagne:
-    "bg-[image:var(--elpiora-champagne)] text-cocoa shadow-[0_10px_24px_-14px_rgb(140_100_40/0.55),inset_0_1px_0_rgb(255_255_255/0.6)] hover:brightness-[1.03]",
+    "bg-[image:var(--elpiora-champagne)] text-cocoa shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] hover:brightness-[1.03]",
   "primary-on-dark": "bg-mint-100 text-deep hover:bg-paper",
   "secondary-on-dark": "border border-mint-100/35 text-mint-100 hover:border-mint-100/80 hover:bg-mint-100/5",
 };
@@ -30,11 +30,13 @@ type LinkButtonProps = CommonProps & {
   ariaLabel?: string;
 };
 
-export function LinkButton({ href, external, ariaLabel, children, variant = "primary", arrow = true, className = "" }: LinkButtonProps) {
+export function LinkButton({ href, external, ariaLabel, children, variant = "primary", arrow, className = "" }: LinkButtonProps) {
+  // antislop R-08: the arrow is the poster's "Baca Selengkapnya" motif, so it belongs to the champagne button only.
+  const showArrow = arrow ?? variant === "champagne";
   const content = (
     <>
       <span>{children}</span>
-      {arrow ? (
+      {showArrow ? (
         variant === "champagne" ? (
           <span className="-mr-3 inline-flex size-8 items-center justify-center rounded-full bg-paper text-cocoa shadow-sm">
             <ArrowIcon className="arrow-nudge size-4" />
@@ -79,13 +81,11 @@ export function TextLink({ href, children, external, className = "" }: { href: s
   return external ? (
     <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
       {children}
-      <ArrowIcon className="arrow-nudge size-3.5" />
       <span className="sr-only"> (membuka di tab baru)</span>
     </a>
   ) : (
     <Link href={href} className={cls}>
       {children}
-      <ArrowIcon className="arrow-nudge size-3.5" />
     </Link>
   );
 }

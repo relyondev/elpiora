@@ -2,7 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { bookingHref } from "@/lib/booking";
 import { TextLink } from "./ui/Button";
-import { ArrowIcon, serviceIcons } from "./ui/Icon";
+import { serviceIcons } from "./ui/Icon";
 import { PlaceholderTag } from "./ui/Logo";
 import { BotanicalSprig, MovementCurve, SpineDots } from "./ui/Ornaments";
 import { Reveal } from "./ui/Reveal";
@@ -56,7 +56,6 @@ export function ServicePreview() {
                 >
                   {i === 0 ? (
                     <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-                      <div className="absolute -right-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(95_183_184/0.45),rgb(95_183_184/0))]" />
                       <MovementCurve className="absolute inset-x-0 top-0 h-3/5 w-full opacity-50" />
                       <SpineDots className="absolute top-[12%] right-[18%] h-[38%] text-gold/60" />
                     </div>
@@ -68,7 +67,7 @@ export function ServicePreview() {
                   </span>
                   <div className={`relative ${i === 0 ? "mt-auto pt-10" : "mt-6"}`}>
                     <h3 className={`t-h3 ${i === 0 ? "!text-[clamp(1.9rem,1.4rem+1.6vw,2.75rem)]" : "!text-[1.45rem]"}`}>{service.title}</h3>
-                    <p className={`mt-1 text-xs font-semibold tracking-[0.12em] uppercase ${i === 0 ? "text-mint-200" : "text-muted-text"}`}>{service.label}</p>
+                    <p className={`mt-1 text-sm font-semibold ${i === 0 ? "text-mint-200" : "text-muted-text"}`}>{service.label}</p>
                     <p
                       className={
                         i === 0
@@ -79,8 +78,7 @@ export function ServicePreview() {
                       {service.description}
                     </p>
                     <span className={`mt-5 inline-flex items-center gap-2 text-sm font-semibold ${i === 0 ? "text-mint-100" : "text-deep"}`}>
-                      {unconfirmed ? "Menunggu konfirmasi" : "Selengkapnya"}
-                      <ArrowIcon className="arrow-nudge size-3.5" />
+                      {unconfirmed ? "Lihat status layanan" : `Detail ${service.title}`}
                     </span>
                   </div>
                 </Link>
@@ -139,14 +137,14 @@ export function ServiceCatalog() {
                     </span>
                     {unconfirmed ? <PlaceholderTag>Menunggu konfirmasi</PlaceholderTag> : null}
                   </div>
-                  <p className="mt-8 text-xs font-semibold tracking-[0.12em] text-muted-text uppercase">{service.label}</p>
+                  <p className="mt-8 text-sm font-semibold text-muted-text">{service.label}</p>
                   <h3 id={`svc-${service.id}`} className="t-h3 mt-2">
                     {service.title}
                   </h3>
                   <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">{service.description}</p>
                   <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-1 pt-6">
                     <TextLink href={`/layanan/${service.id}`}>
-                      Pelajari layanan
+                      Detail layanan
                       <span className="sr-only">: {service.title}</span>
                     </TextLink>
                     <Link href={bookingHref(service.id)} className="inline-flex min-h-11 items-center text-sm font-semibold text-teal-text hover:text-deep">

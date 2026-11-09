@@ -1,10 +1,16 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { ImageSlot } from "@/config/site";
 import { ImagePlate } from "./ui/ImagePlate";
 import { MovementCurve, WaveRibbons } from "./ui/Ornaments";
 
+type Crumb = { label: string; href?: string };
+
 type Props = {
+  /** Current page label, shown as the last breadcrumb item. */
   eyebrow: string;
+  /** Intermediate breadcrumb levels between Beranda and the current page. */
+  parents?: Crumb[];
   title: ReactNode;
   lead: ReactNode;
   actions?: ReactNode;
@@ -17,7 +23,8 @@ type Props = {
  * Inner-page banner, after the mockups: serif title left, a wide art-directed
  * image right, all on a soft mint field with the gold movement line.
  */
-export function PageHero({ eyebrow, title, lead, actions, image, imageVariant = "conversation", titleId = "page-title" }: Props) {
+export function PageHero({ eyebrow, parents = [], title, lead, actions, image, imageVariant = "conversation", titleId = "page-title" }: Props) {
+  const crumbs: Crumb[] = [{ label: "Beranda", href: "/" }, ...parents, { label: eyebrow }];
   return (
     <section aria-labelledby={titleId} className="relative isolate overflow-hidden pt-[calc(var(--header-h)+24px)] md:pt-[var(--header-h)]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
@@ -27,8 +34,26 @@ export function PageHero({ eyebrow, title, lead, actions, image, imageVariant = 
 
       <div className="shell grid items-center gap-10 pb-14 md:grid-cols-12 md:gap-6 md:pb-0">
         <div className="md:col-span-6 md:py-20 lg:col-span-5 lg:py-24">
-          <p className="pill-hashtag fade-in">{eyebrow}</p>
-          <h1 id={titleId} className="t-h2 fade-in mt-6 !text-[clamp(2.5rem,1.6rem+3.4vw,4.6rem)] !leading-[1.04]" style={{ "--d": "80ms" } as React.CSSProperties}>
+          {/* antislop R-09: a working breadcrumb instead of a pill that repeats the H1 */}
+          <nav aria-label="Breadcrumb" className="fade-in">
+            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-text">
+              {crumbs.map((c, i) => (
+                <li key={c.label} className="flex items-center gap-2">
+                  {i > 0 ? <span aria-hidden="true">/</span> : null}
+                  {c.href ? (
+                    <Link href={c.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-deep hover:underline">
+                      {c.label}
+                    </Link>
+                  ) : (
+                    <span aria-current="page" className="font-semibold text-teal-text">
+                      {c.label}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+          <h1 id={titleId} className="t-h2 fade-in mt-3 !text-[clamp(2.5rem,1.6rem+3.4vw,4.6rem)] !leading-[1.04]" style={{ "--d": "80ms" } as React.CSSProperties}>
             {title}
           </h1>
           <span className="gold-rule fade-in mt-7" aria-hidden="true" />

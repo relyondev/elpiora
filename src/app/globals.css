@@ -100,6 +100,34 @@ body {
   overflow-x: clip;
 }
 
+/* R-39: every enabled control shows it can be used; disabled controls say they cannot */
+a[href],
+button:not(:disabled),
+summary,
+select:not(:disabled),
+label[for],
+label:has(> input[type="checkbox"], > input[type="radio"]),
+input[type="checkbox"]:not(:disabled),
+input[type="radio"]:not(:disabled),
+[role="button"],
+[role="tab"],
+[role="switch"] {
+  cursor: pointer;
+}
+
+button:disabled,
+select:disabled,
+input:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* R-39: a pressed state distinct from hover, for buttons and button-styled links */
+button:not(:disabled):active,
+a.group:active {
+  transform: translateY(1px);
+}
+
 ::selection {
   background: var(--elpiora-mint-200);
   color: var(--elpiora-deep);
@@ -148,12 +176,12 @@ body {
   color: var(--elpiora-deep);
 }
 
+/* Section label: sentence case, normal tracking (antislop R-06: no wide-tracked uppercase labels by default) */
 .t-eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   line-height: 1.4;
   color: var(--elpiora-teal-text);
 }
@@ -227,7 +255,7 @@ body {
   border-radius: 999px;
   background: var(--elpiora-amber);
   color: #ffffff;
-  box-shadow: 0 6px 16px -6px rgb(245 181 10 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.5);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);
 }
 
 .gold-rule {
@@ -357,20 +385,6 @@ body {
   }
 }
 
-/* Barely perceptible ambient drift of the hero light (guidelines §7.4) */
-.ambient-drift {
-  animation: ambient-drift 18s ease-in-out infinite alternate;
-}
-
-@keyframes ambient-drift {
-  from {
-    transform: translate3d(-2%, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(2%, -2%, 0) scale(1.04);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -384,8 +398,7 @@ body {
   }
 
   .line-rise,
-  .fade-in,
-  .ambient-drift {
+  .fade-in {
     animation: none;
   }
 

@@ -71,7 +71,7 @@ function PlateArt({ variant }: { variant: Variant }) {
         <>
           <div className="absolute inset-0 bg-[linear-gradient(160deg,var(--elpiora-mint-100)_0%,var(--elpiora-mint-200)_45%,var(--elpiora-teal-300)_100%)]" />
           {/* window light */}
-          <div className="ambient-drift absolute -top-1/4 -right-1/4 size-[85%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.85),rgb(255_255_255/0)_65%)]" />
+          <div className="absolute -top-1/4 -right-1/4 size-[85%] rounded-full bg-[radial-gradient(circle,rgb(255_255_255/0.85),rgb(255_255_255/0)_65%)]" />
           {/* ribbed wall */}
           <div className="absolute inset-y-0 left-0 w-2/5 bg-[repeating-linear-gradient(90deg,rgb(18_63_67/0.10)_0_1px,transparent_1px_14px)]" />
           <BotanicalSprig className="absolute -right-6 bottom-16 h-3/5 text-deep/25" />

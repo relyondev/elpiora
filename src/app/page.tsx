@@ -37,11 +37,11 @@ export default function Home() {
         <ServicePreview />
         <TopicGrid
           index="03"
-          eyebrow="Kapan Berkonsultasi"
+          eyebrow="Alasan umum berkonsultasi"
           titleId="kapan-title"
           title={
             <>
-              Tubuh Memberi Tanda, <span className="accent">Kami Membantu Membacanya.</span>
+              Kapan Sebaiknya <span className="accent">Berkonsultasi?</span>
             </>
           }
           intro="Beberapa alasan umum orang berkonsultasi dengan fisioterapis. Bila salah satunya terasa dekat dengan keseharian Anda, konsultasi awal dapat menjadi langkah pertama."

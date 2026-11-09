@@ -111,7 +111,7 @@ export function Header() {
       }`}
     >
       <div className="shell flex h-[var(--header-h)] items-center justify-between gap-6">
-        <Link href="/" className="-m-2 flex min-h-11 items-center p-2" aria-label="ELPIORA — Beranda">
+        <Link href="/" className="-m-2 flex min-h-11 items-center p-2" aria-label="ELPIORA, kembali ke Beranda">
           <Logo priority className="h-11 md:h-12" />
         </Link>
 
@@ -185,7 +185,7 @@ export function Header() {
           ) : null}
           <Link
             href={BOOKING_PATH}
-            className="hidden min-h-11 items-center rounded-full bg-deep px-5 text-[0.8125rem] font-semibold text-paper shadow-[0_10px_30px_-12px_rgb(18_63_67/0.45)] transition-colors hover:bg-ink sm:inline-flex"
+            className="hidden min-h-11 items-center rounded-full bg-deep px-5 text-[0.8125rem] font-semibold text-paper transition-colors hover:bg-ink sm:inline-flex"
           >
             Buat Janji
           </Link>

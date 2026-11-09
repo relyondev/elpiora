@@ -15,7 +15,7 @@ import { bookingHref } from "@/lib/booking";
 import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta(
-  "Home Visit — Fisioterapi di Rumah",
+  "Home Visit: Fisioterapi di Rumah",
   "Layanan fisioterapi di rumah dari ELPIORA untuk Anda yang sulit bepergian. Area dan ketersediaan dikonfirmasi oleh tim.",
   "/home-visit",
 );
@@ -44,7 +44,7 @@ const steps = [
 ];
 
 const benefits = [
-  { title: "Nyaman", body: "Tanpa perjalanan dan waktu tunggu — cocok untuk jadwal padat atau mobilitas terbatas.", Icon: HomeIcon },
+  { title: "Nyaman", body: "Tanpa perjalanan dan waktu tunggu, cocok untuk jadwal padat atau mobilitas terbatas.", Icon: HomeIcon },
   { title: "Familiar", body: "Latihan di lingkungan sehari-hari Anda, sehingga lebih mudah diterapkan.", Icon: HeartHandIcon },
   { title: "Personal", body: "Program menyesuaikan kondisi, kebutuhan, dan situasi di rumah Anda.", Icon: CheckIcon },
   { title: "Berkelanjutan", body: "Pemantauan perkembangan agar perawatan tetap konsisten.", Icon: ProgressIcon },
@@ -65,7 +65,7 @@ export default function HomeVisitPage() {
         lead={
           <>
             <p>
-              Membawa perawatan fisioterapi ke kenyamanan rumah Anda — untuk Anda atau orang tersayang yang sulit bepergian ke klinik.
+              Membawa perawatan fisioterapi ke kenyamanan rumah Anda, untuk Anda atau orang tersayang yang sulit bepergian ke klinik.
             </p>
             {!homeVisit.confirmed ? <PlaceholderTag className="mt-4">Area & ketersediaan menunggu konfirmasi</PlaceholderTag> : null}
           </>
@@ -125,7 +125,7 @@ export default function HomeVisitPage() {
               Proses yang <span className="accent">Sederhana & Jelas.</span>
             </>
           }
-          intro="Dari permintaan hingga tindak lanjut — tim kami akan memandu setiap langkahnya."
+          intro="Dari permintaan hingga tindak lanjut, tim kami akan memandu setiap langkahnya."
           steps={steps}
           titleId="cara-title"
         />
@@ -166,7 +166,7 @@ export default function HomeVisitPage() {
                     <PlaceholderTag className="mt-5">Area menunggu konfirmasi</PlaceholderTag>
                   </>
                 )}
-                <p className="mt-5 text-sm text-body">Ajukan permintaan Anda — tim kami akan memastikan apakah alamat Anda dapat dilayani.</p>
+                <p className="mt-5 text-sm text-body">Ajukan permintaan Anda, dan tim kami akan memastikan apakah alamat Anda dapat dilayani.</p>
               </div>
             </div>
           </Reveal>
@@ -196,7 +196,7 @@ export default function HomeVisitPage() {
 
       <FinalCta
         title="Siap Memulai Pemulihan di Rumah?"
-        lead="Ajukan home visit untuk Anda atau orang tersayang — tim kami akan mengonfirmasi jadwal dan area layanan."
+        lead="Ajukan home visit untuk Anda atau orang tersayang. Tim kami akan mengonfirmasi jadwal dan area layanan."
         primaryLabel="Ajukan Home Visit"
         primaryHref={bookingHref("home-visit")}
       />

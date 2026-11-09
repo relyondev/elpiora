@@ -12,7 +12,7 @@ import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta(
   "Fasilitas",
-  "Suasana klinik ELPIORA yang tenang dan hangat — dirancang agar Anda dapat fokus pada pemulihan.",
+  "Suasana klinik ELPIORA yang tenang dan hangat, dirancang agar Anda dapat fokus pada pemulihan.",
   "/fasilitas",
 );
 
@@ -32,7 +32,7 @@ export default function FasilitasPage() {
             Ruang yang Tenang untuk <span className="accent">Fokus Pulih.</span>
           </>
         }
-        lead={<p>Suasana ELPIORA dirancang hangat dan menenangkan — material alami, cahaya lembut, dan ruang yang memberi Anda waktu untuk bergerak dengan nyaman.</p>}
+        lead={<p>Suasana ELPIORA dirancang hangat dan menenangkan, dengan material alami dan cahaya lembut.</p>}
         actions={<LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>}
         image={siteConfig.images.clinicReception}
         imageVariant="reception"

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CareJourney } from "@/components/CareJourney";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { PageHero } from "@/components/PageHero";
@@ -27,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { id } = await params;
   const service = siteConfig.services.find((s) => s.id === id);
   if (!service) return {};
-  return pageMeta(`${service.title} — ${service.label}`, service.description, `/layanan/${id}`);
+  return pageMeta(`${service.title} (${service.label})`, service.description, `/layanan/${id}`);
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<Params> }) {
@@ -43,7 +42,8 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
   return (
     <main id="konten">
       <PageHero
-        eyebrow={service.label}
+        eyebrow={service.title}
+        parents={[{ label: "Layanan", href: "/layanan" }]}
         title={service.title}
         lead={
           <>
@@ -63,27 +63,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
         image={service.icon === "home" ? siteConfig.images.homeVisitHero : siteConfig.images.servicesHero}
         imageVariant={service.icon === "home" ? "conversation" : "studio"}
       />
-
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="shell pt-8">
-        <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-text">
-          <li>
-            <Link href="/" className="underline-offset-4 hover:underline">
-              Beranda
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li>
-            <Link href="/layanan" className="underline-offset-4 hover:underline">
-              Layanan
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" className="font-semibold text-deep">
-            {service.title}
-          </li>
-        </ol>
-      </nav>
 
       {/* Overview */}
       <section aria-labelledby="ringkasan-title" className="py-20 md:py-28">
@@ -159,18 +138,27 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
       </section>
 
       {detail.journey.length ? (
-        <CareJourney
-          index="03"
-          eyebrow="Tahapan Program"
-          title={
-            <>
-              Perjalanan <span className="accent">Pemulihan Anda.</span>
-            </>
-          }
-          intro="Tahapan umum program. Durasi dan urutannya disesuaikan dengan perkembangan masing-masing."
-          steps={detail.journey}
-          titleId="tahapan-title"
-        />
+        <section aria-labelledby="tahapan-title" className="bg-paper py-20 md:py-24">
+          <div className="shell grid-12 gap-y-8">
+            <Reveal className="col-span-4 md:col-span-8 lg:col-span-4">
+              <SectionIntro eyebrow="Tahapan program" titleId="tahapan-title" title={<>Perjalanan <span className="accent">Pemulihan.</span></>} />
+              <p className="mt-5 text-[0.9375rem] leading-relaxed text-body">
+                Tahapan umum. Durasi dan urutannya disesuaikan dengan perkembangan masing-masing.
+              </p>
+            </Reveal>
+            <Reveal as="ol" delay={100} className="col-span-4 md:col-span-8 lg:col-span-7 lg:col-start-6">
+              {detail.journey.map((step, i) => (
+                <li key={step.title} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-4 border-t border-line py-5 last:border-b">
+                  <span className="text-sm font-semibold text-teal-text">Tahap {i + 1}</span>
+                  <span>
+                    <span className="font-serif text-xl font-semibold text-deep">{step.title}</span>
+                    <span className="mt-1 block text-[0.9375rem] leading-relaxed text-body">{step.body}</span>
+                  </span>
+                </li>
+              ))}
+            </Reveal>
+          </div>
+        </section>
       ) : null}
 
       <Faq
@@ -219,7 +207,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
 
       <FinalCta
         title={unconfirmed ? "Ingin Tahu Ketersediaannya?" : `Mulai Program ${service.title}.`}
-        lead="Ajukan permintaan melalui formulir — tim kami akan menghubungi Anda untuk konfirmasi."
+        lead="Ajukan permintaan melalui formulir, dan tim kami akan menghubungi Anda untuk konfirmasi."
         primaryLabel={unconfirmed ? "Tanyakan Ketersediaan" : "Ajukan Janji"}
         primaryHref={bookingHref(service.id)}
         secondaryLabel="Lihat FAQ"

@@ -9,10 +9,12 @@ import { TestimonialList } from "./Testimonials";
 
 /** Home: home-visit banner beside the testimonials preview (after mockup 1). */
 export function HomeVisitAndVoices() {
+  // antislop R-18: the patient-stories column appears only when real testimonials exist
+  const hasVoices = siteConfig.testimonials.length > 0;
   return (
     <section aria-labelledby="homevisit-title" className="py-24 md:py-32">
       <div className="shell grid gap-6 lg:grid-cols-12">
-        <Reveal className="lg:col-span-7">
+        <Reveal className={hasVoices ? "lg:col-span-7" : "lg:col-span-12"}>
           <div className="relative grid h-full overflow-hidden rounded-[28px] bg-[linear-gradient(120deg,var(--elpiora-mint-100),var(--elpiora-surface))] md:grid-cols-2">
             <div className="relative z-10 flex flex-col p-7 md:p-10">
               <p className="t-eyebrow flex items-center gap-3">
@@ -23,12 +25,12 @@ export function HomeVisitAndVoices() {
                 Fisioterapi di <span className="accent">Rumah Anda.</span>
               </h2>
               <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">
-                Untuk Anda yang sulit bepergian — sesi fisioterapi dengan pendampingan di lingkungan yang familiar.
+                Untuk Anda yang sulit bepergian: sesi fisioterapi dengan pendampingan di lingkungan yang familiar.
               </p>
               {!siteConfig.homeVisit.confirmed ? <PlaceholderTag className="mt-4 self-start">Area & ketersediaan menunggu konfirmasi</PlaceholderTag> : null}
               <div className="mt-auto flex flex-wrap items-center gap-4 pt-8">
                 <LinkButton href="/home-visit" variant="secondary">
-                  Pelajari Home Visit
+                  Cara Kerja Home Visit
                 </LinkButton>
               </div>
             </div>
@@ -42,6 +44,7 @@ export function HomeVisitAndVoices() {
           </div>
         </Reveal>
 
+        {hasVoices ? (
         <Reveal delay={100} className="flex flex-col lg:col-span-5">
           <SectionIntro eyebrow="Kata Pasien" titleId="voices-title" title="Cerita dari Pasien." className="[&_h2]:!text-[clamp(2rem,1.5rem+1.8vw,3rem)]" />
           <div className="mt-6 flex-1">
@@ -51,6 +54,7 @@ export function HomeVisitAndVoices() {
             Lihat halaman testimoni
           </TextLink>
         </Reveal>
+        ) : null}
       </div>
     </section>
   );

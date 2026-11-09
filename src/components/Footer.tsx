@@ -41,12 +41,12 @@ export function Footer() {
       <div className="shell">
         <div className="grid gap-12 border-b border-mint-100/15 pb-12 md:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Link href="/" aria-label="ELPIORA — Beranda" className="inline-block">
+            <Link href="/" aria-label="ELPIORA, kembali ke Beranda" className="inline-block">
               <Logo tone="on-dark" className="h-14 md:h-16" />
             </Link>
             <p className="t-script mt-6 -rotate-2 text-2xl text-gold-light">{brand.tagline}</p>
             <p className="mt-5 max-w-[34ch] text-sm leading-relaxed text-mint-200">
-              Fisioterapi dan kesehatan gerak yang personal — untuk membantu Anda bergerak lebih nyaman dan menjalani hidup lebih penuh.
+              Fisioterapi dan kesehatan gerak yang personal, untuk membantu Anda bergerak lebih nyaman dan menjalani hidup lebih penuh.
             </p>
             <Link
               href={BOOKING_PATH}
@@ -57,7 +57,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Navigasi footer" className="lg:col-span-2">
-            <p className="text-xs font-bold tracking-[0.14em] text-gold-light uppercase">Jelajahi</p>
+            <p className="text-sm font-semibold text-gold-light">Jelajahi</p>
             <ul className="mt-4">
               {mainNav.map((item) => (
                 <li key={item.href}>
@@ -70,7 +70,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label="Layanan" className="lg:col-span-3">
-            <p className="text-xs font-bold tracking-[0.14em] text-gold-light uppercase">Layanan</p>
+            <p className="text-sm font-semibold text-gold-light">Layanan</p>
             <ul className="mt-4">
               {services.map((s) => (
                 <li key={s.id}>
@@ -83,7 +83,7 @@ export function Footer() {
           </nav>
 
           <div className="lg:col-span-3">
-            <p className="text-xs font-bold tracking-[0.14em] text-gold-light uppercase">Kontak & Lokasi</p>
+            <p className="text-sm font-semibold text-gold-light">Kontak & Lokasi</p>
             <ul className="mt-4 space-y-3 text-[0.9375rem]">
               <li>{location.address ?? <span className={pending}>Alamat menunggu konfirmasi</span>}</li>
               <li>{contact.phone ?? <span className={pending}>Telepon menunggu konfirmasi</span>}</li>
@@ -102,7 +102,7 @@ export function Footer() {
             </ul>
             {social.length > 0 ? (
               <>
-                <p className="mt-8 text-xs font-bold tracking-[0.14em] text-gold-light uppercase">Ikuti Kami</p>
+                <p className="mt-8 text-sm font-semibold text-gold-light">Ikuti Kami</p>
                 <ul className="mt-3 flex flex-col gap-1" aria-label="Media sosial ELPIORA">
                   {social.map((s) => (
                     <li key={s.href}>

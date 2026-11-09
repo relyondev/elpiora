@@ -1,4 +1,3 @@
-import { CareJourney } from "@/components/CareJourney";
 import { ChecklistSection } from "@/components/ContentSections";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
@@ -19,12 +18,6 @@ export const metadata = pageMeta(
   "/layanan",
 );
 
-const process = [
-  { title: "Asesmen", body: "Evaluasi menyeluruh untuk memahami kondisi, tujuan, dan gaya hidup Anda." },
-  { title: "Rencana", body: "Rencana perawatan disusun sesuai kebutuhan, target pemulihan, dan aktivitas harian." },
-  { title: "Terapi", body: "Sesi fisioterapi dengan latihan dan penanganan yang disesuaikan untuk fungsi gerak Anda." },
-  { title: "Pemulihan", body: "Membangun kemandirian dan ketahanan agar Anda kembali ke aktivitas yang Anda cintai." },
-];
 
 export default function LayananPage() {
   return (
@@ -36,7 +29,7 @@ export default function LayananPage() {
             Layanan <span className="accent">Kami.</span>
           </>
         }
-        lead={<p>Perawatan fisioterapi dan kesehatan gerak yang personal — untuk membantu Anda bergerak lebih baik, pulih lebih kuat, dan hidup lebih penuh.</p>}
+        lead={<p>Perawatan fisioterapi dan kesehatan gerak yang personal, untuk membantu Anda bergerak lebih baik dan kembali beraktivitas.</p>}
         actions={
           <>
             <LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>
@@ -62,7 +55,7 @@ export default function LayananPage() {
         }
         intro="Anda tidak perlu menentukannya sendiri. Gunakan panduan singkat ini, atau pilih “Belum yakin” pada formulir."
         items={[
-          { title: "Ada nyeri atau kaku pada otot dan sendi", body: "Mulai dari Pain & Movement — asesmen akan membantu memahami penyebabnya." },
+          { title: "Ada nyeri atau kaku pada otot dan sendi", body: "Mulai dari Pain & Movement. Asesmen akan membantu memahami penyebabnya." },
           { title: "Cedera saat berolahraga", body: "Sports Rehabilitation membantu Anda kembali berlatih secara bertahap." },
           { title: "Keluhan muncul karena pekerjaan", body: "Workplace Health & Ergonomics berfokus pada kebiasaan dan pengaturan kerja." },
           { title: "Ingin tetap bugar dan seimbang", body: "Wellness & Movement untuk menjaga kekuatan, kelenturan, dan keseimbangan." },
@@ -70,18 +63,6 @@ export default function LayananPage() {
         ]}
       />
 
-      <CareJourney
-        index="02"
-        eyebrow="Proses Perawatan"
-        title={
-          <>
-            Pendekatan yang <span className="accent">Personal & Terarah.</span>
-          </>
-        }
-        intro="Gambaran umum proses perawatan. Tahapan dapat disesuaikan dengan kondisi dan kebutuhan masing-masing."
-        steps={process}
-        titleId="proses-title"
-      />
 
       <section aria-labelledby="program-title" className="py-24 md:py-32">
         <div className="shell">

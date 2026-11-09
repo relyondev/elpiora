@@ -52,7 +52,7 @@ export function Hero() {
             <span className="gold-rule fade-in mt-8" style={{ "--d": "460ms" } as React.CSSProperties} aria-hidden="true" />
             <p className="t-lead fade-in mt-6 max-w-[34rem]" style={{ "--d": "520ms" } as React.CSSProperties}>
               Pendekatan fisioterapi yang personal untuk membantu Anda memahami tubuh, memulihkan fungsi gerak, dan kembali beraktivitas
-              dengan percaya diri — <strong>dimulai di sini.</strong>
+              dengan percaya diri. Perjalanannya <strong>dimulai di sini.</strong>
             </p>
 
             <div className="fade-in mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ "--d": "640ms" } as React.CSSProperties}>
@@ -60,7 +60,7 @@ export function Hero() {
                 Jadwalkan Konsultasi
               </LinkButton>
               <LinkButton href="/layanan" variant="champagne">
-                Jelajahi Layanan
+                Lihat Daftar Layanan
               </LinkButton>
             </div>
           </div>
@@ -84,7 +84,7 @@ export function Hero() {
 
             {/* official tagline in the poster's brush script, with a gold brush underline */}
             <p
-              className="fade-in absolute -bottom-6 left-4 z-20 rounded-[20px] bg-paper/95 px-6 pt-3 pb-4 shadow-[0_18px_40px_-18px_rgb(11_66_72/0.45)] backdrop-blur md:-left-10"
+              className="fade-in absolute -bottom-6 left-4 z-20 rounded-[20px] bg-paper/95 px-6 pt-3 pb-4 shadow-[0_18px_40px_-18px_rgb(11_66_72/0.45)] md:-left-10"
               style={{ "--d": "900ms" } as React.CSSProperties}
             >
               <span className="t-script block -rotate-3 text-xl text-deep md:text-2xl">{siteConfig.brand.tagline}</span>
@@ -96,7 +96,7 @@ export function Hero() {
         {/* ---- Benefits (poster wording + amber icon circles) ---- */}
         <ul className="relative mt-20 grid gap-4 pb-16 sm:grid-cols-2 md:mt-24 lg:grid-cols-4 md:pb-24" aria-label="Manfaat fisioterapi bersama ELPIORA">
           {benefits.map(({ lead, strong, Icon }) => (
-            <li key={strong} className="flex items-center gap-4 rounded-full bg-paper/85 py-2.5 pr-5 pl-2.5 shadow-[0_1px_0_var(--elpiora-line)] backdrop-blur">
+            <li key={strong} className="flex items-center gap-4 rounded-full bg-paper py-2.5 pr-5 pl-2.5 shadow-[0_1px_0_var(--elpiora-line)]">
               <span className="icon-amber size-11" aria-hidden="true">
                 <Icon className="size-5" strokeWidth={1.8} />
               </span>

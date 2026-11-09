@@ -18,7 +18,7 @@ export function FinalCta({
   lead = "Ceritakan kebutuhan Anda, dan kami akan membantu menemukan langkah awal yang sesuai.",
   primaryLabel = "Buat Janji Konsultasi",
   primaryHref = BOOKING_PATH,
-  secondaryLabel = "Lihat Layanan",
+  secondaryLabel = "Lihat Daftar Layanan",
   secondaryHref = "/layanan",
 }: Props) {
   return (
@@ -27,7 +27,6 @@ export function FinalCta({
         <Reveal>
           <div className="on-dark relative isolate overflow-hidden rounded-[28px] bg-deep px-6 py-20 text-center md:rounded-[36px] md:px-12 md:py-24">
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-              <div className="absolute -bottom-1/2 left-1/2 h-full w-[120%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(95_183_184/0.42),rgb(187_220_198/0.12)_60%,rgb(187_220_198/0))]" />
               <MovementCurve className="absolute inset-0 size-full opacity-35" />
               <WaveRibbons tone="dark" className="absolute inset-x-0 bottom-0 h-32 w-full" />
             </div>

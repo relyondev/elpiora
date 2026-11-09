@@ -23,7 +23,7 @@ export function Team({ showPlaceholder = false }: { showPlaceholder?: boolean })
           </Reveal>
           <Reveal delay={100} className="col-span-4 self-end md:col-span-8 lg:col-span-5 lg:col-start-8">
             <p className="text-[0.9375rem] leading-relaxed text-body">
-              Kenali fisioterapis yang akan mendampingi Anda — lengkap dengan kualifikasi yang dapat diverifikasi.
+              Kenali fisioterapis yang akan mendampingi Anda, lengkap dengan kualifikasi yang dapat diverifikasi.
             </p>
           </Reveal>
         </div>

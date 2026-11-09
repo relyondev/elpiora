@@ -1,61 +1,136 @@
-import type { Metadata } from "next";
-import { CareJourney } from "@/components/CareJourney";
+import { CareJourney, type Step } from "@/components/CareJourney";
 import { TopicGrid } from "@/components/ContentSections";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { Hero } from "@/components/Hero";
-import { HomeVisitAndVoices } from "@/components/HomeVisitTeaser";
-import { ServicePreview } from "@/components/ServiceGrid";
-import { ValueProps } from "@/components/ValueProps";
-import { HomeIcon, MovementIcon, ProgressIcon, SpineIcon, SportIcon, WorkplaceIcon } from "@/components/ui/Icon";
-import { generalFaq } from "@/content/faq";
-import { siteConfig } from "@/config/site";
+import { AboutTeaser, BeyondClinic } from "@/components/HomeSections";
+import { ServiceCards } from "@/components/ServiceGrid";
+import { LinkButton, TextLink } from "@/components/ui/Button";
+import { HomeIcon, NeuroIcon, ProgressIcon, SpineIcon, SportIcon, WorkplaceIcon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionIntro } from "@/components/ui/SectionIntro";
+import { homeFaq } from "@/content/faq";
+import { bookingHref, whatsappHref } from "@/lib/booking";
+import { pageMeta } from "@/lib/meta";
 import { buildClinicJsonLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  alternates: siteConfig.siteUrl ? { canonical: "/" } : undefined,
-};
+export const metadata = pageMeta(
+  "Fisioterapi & Rehabilitasi | ELPIORA Physiotherapy & Wellness",
+  "Kenali ELPIORA Physiotherapy & Wellness: layanan fisioterapi nyeri otot dan sendi, cedera olahraga, rehabilitasi neurologis, serta Home Visit sesuai area layanan.",
+  "/",
+);
 
-/** Common reasons people consult a physiotherapist — general education, assessed individually. */
-const whenToConsult = [
-  { title: "Nyeri punggung & leher", body: "Keluhan yang membuat duduk, bekerja, atau tidur terasa tidak nyaman.", Icon: SpineIcon, href: "/layanan/pain-movement" },
-  { title: "Cedera saat berolahraga", body: "Ingin kembali berlatih dengan tahapan yang aman dan terarah.", Icon: SportIcon, href: "/layanan/sports-rehabilitation" },
-  { title: "Keluhan karena pekerjaan", body: "Pegal atau nyeri akibat posisi kerja dan gerakan berulang.", Icon: WorkplaceIcon, href: "/layanan/workplace-ergonomics" },
-  { title: "Pemulihan setelah operasi", body: "Mengembalikan gerak dan kekuatan sesuai arahan dokter Anda.", Icon: ProgressIcon, href: "/layanan/pain-movement" },
-  { title: "Keseimbangan & mobilitas", body: "Merasa kurang stabil saat berjalan atau berpindah posisi.", Icon: MovementIcon, href: "/layanan/wellness-movement" },
-  { title: "Sulit datang ke klinik", body: "Membutuhkan sesi di rumah karena mobilitas atau kondisi tertentu.", Icon: HomeIcon, href: "/home-visit" },
+/** Home section 02: Quick Need Navigator (blueprint copy). */
+const needs = [
+  { title: "Nyeri Punggung, Leher, atau Sendi", body: "Penilaian fungsi gerak dan program penanganan keluhan muskuloskeletal.", Icon: SpineIcon, href: "/services/musculoskeletal-physiotherapy" },
+  { title: "Cedera Setelah Olahraga", body: "Rehabilitasi untuk pemulihan dan kembali berolahraga secara bertahap.", Icon: SportIcon, href: "/services/sports-rehabilitation" },
+  { title: "Kesulitan Berjalan atau Keseimbangan", body: "Latihan fungsional berdasarkan kondisi neurologis dan kapasitas pasien.", Icon: NeuroIcon, href: "/services/neurological-rehabilitation" },
+  { title: "Pemulihan Setelah Operasi", body: "Program gerak dan penguatan sesuai arahan medis dan fase pemulihan.", Icon: ProgressIcon, href: "/programs/post-operative-rehabilitation" },
+  { title: "Keluhan Akibat Aktivitas Kerja", body: "Asesmen ergonomi, variasi aktivitas, dan latihan terarah.", Icon: WorkplaceIcon, href: "/services/workplace-ergonomics" },
+  { title: "Ingin Terapi di Rumah", body: "Home Visit untuk kebutuhan mobilitas dan rehabilitasi tertentu.", Icon: HomeIcon, href: "/home-visit" },
+];
+
+/** Home section 04: The ELPIORA Approach (blueprint copy). */
+const approach: Step[] = [
+  { title: "Assess", body: "Mendengarkan keluhan, mengevaluasi fungsi, dan mengidentifikasi faktor terkait." },
+  { title: "Plan", body: "Menyusun tujuan serta rencana terapi berdasarkan kebutuhan." },
+  { title: "Treat & Train", body: "Intervensi yang sesuai indikasi, latihan gerak, edukasi, dan pemantauan toleransi." },
+  { title: "Progress", body: "Menilai perkembangan dan menyesuaikan program bila diperlukan." },
 ];
 
 export default function Home() {
   const jsonLd = buildClinicJsonLd();
+  const wa = whatsappHref();
 
   return (
     <>
       <main id="konten">
         <Hero />
-        <ValueProps />
-        <ServicePreview />
+
         <TopicGrid
-          index="03"
-          eyebrow="Alasan umum berkonsultasi"
-          titleId="kapan-title"
+          eyebrow="Mulai dari kebutuhan Anda"
+          titleId="needs-title"
           title={
             <>
-              Kapan Sebaiknya <span className="accent">Berkonsultasi?</span>
+              Apa yang Ingin Anda Bantu <span className="accent">Pulihkan?</span>
             </>
           }
-          intro="Beberapa alasan umum orang berkonsultasi dengan fisioterapis. Bila salah satunya terasa dekat dengan keseharian Anda, konsultasi awal dapat menjadi langkah pertama."
-          items={whenToConsult}
-          note="Informasi ini bersifat umum. Kesesuaian layanan ditentukan setelah asesmen. Untuk keluhan berat, mendadak, atau disertai gejala yang mengkhawatirkan, segera periksakan diri ke dokter atau IGD terdekat."
+          intro="Pilih keluhan atau tujuan yang paling dekat dengan Anda. Setiap kartu mengarah ke penjelasan layanan yang relevan."
+          items={needs}
         />
-        <CareJourney index="04" />
-        <HomeVisitAndVoices />
-        <Faq items={generalFaq} index="05" />
-        <FinalCta />
+
+        <section aria-labelledby="services-title" className="bg-mint-100 py-24 md:py-32">
+          <div className="shell">
+            <div className="grid-12 gap-y-8">
+              <Reveal className="col-span-4 md:col-span-8 lg:col-span-7">
+                <SectionIntro
+                  eyebrow="Layanan kami"
+                  titleId="services-title"
+                  title={
+                    <>
+                      Comprehensive Care for Your <span className="accent">Movement &amp; Wellness</span>
+                    </>
+                  }
+                />
+              </Reveal>
+              <Reveal delay={100} className="col-span-4 self-end md:col-span-8 lg:col-span-4 lg:col-start-9">
+                <p className="text-[0.9375rem] leading-relaxed text-body">
+                  Kebutuhan setiap tubuh berbeda. Temukan layanan yang sesuai dengan keluhan, tujuan, dan aktivitas Anda.
+                </p>
+              </Reveal>
+            </div>
+            <div className="mt-12">
+              <ServiceCards />
+            </div>
+            <div className="mt-10">
+              <LinkButton href="/services" variant="secondary">
+                Lihat Seluruh Layanan
+              </LinkButton>
+            </div>
+          </div>
+        </section>
+
+        <CareJourney
+          eyebrow="Pendekatan ELPIORA"
+          titleId="approach-title"
+          title={
+            <>
+              Personalised Care. <span className="accent">Meaningful Progress.</span>
+            </>
+          }
+          intro="Hasil fisioterapi ditentukan juga oleh apa yang terjadi sebelum dan sesudah sesi. Kami memulai dari memahami kondisi Anda, menetapkan tujuan yang realistis, dan membantu membangun kemampuan bergerak untuk kehidupan sehari-hari."
+          steps={approach}
+        />
+
+        <AboutTeaser />
+        <BeyondClinic />
+
+        <Faq
+          items={homeFaq}
+          eyebrow="Pertanyaan umum"
+          title={
+            <>
+              Hal yang sering <span className="accent">ditanyakan.</span>
+            </>
+          }
+          footer={<TextLink href="/faq">Lihat semua pertanyaan di halaman FAQ</TextLink>}
+        />
+
+        <FinalCta
+          title={
+            <>
+              Start with <span className="accent">Better Movement.</span>
+            </>
+          }
+          lead="Ceritakan kebutuhan Anda. Tim ELPIORA akan membantu menjelaskan pilihan layanan dan proses booking yang sesuai."
+          primaryLabel="Konsultasi & Booking"
+          primaryHref={wa ?? bookingHref()}
+          primaryExternal={Boolean(wa)}
+          secondaryLabel="Lihat Daftar Layanan"
+          secondaryHref="/services"
+        />
       </main>
-      {jsonLd ? (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      ) : null}
+      {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} /> : null}
     </>
   );
 }

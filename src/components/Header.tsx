@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { BOOKING_PATH, navigation, siteConfig } from "@/config/site";
+import { navigation, siteConfig, type NavItem } from "@/config/site";
+import { bookingHref } from "@/lib/booking";
 import { Logo } from "./ui/Logo";
 import { CloseIcon, MenuIcon, PhoneIcon } from "./ui/Icon";
 
@@ -15,6 +16,8 @@ function ChevronDown({ className = "" }: { className?: string }) {
   );
 }
 
+const slug = (label: string) => label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
 /**
  * Floating header bar (reference style). Over the banner it is a tint of deep teal with the reversed
  * logo and light text; once the page scrolls (or the mobile menu is open) it turns into a solid light bar
@@ -24,18 +27,21 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLLIElement>(null);
+  const dropdownRefs = useRef<Record<string, HTMLLIElement | null>>({});
   const phone = siteConfig.contact.phone;
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const pathActive = (href?: string) => {
+    if (!href) return false;
+    return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  };
+  const itemActive = (item: NavItem) => pathActive(item.href) || Boolean(item.children?.some((c) => pathActive(c.href)));
 
-  // Close menus on route change
   useEffect(() => {
     setOpen(false);
-    setServicesOpen(false);
+    setOpenMenu(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -45,16 +51,16 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Services dropdown: close on outside click / Escape
+  // Dropdowns: close on outside click and on Escape (focus returns to the trigger)
   useEffect(() => {
-    if (!servicesOpen) return;
+    if (!openMenu) return;
     const onDown = (e: MouseEvent) => {
-      if (!dropdownRef.current?.contains(e.target as Node)) setServicesOpen(false);
+      if (!dropdownRefs.current[openMenu]?.contains(e.target as Node)) setOpenMenu(null);
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setServicesOpen(false);
-        dropdownRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+        dropdownRefs.current[openMenu]?.querySelector<HTMLButtonElement>("button")?.focus();
+        setOpenMenu(null);
       }
     };
     document.addEventListener("mousedown", onDown);
@@ -63,7 +69,7 @@ export function Header() {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [servicesOpen]);
+  }, [openMenu]);
 
   // Mobile menu: lock scroll, close on Escape, keep focus inside, restore focus on close
   useEffect(() => {
@@ -114,49 +120,58 @@ export function Header() {
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 isolate px-3 pt-3 md:px-4">
       <div className="mx-auto max-w-[1560px]">
         <div
-          className={`pointer-events-auto m-3 flex h-16 items-center justify-between gap-6 rounded-2xl border px-4 transition-[background-color,border-color,box-shadow] duration-300 ease-brand md:px-6 ${
+          className={`pointer-events-auto m-3 flex h-16 items-center justify-between gap-4 rounded-2xl border px-4 transition-[background-color,border-color,box-shadow] duration-300 ease-brand md:px-6 ${
             solid ? "border-line bg-surface shadow-[0_1px_0_var(--elpiora-line)]" : "border-white/15 bg-deep/45"
           }`}
         >
-          <Link href="/" className="-m-2 flex min-h-11 items-center p-2" aria-label="ELPIORA, kembali ke Beranda">
+          <Link href="/" className="-m-2 flex min-h-11 shrink-0 items-center p-2" aria-label="ELPIORA, kembali ke Beranda">
             <Logo tone={solid ? "on-light" : "on-dark"} priority className="h-10 md:h-11" />
           </Link>
 
           <nav aria-label="Navigasi utama" className="hidden xl:block">
             <ul className="flex items-center">
               {navigation.map((item) => {
-                const active = isActive(item.href);
+                const active = itemActive(item);
                 const underline = (
                   <span
                     aria-hidden="true"
                     className={`absolute inset-x-3 bottom-2 h-px origin-left bg-gold transition-transform duration-300 ease-brand ${active ? "scale-x-100" : "scale-x-0"}`}
                   />
                 );
+                const key = slug(item.label);
 
                 if (item.children) {
+                  const isOpen = openMenu === key;
                   return (
-                    <li key={item.href} ref={dropdownRef} className="relative">
+                    <li
+                      key={key}
+                      ref={(el) => {
+                        dropdownRefs.current[key] = el;
+                      }}
+                      className="relative"
+                    >
                       <button
                         type="button"
-                        aria-expanded={servicesOpen}
-                        aria-controls="services-menu"
-                        onClick={() => setServicesOpen((v) => !v)}
+                        aria-expanded={isOpen}
+                        aria-controls={`menu-${key}`}
+                        onClick={() => setOpenMenu(isOpen ? null : key)}
                         className={`${linkBase} ${linkTone(active)}`}
                       >
                         {item.label}
-                        <ChevronDown className={`size-4 transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
+                        <ChevronDown className={`size-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
                         {underline}
                       </button>
                       <ul
-                        id="services-menu"
-                        hidden={!servicesOpen}
-                        className="absolute top-full left-0 mt-3 w-72 rounded-2xl border border-line bg-paper p-2 shadow-[0_24px_48px_-24px_rgb(18_63_67/0.35)]"
+                        id={`menu-${key}`}
+                        hidden={!isOpen}
+                        className="absolute top-full left-0 mt-3 w-80 rounded-2xl border border-line bg-paper p-2 shadow-[0_24px_48px_-24px_rgb(18_63_67/0.35)]"
                       >
                         {item.children.map((child) => (
                           <li key={child.href}>
                             <Link
                               href={child.href}
-                              onClick={() => setServicesOpen(false)}
+                              aria-current={pathname === child.href ? "page" : undefined}
+                              onClick={() => setOpenMenu(null)}
                               className="flex min-h-11 items-center rounded-xl px-3 text-sm text-deep transition-colors hover:bg-mint-100"
                             >
                               {child.label}
@@ -169,8 +184,8 @@ export function Header() {
                 }
 
                 return (
-                  <li key={item.href}>
-                    <Link href={item.href} aria-current={active ? "page" : undefined} className={`${linkBase} ${linkTone(active)}`}>
+                  <li key={key}>
+                    <Link href={item.href ?? "/"} aria-current={active ? "page" : undefined} className={`${linkBase} ${linkTone(active)}`}>
                       {item.label}
                       {underline}
                     </Link>
@@ -180,7 +195,7 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             {phone ? (
               <a
                 href={`tel:${phone.replace(/[^\d+]/g, "")}`}
@@ -193,12 +208,12 @@ export function Header() {
               </a>
             ) : null}
             <Link
-              href={BOOKING_PATH}
+              href={bookingHref()}
               className={`hidden min-h-11 items-center rounded-full px-5 text-[0.8125rem] font-semibold transition-colors sm:inline-flex ${
                 solid ? "bg-deep text-paper hover:bg-ink" : "bg-[image:var(--elpiora-champagne)] text-cocoa hover:brightness-105"
               }`}
             >
-              Buat Janji
+              Konsultasi &amp; Booking
             </Link>
             <button
               ref={menuButtonRef}
@@ -224,27 +239,46 @@ export function Header() {
       >
         <nav aria-label="Navigasi seluler" className="shell flex min-h-[calc(100dvh-var(--header-h)-8px)] flex-col pt-2 pb-10">
           <ul className="flex flex-col">
-            {navigation.map((item, i) => (
-              <li key={item.href} className="border-b border-line">
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className="flex min-h-15 items-center justify-between font-serif text-[1.7rem] font-bold text-deep"
-                >
-                  {item.label}
-                  <span className="font-sans text-xs font-medium text-muted-text">{String(i + 1).padStart(2, "0")}</span>
-                </Link>
+            {navigation.map((item) => (
+              <li key={slug(item.label)} className="border-b border-line py-3">
+                {item.children ? (
+                  <>
+                    <p className="font-serif text-[1.5rem] font-bold text-deep">{item.label}</p>
+                    <ul className="mt-1 mb-1">
+                      {item.children.map((c) => (
+                        <li key={c.href}>
+                          <Link
+                            href={c.href}
+                            aria-current={pathname === c.href ? "page" : undefined}
+                            onClick={() => setOpen(false)}
+                            className="flex min-h-11 items-center text-[0.95rem] text-body"
+                          >
+                            {c.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <Link
+                    href={item.href ?? "/"}
+                    aria-current={pathActive(item.href) ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-11 items-center font-serif text-[1.5rem] font-bold text-deep"
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
           <div className="mt-auto pt-10">
             <Link
-              href={BOOKING_PATH}
+              href={bookingHref()}
               onClick={() => setOpen(false)}
               className="flex min-h-12 w-full items-center justify-center rounded-full bg-deep text-[0.9375rem] font-semibold text-paper"
             >
-              Buat Janji
+              Konsultasi &amp; Booking
             </Link>
             <p className="t-script mt-6 text-center text-2xl text-teal-text">{siteConfig.brand.tagline}</p>
           </div>

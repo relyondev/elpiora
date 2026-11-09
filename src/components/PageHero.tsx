@@ -45,7 +45,7 @@ export function PageHero({ eyebrow, parents = [], title, lead, actions, image, i
                       {c.label}
                     </Link>
                   ) : (
-                    <span aria-current="page" className="font-semibold text-white">
+                    <span aria-current={i === crumbs.length - 1 ? "page" : undefined} className="font-semibold text-white">
                       {c.label}
                     </span>
                   )}

@@ -1,15 +1,16 @@
-import { BOOKING_PATH, siteConfig } from "@/config/site";
+import Link from "next/link";
+import { siteConfig } from "@/config/site";
+import { bookingHref } from "@/lib/booking";
 import { Banner, GlassCard } from "./Banner";
 import { LinkButton } from "./ui/Button";
 import { AssessmentIcon, LotusIcon, SpineIcon, SportIcon, WorkplaceIcon } from "./ui/Icon";
 import { ImagePlate } from "./ui/ImagePlate";
 import { BrushUnderline, MovementCurve, SpineDots } from "./ui/Ornaments";
 
+// Blueprint home H1. The Indonesian alternative is "Bergerak Lebih Baik. Jalani Hidup Lebih Penuh."
 const headline = [
-  { text: "Bergerak", em: false },
-  { text: "Lebih Nyaman.", em: true },
-  { text: "Jalani Hidup", em: false },
-  { text: "Lebih Penuh.", em: false },
+  { text: "Restore Movement.", em: false },
+  { text: "Renew Life.", em: true },
 ];
 
 /** Benefit list from the official #ELPIORAINSIDE poster (same wording), with its amber icon circles. */
@@ -28,7 +29,7 @@ export function Hero() {
           {/* ---- Copy ---- */}
           <div className="col-span-4 md:col-span-12 lg:col-span-7">
             <p className="pill-hashtag fade-in" style={{ "--d": "0ms" } as React.CSSProperties}>
-              #ElpioraInside <span aria-hidden="true">·</span> Physiotherapy &amp; Wellness
+              Physiotherapy &amp; Wellness
             </p>
 
             <h1 id="hero-title" className="t-display mt-6 md:mt-8">
@@ -46,18 +47,25 @@ export function Hero() {
 
             <span className="gold-rule fade-in mt-8" style={{ "--d": "460ms" } as React.CSSProperties} aria-hidden="true" />
             <p className="t-lead fade-in mt-6 max-w-[34rem]" style={{ "--d": "520ms" } as React.CSSProperties}>
-              Pendekatan fisioterapi yang personal untuk membantu Anda memahami tubuh, memulihkan fungsi gerak, dan kembali beraktivitas
-              dengan percaya diri. Perjalanannya <strong>dimulai di sini.</strong>
+              Setiap langkah pemulihan dimulai dari pemahaman yang tepat. ELPIORA menghadirkan layanan fisioterapi untuk membantu Anda mengatasi
+              keterbatasan gerak, mengelola nyeri, memulihkan fungsi tubuh, dan kembali pada aktivitas yang berarti, melalui pendekatan personal dan
+              berbasis penilaian klinis.
             </p>
 
             <div className="fade-in mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ "--d": "640ms" } as React.CSSProperties}>
-              <LinkButton href={BOOKING_PATH} variant="champagne">
-                Jadwalkan Konsultasi
+              <LinkButton href={bookingHref()} variant="champagne">
+                Konsultasi &amp; Booking
               </LinkButton>
-              <LinkButton href="/layanan" variant="secondary-on-dark">
-                Lihat Daftar Layanan
+              <LinkButton href="/services" variant="secondary-on-dark">
+                Lihat Layanan Kami
               </LinkButton>
             </div>
+            <p className="fade-in mt-5 text-[0.9375rem] text-mint-100" style={{ "--d": "700ms" } as React.CSSProperties}>
+              Butuh fisioterapi di rumah?{" "}
+              <Link href="/home-visit" className="inline-flex min-h-11 items-center font-semibold text-white underline decoration-gold-light underline-offset-4">
+                Lihat Home Visit
+              </Link>
+            </p>
           </div>
 
           {/* ---- Visual + glass cards ---- */}

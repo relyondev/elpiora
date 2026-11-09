@@ -37,6 +37,8 @@ export async function POST(request: Request) {
     email: str(raw.email, 120),
     service: str(raw.service, 60),
     visitType: str(raw.visitType, 20),
+    area: str(raw.area, 120),
+    channel: str(raw.channel, 20),
     date: str(raw.date, 10),
     time: str(raw.time, 20),
     notes: str(raw.notes, 600),

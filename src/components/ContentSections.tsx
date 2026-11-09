@@ -18,7 +18,7 @@ export function ChecklistSection({
   footnote,
 }: {
   index?: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
   intro?: string;
   items: { title: string; body?: string }[];
@@ -62,7 +62,7 @@ export function TopicGrid({
   note,
 }: {
   index?: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
   intro?: string;
   items: { title: string; body: string; Icon: IconT; href?: string }[];

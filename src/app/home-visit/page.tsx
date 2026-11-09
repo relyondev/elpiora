@@ -2,151 +2,123 @@ import { CareJourney } from "@/components/CareJourney";
 import { ChecklistSection } from "@/components/ContentSections";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
-import { IconCards } from "@/components/IconCards";
 import { PageHero } from "@/components/PageHero";
 import { LinkButton } from "@/components/ui/Button";
-import { CheckIcon, HeartHandIcon, HomeIcon, MovementIcon, PinIcon, ProgressIcon, SportIcon, WellnessIcon, NeuroIcon } from "@/components/ui/Icon";
+import { CheckIcon, PinIcon } from "@/components/ui/Icon";
 import { PlaceholderTag } from "@/components/ui/Logo";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionIntro } from "@/components/ui/SectionIntro";
 import { siteConfig } from "@/config/site";
-import { homeVisitFaq } from "@/content/faq";
 import { bookingHref } from "@/lib/booking";
 import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta(
-  "Home Visit: Fisioterapi di Rumah",
-  "Layanan fisioterapi di rumah dari ELPIORA untuk Anda yang sulit bepergian. Area dan ketersediaan dikonfirmasi oleh tim.",
+  "Fisioterapi Home Visit | ELPIORA",
+  "Layanan Home Visit Physiotherapy ELPIORA untuk rehabilitasi di rumah, termasuk nyeri sendi, stroke, mobilitas lansia, dan pemulihan pascaoperasi sesuai kebutuhan dan cakupan area.",
   "/home-visit",
 );
 
-const audiences = [
-  { title: "Lansia", body: "Sesi di lingkungan rumah yang familiar, tanpa perlu perjalanan ke klinik.", Icon: HeartHandIcon },
-  { title: "Pemulihan Pasca-Operasi", body: "Pendampingan latihan sesuai arahan dokter pada masa pemulihan.", Icon: ProgressIcon },
-  { title: "Keterbatasan Mobilitas", body: "Untuk Anda yang kesulitan berjalan atau berpindah tempat.", Icon: MovementIcon },
-  { title: "Kondisi Jangka Panjang", body: "Program berkelanjutan untuk menjaga fungsi gerak sehari-hari.", Icon: WellnessIcon },
+const flow = [
+  { title: "Hubungi ELPIORA", body: "Beri nama, area, dan kebutuhan umum Anda. Jangan kirim dokumen medis sensitif lewat tautan publik." },
+  { title: "Pencocokan dan jadwal", body: "Tim memastikan cakupan area, ketersediaan fisioterapis, biaya, dan kebutuhan persiapan." },
+  { title: "Sesi kunjungan", body: "Asesmen dan tindakan sesuai kapasitas, persetujuan, serta kebutuhan Anda." },
+  { title: "Review dan tindak lanjut", body: "Evaluasi kemajuan dan rekomendasi program rumah atau kunjungan berikutnya bila perlu." },
 ];
 
-const needs = [
-  { title: "Pemulihan setelah operasi", note: "misalnya lutut, panggul, atau bahu", Icon: ProgressIcon },
-  { title: "Gangguan gerak & keseimbangan", note: "misalnya kesulitan berjalan", Icon: MovementIcon },
-  { title: "Latihan pasca-stroke", note: "gerak, kekuatan, dan fungsi", Icon: NeuroIcon },
-  { title: "Pemulihan cedera", note: "olahraga atau aktivitas harian", Icon: SportIcon },
-  { title: "Keluhan otot & sendi", note: "misalnya nyeri punggung bawah atau leher", Icon: WellnessIcon },
-  { title: "Kondisi kronis", note: "misalnya osteoartritis", Icon: HeartHandIcon },
-];
-
-const steps = [
-  { title: "Ajukan Kunjungan", body: "Isi formulir dan pilih “Kunjungan ke rumah”, lengkap dengan tanggal dan waktu yang Anda inginkan." },
-  { title: "Konfirmasi & Persiapan", body: "Tim kami menghubungi Anda untuk mengonfirmasi jadwal, alamat, dan kebutuhan sesi." },
-  { title: "Sesi di Rumah", body: "Fisioterapis datang ke rumah Anda dan menjalankan sesi sesuai rencana perawatan." },
-  { title: "Tindak Lanjut", body: "Catatan latihan dan rekomendasi untuk mendukung kemajuan Anda di antara sesi." },
-];
-
-const benefits = [
-  { title: "Nyaman", body: "Tanpa perjalanan dan waktu tunggu, cocok untuk jadwal padat atau mobilitas terbatas.", Icon: HomeIcon },
-  { title: "Familiar", body: "Latihan di lingkungan sehari-hari Anda, sehingga lebih mudah diterapkan.", Icon: HeartHandIcon },
-  { title: "Personal", body: "Program menyesuaikan kondisi, kebutuhan, dan situasi di rumah Anda.", Icon: CheckIcon },
-  { title: "Berkelanjutan", body: "Pemantauan perkembangan agar perawatan tetap konsisten.", Icon: ProgressIcon },
+const faq = [
+  { q: "Berapa durasi Home Visit?", a: "Durasi bergantung pada jenis layanan dan penjadwalan, dan akan dikonfirmasi oleh tim saat Anda mengajukan." },
+  { q: "Apakah fisioterapis membawa peralatan?", a: "Jenis peralatan ditentukan sesuai kebutuhan dan yang tersedia. Modalitas khusus hanya digunakan bila tersedia dan aman diterapkan di rumah." },
+  { q: "Apakah bisa untuk pasien pascastroke?", a: "Dapat dipertimbangkan setelah penilaian kondisi dan keselamatan." },
+  { q: "Apakah layanan tersedia di seluruh Jakarta?", a: "Tidak otomatis. Konfirmasi kecamatan atau alamat Anda melalui tim." },
+  { q: "Apakah ada tambahan biaya transportasi?", a: "Kebijakan biaya perjalanan sedang dikonfirmasi dan akan ditampilkan jelas sebelum booking." },
+  { q: "Apakah anggota keluarga perlu mendampingi?", a: "Untuk sebagian kondisi, pendamping sangat membantu dan mungkin diperlukan." },
 ];
 
 export default function HomeVisitPage() {
   const { homeVisit } = siteConfig;
-
   return (
     <main id="konten">
       <PageHero
-        note={{ label: "Area layanan", text: "Dikonfirmasi tim saat Anda mengajukan", Icon: PinIcon }}
         eyebrow="Home Visit"
         title={
           <>
-            Fisioterapi Profesional <span className="accent">di Rumah Anda.</span>
+            Pemulihan Bisa <span className="accent">Dimulai dari Rumah.</span>
           </>
         }
         lead={
           <>
-            <p>
-              Membawa perawatan fisioterapi ke kenyamanan rumah Anda, untuk Anda atau orang tersayang yang sulit bepergian ke klinik.
+            <p className="font-serif text-[1.6rem] leading-snug font-bold text-gold-light">Professional Physiotherapy, at Your Home.</p>
+            <p className="mt-4">
+              Tidak semua pasien mudah datang ke klinik. ELPIORA mengembangkan layanan fisioterapi Home Visit bagi individu dan keluarga yang membutuhkan
+              dukungan gerak dan rehabilitasi di lingkungan rumah. Fisioterapis melakukan asesmen serta menyusun program sesuai kebutuhan, kondisi
+              kesehatan, dan sumber daya yang tersedia.
             </p>
-            {!homeVisit.confirmed ? <PlaceholderTag className="mt-4">Area & ketersediaan menunggu konfirmasi</PlaceholderTag> : null}
+            {!homeVisit.confirmed ? <PlaceholderTag className="mt-4">Area dan ketersediaan menunggu konfirmasi</PlaceholderTag> : null}
           </>
         }
         actions={
           <>
-            <LinkButton variant="champagne" href={bookingHref("home-visit")}>Ajukan Home Visit</LinkButton>
-            <LinkButton variant="secondary-on-dark" href="#cara-kerja">
-              Cara Kerjanya
+            <LinkButton href={bookingHref(undefined, "home")} variant="champagne">
+              Cek Ketersediaan Home Visit
+            </LinkButton>
+            <LinkButton href="#persiapan" variant="secondary-on-dark">
+              Persiapan Pasien
             </LinkButton>
           </>
         }
         image={siteConfig.images.homeVisitHero}
+        note={{ label: "Area layanan", text: "Dikonfirmasi tim berdasarkan alamat dan jadwal", Icon: PinIcon }}
       />
 
-      <section aria-labelledby="untuk-title" className="py-24 md:py-32">
+      <ChecklistSection
+        titleId="hv-who"
+        title={<>Siapa yang dapat <span className="accent">mempertimbangkan</span></>}
+        items={[
+          { title: "Pasien pascastroke yang stabil dan sesuai indikasi" },
+          { title: "Lansia dengan mobilitas terbatas" },
+          { title: "Pemulihan pascaoperasi sesuai instruksi dokter" },
+          { title: "Nyeri otot dan sendi" },
+          { title: "Gangguan berjalan atau keseimbangan" },
+          { title: "Pasien yang lebih mudah melakukan latihan di rumah" },
+        ]}
+        footnote={<p className="max-w-3xl text-sm leading-relaxed text-muted-text">Keputusan akhir bergantung pada asesmen keselamatan dan kelayakan.</p>}
+      />
+
+      <ChecklistSection
+        titleId="hv-visit"
+        tone="paper"
+        title={<>Apa yang dilakukan <span className="accent">dalam kunjungan</span></>}
+        items={[
+          { title: "Konsultasi dan asesmen" },
+          { title: "Gerak fungsional" },
+          { title: "Latihan terapeutik" },
+          { title: "Edukasi aktivitas" },
+          { title: "Edukasi caregiver" },
+          { title: "Home exercise plan" },
+          { title: "Review progres" },
+        ]}
+        footnote={<p className="max-w-3xl text-sm leading-relaxed text-muted-text">Modalitas khusus hanya digunakan bila tersedia dan aman dibawa atau diterapkan di rumah.</p>}
+      />
+
+      <ChecklistSection
+        titleId="hv-benefit"
+        title={<>Keuntungan <span className="accent">praktis</span></>}
+        items={[
+          { title: "Mengurangi kebutuhan perjalanan" },
+          { title: "Latihan yang relevan dengan lingkungan rumah" },
+          { title: "Melibatkan caregiver bila perlu" },
+          { title: "Membantu kesinambungan program" },
+        ]}
+        footnote={<p className="max-w-3xl text-sm leading-relaxed text-muted-text">Kami tidak menyatakan Home Visit lebih aman daripada klinik untuk semua pasien.</p>}
+      />
+
+      <section aria-labelledby="hv-area" className="pb-24 md:pb-28">
         <div className="shell">
-          <div className="grid-12 gap-y-8">
-            <Reveal className="col-span-4 md:col-span-8 lg:col-span-6">
-              <SectionIntro index="01" eyebrow="Untuk Siapa" titleId="untuk-title" title={<>Ideal bagi yang Membutuhkan <span className="accent">Perawatan di Rumah.</span></>} />
-            </Reveal>
-          </div>
-          <div className="mt-12">
-            <IconCards items={audiences} />
-          </div>
-
-          <div className="mt-20 grid gap-10 lg:grid-cols-12">
-            <Reveal className="lg:col-span-4">
-              <h2 className="t-h3 !text-[clamp(1.75rem,1.4rem+1vw,2.4rem)]">
-                Kebutuhan yang Dapat <span className="accent">Dikonsultasikan</span>
-              </h2>
-              <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">
-                Contoh kebutuhan yang umum. Kesesuaian layanan untuk kondisi Anda akan dinilai oleh fisioterapis.
-              </p>
-            </Reveal>
-            <Reveal as="ul" delay={100} className="grid gap-3 sm:grid-cols-2 lg:col-span-8">
-              {needs.map(({ title, note, Icon }) => (
-                <li key={title} className="flex items-start gap-4 rounded-2xl border border-line bg-paper p-4">
-                  <Icon className="mt-0.5 size-6 shrink-0 text-teal-text" />
-                  <span>
-                    <span className="block text-[0.9375rem] font-semibold text-deep">{title}</span>
-                    <span className="block text-sm text-muted-text">{note}</span>
-                  </span>
-                </li>
-              ))}
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <div id="cara-kerja" className="scroll-mt-[var(--header-h)]">
-        <CareJourney
-          index="02"
-          eyebrow="Cara Kerja"
-          title={
-            <>
-              Proses yang <span className="accent">Sederhana & Jelas.</span>
-            </>
-          }
-          intro="Dari permintaan hingga tindak lanjut, tim kami akan memandu setiap langkahnya."
-          steps={steps}
-          titleId="cara-title"
-        />
-      </div>
-
-      <section aria-labelledby="manfaat-title" className="py-24 md:py-32">
-        <div className="shell">
-          <Reveal className="max-w-3xl">
-            <SectionIntro index="03" eyebrow="Manfaat" titleId="manfaat-title" title={<>Mengapa Memilih <span className="accent">Home Visit.</span></>} />
-          </Reveal>
-          <div className="mt-12">
-            <IconCards items={benefits} />
-          </div>
-
-          <Reveal className="mt-16">
+          <Reveal>
             <div className="grid gap-8 rounded-[28px] bg-mint-100 p-8 md:grid-cols-12 md:p-12">
               <div className="md:col-span-5">
                 <PinIcon className="size-10 text-teal-text" />
-                <h2 className="t-h3 mt-5 !text-[clamp(1.75rem,1.4rem+1vw,2.4rem)]">
-                  Area <span className="accent">Layanan</span>
+                <h2 id="hv-area" className="t-h3 mt-5 !text-[clamp(1.75rem,1.4rem+1vw,2.4rem)]">
+                  Cakupan <span className="accent">lokasi</span>
                 </h2>
               </div>
               <div className="md:col-span-7">
@@ -161,45 +133,61 @@ export default function HomeVisitPage() {
                   </ul>
                 ) : (
                   <>
-                    <p className="font-serif text-[clamp(1.25rem,1.1rem+0.5vw,1.6rem)] leading-snug text-deep">
-                      Area layanan home visit sedang kami konfirmasi dan akan diumumkan di halaman ini.
+                    <p className="font-serif text-[clamp(1.25rem,1.1rem+0.5vw,1.6rem)] leading-snug font-medium text-deep">
+                      Area layanan Home Visit sedang kami konfirmasi dan akan diumumkan di halaman ini.
                     </p>
                     <PlaceholderTag className="mt-5">Area menunggu konfirmasi</PlaceholderTag>
                   </>
                 )}
-                <p className="mt-5 text-sm text-body">Ajukan permintaan Anda, dan tim kami akan memastikan apakah alamat Anda dapat dilayani.</p>
+                <p className="mt-5 text-sm text-body">Ketersediaan serta biaya perjalanan dikonfirmasi saat reservasi, berdasarkan alamat dan jadwal tim.</p>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <ChecklistSection
-        eyebrow="Persiapan"
-        titleId="persiapan-title"
-        tone="paper"
+      <CareJourney
+        eyebrow="Alur"
+        titleId="hv-flow"
         title={
           <>
-            Sebelum Fisioterapis <span className="accent">Datang.</span>
+            Empat langkah <span className="accent">Home Visit</span>
           </>
         }
-        intro="Beberapa hal sederhana agar sesi di rumah berjalan aman dan nyaman."
-        items={[
-          { title: "Ruang yang cukup untuk bergerak", body: "Area lapang tanpa barang yang mudah tersandung, idealnya dekat kursi yang kokoh." },
-          { title: "Pakaian yang nyaman", body: "Pakaian yang memudahkan bergerak dan memungkinkan area keluhan diperiksa." },
-          { title: "Dokumen pendukung", body: "Hasil pemeriksaan, catatan dokter, atau daftar obat yang sedang digunakan, bila ada." },
-          { title: "Pendamping bila diperlukan", body: "Keluarga atau pendamping dapat ikut mendengarkan penjelasan dan program latihan." },
-          { title: "Informasikan kondisi terbaru", body: "Sampaikan perubahan kondisi sejak sesi sebelumnya kepada fisioterapis." },
-        ]}
+        intro="Dari permintaan sampai tindak lanjut, tim kami memandu setiap langkahnya."
+        steps={flow}
       />
 
-      <Faq items={homeVisitFaq} index="04" title={<>Pertanyaan Seputar <span className="accent">Home Visit.</span></>} tone="paper" />
+      <div id="persiapan" className="scroll-mt-[var(--header-h)]">
+        <ChecklistSection
+          titleId="hv-prep"
+          tone="paper"
+          title={<>Persiapan <span className="accent">pasien</span></>}
+          items={[
+            { title: "Ruang yang aman" },
+            { title: "Pakaian yang nyaman" },
+            { title: "Dokumen medis yang relevan, bila ada" },
+            { title: "Pendamping untuk pasien tertentu" },
+            { title: "Alat bantu yang biasa Anda gunakan" },
+            { title: "Listrik, akses, dan parkir", body: "Bila perlu dibahas dengan tim operasional." },
+          ]}
+        />
+      </div>
+
+      <Faq
+        items={faq.map((f) => ({ q: f.q, a: <p>{f.a}</p> }))}
+        eyebrow="Pertanyaan umum"
+        title={<>Seputar <span className="accent">Home Visit</span></>}
+        titleId="hv-faq"
+      />
 
       <FinalCta
-        title="Siap Memulai Pemulihan di Rumah?"
-        lead="Ajukan home visit untuk Anda atau orang tersayang. Tim kami akan mengonfirmasi jadwal dan area layanan."
-        primaryLabel="Ajukan Home Visit"
-        primaryHref={bookingHref("home-visit")}
+        title={<>Pemulihan dimulai dari <span className="accent">rumah Anda.</span></>}
+        lead="Ajukan permintaan Anda. Tim akan memastikan apakah alamat Anda masuk area layanan dan mengonfirmasi jadwal."
+        primaryLabel="Booking Home Visit"
+        primaryHref={bookingHref(undefined, "home")}
+        secondaryLabel="Lihat FAQ"
+        secondaryHref="/faq"
       />
     </main>
   );

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { EB_Garamond, Kaushan_Script, Montserrat } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { MobileCta } from "@/components/MobileCta";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -30,14 +31,14 @@ const kaushan = Kaushan_Script({
   display: "swap",
 });
 
-const title = "ELPIORA Physiotherapy and Wellness | restore function · renew life";
+const title = "Fisioterapi & Rehabilitasi | ELPIORA Physiotherapy & Wellness";
 const description =
   "ELPIORA Physiotherapy and Wellness: pendekatan fisioterapi yang personal untuk membantu Anda memahami tubuh, memulihkan fungsi gerak, dan kembali beraktivitas dengan percaya diri.";
 
 export const metadata: Metadata = {
   // TODO_CONFIRM — canonical/OG URLs resolve once NEXT_PUBLIC_SITE_URL is set.
   metadataBase: siteConfig.siteUrl ? new URL(siteConfig.siteUrl) : undefined,
-  title: { default: title, template: "%s | ELPIORA Physiotherapy and Wellness" },
+  title: { default: title, template: "%s" },
   description,
   applicationName: "ELPIORA",
   openGraph: {
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         {children}
         <Footer />
+        <MobileCta />
       </body>
     </html>
   );

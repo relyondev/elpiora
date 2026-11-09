@@ -316,3 +316,13 @@ export const serviceIcons = {
   neuro: NeuroIcon,
   home: HomeIcon,
 } as const;
+
+export function WarningIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 4.5 3.5 19h17L12 4.5Z" />
+      <path d="M12 10v4" />
+      <circle cx="12" cy="16.6" r="0.5" fill="currentColor" />
+    </Svg>
+  );
+}

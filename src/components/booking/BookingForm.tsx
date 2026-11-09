@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { siteConfig } from "@/config/site";
 import {
+  CHANNELS,
   EXTRA_SERVICE_OPTIONS,
   NOTES_MAX,
   TIME_SLOTS,
@@ -31,6 +34,8 @@ const empty: BookingRequest = {
   email: "",
   service: "",
   visitType: "klinik",
+  area: "",
+  channel: "whatsapp",
   date: "",
   time: "",
   notes: "",
@@ -38,7 +43,7 @@ const empty: BookingRequest = {
   website: "",
 };
 
-const fieldOrder: BookingField[] = ["name", "phone", "email", "service", "visitType", "date", "time", "notes", "consent"];
+const fieldOrder: BookingField[] = ["name", "phone", "channel", "email", "service", "visitType", "area", "date", "time", "notes", "consent"];
 
 const inputBase =
   "block w-full min-h-12 rounded-xl border bg-paper px-4 text-[0.9375rem] text-deep placeholder:text-muted-text/80 transition-[border-color,box-shadow] duration-200 focus:border-teal-text focus:outline-none focus:ring-4 focus:ring-teal-500/15";
@@ -98,14 +103,19 @@ export function BookingForm() {
   const errorRef = useRef<HTMLParagraphElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Pre-select a service from ?layanan=… (links from service cards) and set today's date bound.
+  // Pre-select from ?service=<id>&type=clinic|home (links from service, condition and Home Visit pages)
+  // and set the earliest selectable date.
+  const searchParams = useSearchParams();
   useEffect(() => {
     setToday(todayInJakarta());
-    const preset = new URLSearchParams(window.location.search).get("layanan");
-    if (preset) {
-      setValues((v) => ({ ...v, service: preset, visitType: preset === "home-visit" ? "rumah" : v.visitType }));
-    }
-  }, []);
+    const service = searchParams.get("service");
+    const type = searchParams.get("type");
+    setValues((v) => ({
+      ...v,
+      service: service && (siteConfig.services.some((s) => s.id === service) || service === "lainnya") ? service : v.service,
+      visitType: type === "home" ? "rumah" : type === "clinic" ? "klinik" : v.visitType,
+    }));
+  }, [searchParams]);
 
   useEffect(() => {
     if (status.kind === "error") errorRef.current?.focus();
@@ -147,13 +157,13 @@ export function BookingForm() {
         return;
       }
 
-      const wa = whatsappHref(summary);
+      const wa = whatsappHref(bookingSummary(values, { includeNotes: false }));
       if (res.ok && data.delivered) setStatus({ kind: "delivered", summary });
       else if (wa) setStatus({ kind: "whatsapp", summary, href: wa });
       else if (res.ok) setStatus({ kind: "unavailable", summary });
       else setStatus({ kind: "error" });
     } catch {
-      const wa = whatsappHref(summary);
+      const wa = whatsappHref(bookingSummary(values, { includeNotes: false }));
       setStatus(wa ? { kind: "whatsapp", summary, href: wa } : { kind: "error" });
     }
   }
@@ -168,8 +178,7 @@ export function BookingForm() {
             <p className="t-eyebrow">Permintaan terkirim</p>
             <h3 className="t-h3 mt-3">Terima kasih, {values.name.trim().split(" ")[0]}.</h3>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">
-              Permintaan janji Anda telah kami terima. Tim ELPIORA akan menghubungi Anda untuk mengonfirmasi jadwal. Permintaan ini belum
-              merupakan janji yang terkonfirmasi.
+              Permintaan Anda sudah diterima. Jadwal belum dikonfirmasi sampai tim ELPIORA menghubungi Anda.
             </p>
           </>
         ) : status.kind === "whatsapp" ? (
@@ -177,7 +186,8 @@ export function BookingForm() {
             <p className="t-eyebrow">Satu langkah lagi</p>
             <h3 className="t-h3 mt-3">Kirim permintaan Anda melalui WhatsApp.</h3>
             <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">
-              Ringkasan janji Anda sudah kami siapkan. Tekan tombol di bawah untuk membuka WhatsApp dan mengirimkannya ke tim ELPIORA.
+              Ringkasan janji Anda sudah kami siapkan. Catatan keluhan sengaja tidak ikut dikirim lewat tautan, jadi ceritakan keluhan Anda langsung
+              di percakapan WhatsApp.
             </p>
             <a
               href={status.href}
@@ -269,6 +279,28 @@ export function BookingForm() {
           />
         </Field>
 
+        <Field id={id("channel")} label="Kanal kontak yang Anda pilih" required error={errors.channel}>
+          <select
+            id={id("channel")}
+            data-field="channel"
+            name="channel"
+            required
+            aria-invalid={Boolean(errors.channel)}
+            aria-describedby={describedBy("channel")}
+            value={values.channel}
+            onChange={(e) => update("channel", e.target.value)}
+            className={`${inputBase} appearance-none bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23123F43' stroke-width='1.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")] bg-[length:18px] bg-[right_14px_center] bg-no-repeat pr-11 ${
+              errors.channel ? "border-error" : "border-field"
+            }`}
+          >
+            {CHANNELS.map((c) => (
+              <option key={c.value} value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <Field id={id("email")} label="Email" error={errors.email}>
           <input
             id={id("email")}
@@ -353,6 +385,29 @@ export function BookingForm() {
           ) : null}
           {errors.visitType ? <p className="mt-1.5 text-sm font-medium text-error">{errors.visitType}</p> : null}
         </fieldset>
+
+        <Field
+          id={id("area")}
+          label="Area atau kecamatan"
+          required={visitHome}
+          hint={visitHome ? "Dipakai untuk memastikan alamat Anda masuk area layanan Home Visit." : "Cukup area umum, bukan alamat lengkap."}
+          error={errors.area}
+          className="md:col-span-2"
+        >
+          <input
+            id={id("area")}
+            data-field="area"
+            name="area"
+            type="text"
+            autoComplete="address-level2"
+            aria-invalid={Boolean(errors.area)}
+            aria-describedby={describedBy("area", true)}
+            value={values.area}
+            onChange={(e) => update("area", e.target.value)}
+            className={`${inputBase} ${errors.area ? "border-error" : "border-field"}`}
+            placeholder="Contoh: BSD City"
+          />
+        </Field>
 
         <Field id={id("date")} label="Tanggal yang diinginkan" required error={errors.date}>
           <input
@@ -439,8 +494,11 @@ export function BookingForm() {
               className="mt-1 size-5 shrink-0 accent-[var(--elpiora-deep)]"
             />
             <span>
-              Saya setuju data ini digunakan oleh ELPIORA untuk menghubungi saya terkait permintaan janji, dan memahami bahwa permintaan ini belum
-              merupakan janji yang terkonfirmasi.
+              Saya setuju data ini digunakan oleh ELPIORA untuk menghubungi saya terkait permintaan janji, sesuai{" "}
+              <Link href="/privacy-policy" className="font-semibold text-deep underline decoration-gold underline-offset-4">
+                kebijakan privasi
+              </Link>
+              , dan memahami bahwa permintaan ini belum merupakan janji yang terkonfirmasi.
               <span className="text-error" aria-hidden="true">
                 {" "}
                 *

@@ -6,6 +6,10 @@
  * (or an empty list) and marked `TODO_CONFIRM`. Components render an honest
  * "menunggu konfirmasi" state for nulls — they never invent a value.
  *
+ * Note on the page mockups (docs/brand/mockup-*.webp): they are AI concept
+ * art. Their phone number, address, email, statistics, team members and
+ * testimonials are illustrative and were deliberately NOT copied here.
+ *
  * Search the codebase for `TODO_CONFIRM` to see everything still open.
  */
 
@@ -23,21 +27,25 @@ export type ImageSlot = {
 
 export type ServiceAvailability = "listed" | "unconfirmed";
 
+export type ServiceIcon = "movement" | "sport" | "workplace" | "wellness" | "needle" | "neuro" | "home";
+
 export type Service = {
   id: string;
-  /** Service names are kept in English as supplied in the brief. */
+  /** Service names are kept in English as supplied in the brief and mockups. */
   title: string;
   /** Indonesian sub-label. */
   label: string;
   description: string;
-  icon: "movement" | "sport" | "workplace" | "wellness" | "needle";
+  icon: ServiceIcon;
   /**
-   * "listed"      — provided in the brief, wording still editable (TODO_CONFIRM).
-   * "unconfirmed" — must not be presented as available until qualifications
-   *                 and availability are confirmed.
+   * "listed"      — provided in the original brief, wording still editable (TODO_CONFIRM).
+   * "unconfirmed" — shown with a visible "menunggu konfirmasi" badge until
+   *                 qualifications and availability are confirmed.
    */
   availability: ServiceAvailability;
 };
+
+export type Program = { id: string; title: string; description: string };
 
 export type TeamMember = {
   name: string;
@@ -46,6 +54,15 @@ export type TeamMember = {
   credentials: string;
   bio: string;
   photo: ImageSlot;
+};
+
+export type Testimonial = {
+  quote: string;
+  /** Name or initials exactly as the patient agreed to be published. */
+  name: string;
+  context?: string;
+  /** Must be true: written consent to publish was obtained and is on file. */
+  consentOnFile: true;
 };
 
 export type OpeningHours = { days: string; hours: string };
@@ -85,6 +102,23 @@ export const siteConfig = {
       height: 40,
       alt: "ELPIORA — Physiotherapy and Wellness",
     },
+    /** Brand traits from the official identity slides (01 / 05). */
+    traits: [
+      { title: "Restorative", label: "Pulih dengan tujuan", body: "Setiap langkah diarahkan untuk mengembalikan fungsi gerak." },
+      { title: "Elegant", label: "Pengalaman yang tertata", body: "Suasana tenang, rapi, dan menghargai waktu Anda." },
+      { title: "Holistic", label: "Peduli pada keseluruhan diri", body: "Memperhatikan tubuh, keseharian, dan tujuan Anda." },
+      { title: "Precise", label: "Teliti dalam setiap gerak", body: "Asesmen dan program disusun dengan cermat." },
+      { title: "Uplifting", label: "Menuju hari yang lebih baik", body: "Mendampingi dengan hangat dan penuh semangat." },
+    ],
+    /**
+     * TODO_CONFIRM — DRAFT mission & vision written for the prototype.
+     * Replace with ELPIORA's own statements (or approve these).
+     */
+    mission:
+      "Memberikan layanan fisioterapi dan kesehatan gerak yang personal, jelas, dan penuh empati — membantu setiap orang kembali bergerak dengan nyaman.",
+    vision:
+      "Menjadi tempat pemulihan gerak yang dipercaya karena ketelitian klinis, perhatian personal, dan suasana yang menenangkan.",
+    missionIsDraft: true,
   },
 
   /** TODO_CONFIRM — production domain. Set NEXT_PUBLIC_SITE_URL at deploy time. */
@@ -102,8 +136,6 @@ export const siteConfig = {
     whatsappNumber: parseWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
     whatsappMessage:
       "Halo ELPIORA, saya ingin menjadwalkan konsultasi fisioterapi. Boleh saya mendapatkan informasi jadwal yang tersedia?",
-    /** TODO_CONFIRM — optional external booking page; used when no WhatsApp number is set. */
-    bookingUrl: parseUrl(process.env.NEXT_PUBLIC_BOOKING_URL),
     phone: null as string | null, // TODO_CONFIRM — display format, e.g. "+62 21 0000 0000"
     email: null as string | null, // TODO_CONFIRM
   },
@@ -159,6 +191,15 @@ export const siteConfig = {
       availability: "listed",
     },
     {
+      id: "neurological-rehabilitation",
+      title: "Neurological Rehabilitation",
+      label: "Rehabilitasi Neurologis",
+      description:
+        "Dukungan latihan gerak, keseimbangan, dan kemandirian setelah kondisi neurologis — disusun bersama tim medis Anda.",
+      icon: "neuro",
+      availability: "unconfirmed", // TODO_CONFIRM — appears in mockups only
+    },
+    {
       id: "dry-needling",
       title: "Dry Needling",
       label: "Layanan Tambahan",
@@ -167,7 +208,31 @@ export const siteConfig = {
       icon: "needle",
       availability: "unconfirmed",
     },
+    {
+      id: "home-visit",
+      title: "Home Visit Physiotherapy",
+      label: "Fisioterapi di Rumah",
+      description:
+        "Sesi fisioterapi di rumah Anda bagi yang sulit bepergian. Area dan jadwal kunjungan akan dikonfirmasi oleh tim.",
+      icon: "home",
+      availability: "unconfirmed", // TODO_CONFIRM — appears in mockups only
+    },
   ] satisfies Service[],
+
+  /** TODO_CONFIRM — specialty programmes shown in the mockups; all pending confirmation. */
+  programs: [
+    { id: "post-operative", title: "Rehabilitasi Pasca-Operasi", description: "Program bertahap untuk membantu mobilitas dan fungsi setelah operasi, sesuai arahan dokter Anda." },
+    { id: "stroke", title: "Rehabilitasi Pasca-Stroke", description: "Latihan kekuatan, koordinasi, dan kemandirian dalam aktivitas sehari-hari." },
+    { id: "posture", title: "Koreksi Postur", description: "Latihan dan edukasi postur untuk kenyamanan saat bekerja dan beraktivitas." },
+    { id: "preventive", title: "Preventive Wellness", description: "Menjaga tubuh tetap kuat, lentur, dan tangguh melalui latihan yang terarah." },
+  ] satisfies Program[],
+
+  homeVisit: {
+    /** TODO_CONFIRM — set true only once the service, therapists and areas are confirmed. */
+    confirmed: false,
+    /** TODO_CONFIRM — e.g. ["BSD", "Tangerang Selatan"]. Empty = coverage not yet announced. */
+    coverageAreas: [] as string[],
+  },
 
   /**
    * TODO_CONFIRM — the Team section stays hidden while this list is empty.
@@ -175,6 +240,12 @@ export const siteConfig = {
    * and their consent.
    */
   team: [] as TeamMember[],
+
+  /**
+   * TODO_CONFIRM — publish only real testimonials with written consent.
+   * Never paraphrase into stronger claims; no star ratings unless verified.
+   */
+  testimonials: [] as Testimonial[],
 
   images: {
     hero: {
@@ -186,6 +257,26 @@ export const siteConfig = {
       src: null,
       alt: "Fisioterapis berdiskusi dengan pasien sebelum memulai sesi latihan",
       brief: "Momen percakapan terapis & pasien · hangat, natural",
+    },
+    aboutHero: {
+      src: null,
+      alt: "Fisioterapis membantu pasien melakukan latihan bahu",
+      brief: "Latihan bahu dengan pendampingan terapis · senyum natural",
+    },
+    servicesHero: {
+      src: null,
+      alt: "Fisioterapis memeriksa gerak bahu pasien",
+      brief: "Asesmen gerak bahu · ruang terang · seragam teal",
+    },
+    homeVisitHero: {
+      src: null,
+      alt: "Fisioterapis mendampingi pasien lansia berlatih dengan resistance band di rumah",
+      brief: "Sesi di rumah pasien · lansia · resistance band",
+    },
+    contactHero: {
+      src: null,
+      alt: "Fisioterapis memeriksa lutut pasien di ruang terapi",
+      brief: "Asesmen lutut · bed terapi · cahaya alami",
     },
     clinicReception: {
       src: null,
@@ -202,6 +293,11 @@ export const siteConfig = {
       alt: "Detail interior klinik ELPIORA dengan tanaman dan material alami",
       brief: "Detail material · tanaman · tekstur alami",
     },
+    clinicExercise: {
+      src: null,
+      alt: "Area latihan klinik ELPIORA",
+      brief: "Area latihan · peralatan rehabilitasi · cahaya alami",
+    },
   } satisfies Record<string, ImageSlot>,
 
   /**
@@ -213,11 +309,24 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig;
 
-export const navigation = [
-  { label: "Beranda", href: "#beranda" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Pendekatan Kami", href: "#pendekatan" },
-  { label: "Tentang ELPIORA", href: "#tentang" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Kontak", href: "#kontak" },
-] as const;
+export type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
+
+export const navigation: NavItem[] = [
+  { label: "Beranda", href: "/" },
+  { label: "Tentang", href: "/tentang" },
+  {
+    label: "Layanan",
+    href: "/layanan",
+    children: [
+      { label: "Semua Layanan", href: "/layanan" },
+      ...siteConfig.services.map((s) => ({ label: s.title, href: `/layanan#${s.id}` })),
+    ],
+  },
+  { label: "Home Visit", href: "/home-visit" },
+  { label: "Fasilitas", href: "/fasilitas" },
+  { label: "Testimoni", href: "/testimoni" },
+  { label: "Kontak", href: "/kontak" },
+];
+
+/** The on-site booking form — the primary destination of every "book" CTA. */
+export const BOOKING_PATH = "/kontak#formulir";

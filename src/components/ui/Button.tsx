@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowIcon } from "./Icon";
 
@@ -28,17 +29,22 @@ type LinkButtonProps = CommonProps & {
 };
 
 export function LinkButton({ href, external, ariaLabel, children, variant = "primary", arrow = true, className = "" }: LinkButtonProps) {
-  return (
-    <a
-      href={href}
-      aria-label={ariaLabel}
-      className={`${base} ${variants[variant]} ${className}`}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-    >
+  const content = (
+    <>
       <span>{children}</span>
       {arrow ? <ArrowIcon className="arrow-nudge size-4 shrink-0" /> : null}
       {external ? <span className="sr-only"> (membuka di tab baru)</span> : null}
+    </>
+  );
+  const cls = `${base} ${variants[variant]} ${className}`;
+  return external ? (
+    <a href={href} aria-label={ariaLabel} className={cls} target="_blank" rel="noopener noreferrer">
+      {content}
     </a>
+  ) : (
+    <Link href={href} aria-label={ariaLabel} className={cls}>
+      {content}
+    </Link>
   );
 }
 
@@ -59,15 +65,17 @@ export function DisabledButton({ children, variant = "primary", describedBy, cla
 }
 
 export function TextLink({ href, children, external, className = "" }: { href: string; children: ReactNode; external?: boolean; className?: string }) {
-  return (
-    <a
-      href={href}
-      className={`group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-deep underline decoration-gold decoration-1 underline-offset-[6px] transition-colors hover:text-teal-text ${className}`}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-    >
+  const cls = `group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-deep underline decoration-gold decoration-1 underline-offset-[6px] transition-colors hover:text-teal-text ${className}`;
+  return external ? (
+    <a href={href} className={cls} target="_blank" rel="noopener noreferrer">
       {children}
       <ArrowIcon className="arrow-nudge size-3.5" />
-      {external ? <span className="sr-only"> (membuka di tab baru)</span> : null}
+      <span className="sr-only"> (membuka di tab baru)</span>
     </a>
+  ) : (
+    <Link href={href} className={cls}>
+      {children}
+      <ArrowIcon className="arrow-nudge size-3.5" />
+    </Link>
   );
 }

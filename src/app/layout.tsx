@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat, Satisfy } from "next/font/google";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -33,10 +35,9 @@ const description =
 export const metadata: Metadata = {
   // TODO_CONFIRM — canonical/OG URLs resolve once NEXT_PUBLIC_SITE_URL is set.
   metadataBase: siteConfig.siteUrl ? new URL(siteConfig.siteUrl) : undefined,
-  title,
+  title: { default: title, template: "%s | ELPIORA Physiotherapy and Wellness" },
   description,
   applicationName: "ELPIORA",
-  alternates: siteConfig.siteUrl ? { canonical: "/" } : undefined,
   openGraph: {
     type: "website",
     locale: "id_ID",
@@ -66,7 +67,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Lewati ke konten utama
         </a>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

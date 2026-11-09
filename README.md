@@ -2,86 +2,88 @@
 
 *restore function · renew life*
 
-Single-page marketing site for ELPIORA, written in Bahasa Indonesia (`id-ID`). It introduces the clinic and routes enquiries to WhatsApp or a booking link, without medical overclaims or invented facts.
+A multi-page website in Bahasa Indonesia (`id-ID`) with an on-site booking form. The layout follows the page mockups in `docs/brand/mockup-0*.webp`; facts come only from `src/config/site.ts`.
 
-**Stack:** Next.js 15 (App Router, static export-compatible) · TypeScript · Tailwind CSS v4 · `next/font` (Cormorant Garamond, Montserrat, Satisfy). No animation library: motion is CSS plus one small IntersectionObserver.
+**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · `next/font` (Cormorant Garamond, Montserrat, Satisfy). No UI or animation libraries.
+
+## Pages
+
+| Route | Content |
+|---|---|
+| `/` Beranda | Hero, approach, services, care journey, home visit + testimonials, FAQ, CTA |
+| `/tentang` | Story, mission & vision (draft), brand traits, why ELPIORA, team, testimonials |
+| `/layanan` | Full service catalogue (anchors `#<service-id>`), care process, programmes, FAQ |
+| `/home-visit` | Who it's for, needs, process, benefits, coverage area, FAQ |
+| `/fasilitas` | Atmosphere mosaic, spaces, location & contact |
+| `/testimoni` | Consented testimonials + publishing policy |
+| `/kontak` | **Booking form** (`#formulir`), contact card, booking steps, FAQ, corporate enquiry |
+
+Every "Buat Janji" CTA goes to `/kontak#formulir`. Service links use `/kontak?layanan=<id>#formulir` to pre-select the service.
 
 ## Run
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run lint
-npx tsc --noEmit
+npm run lint && npx tsc --noEmit
 npm run build && npm start
 ```
 
-## Configure before launch
+## Booking form delivery
 
-All business facts live in **`src/config/site.ts`**. Search the repo for `TODO_CONFIRM`.
+The form validates on the client and again on the server (`src/app/api/booking/route.ts`). Where the request goes depends on configuration:
 
-Environment variables (set in Vercel → Project → Settings → Environment Variables, or `.env.local`):
+| Configured | Result shown to the visitor |
+|---|---|
+| `BOOKING_WEBHOOK_URL` | Request POSTed as JSON to your endpoint → "Permintaan terkirim" |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` (no webhook) | "Lanjutkan ke WhatsApp" with the request prefilled as a message |
+| Neither | Honest notice: the channel isn't active and the data was **not** sent |
+
+The webhook can be any HTTPS endpoint, for example Make/Zapier, Google Apps Script writing to a Sheet, a CRM, or a function that sends email. If `BOOKING_WEBHOOK_SECRET` is set, it's sent as the `X-Elpiora-Secret` header. The payload includes every field plus a readable `summary`. Request bodies are never logged.
+
+## Environment variables
 
 | Variable | Example | Effect |
 |---|---|---|
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | `6281234567890` (international digits) | Activates every booking CTA as a `wa.me` link with a prefilled message |
-| `NEXT_PUBLIC_BOOKING_URL` | `https://…` | Used when no WhatsApp number is set |
-| `NEXT_PUBLIC_SITE_URL` | `https://elpiora.id` | Canonical URL, Open Graph URL, sitemap, robots |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | `6281234567890` | WhatsApp links + form fallback (build time) |
+| `BOOKING_WEBHOOK_URL` | `https://hook.example/…` | Server-side form delivery (runtime) |
+| `BOOKING_WEBHOOK_SECRET` | random string | Shared secret header for the webhook |
+| `NEXT_PUBLIC_SITE_URL` | `https://elpiora.id` | Canonical/OG URLs, sitemap, robots |
 
-Without a booking channel, CTAs scroll to the contact section, which says the channel is being prepared. The final CTA is shown disabled with an explanation, so there are no dead links.
+## Before launch: `TODO_CONFIRM`
 
-### Placeholder checklist
-| Item | Where | Current state |
+All facts live in **`src/config/site.ts`**. The mockups' phone number, address, email, statistics, team and testimonials are AI-generated examples and were **not** copied.
+
+| Item | Config | State |
 |---|---|---|
-| Official logo SVG (primary + reversed) | `public/brand/`, `siteConfig.brand.logo` | Temporary typeset text "ELPIORA". **Not** the logo. |
-| Favicon | `src/app/icon.svg` | Neutral temporary icon |
-| Photography (hero, about, 3 × clinic) | `public/images/`, `siteConfig.images` | Illustrated placeholder plates, each with a shot brief |
-| WhatsApp / phone / email | env + `siteConfig.contact` | Not set |
-| Address, city, maps link, hours, access/parking | `siteConfig.location` | Not set; no branch or area (BSD, Tangerang Selatan, Jakarta) is claimed |
-| Service list & wording | `siteConfig.services` | From the brief; **Dry Needling** flagged unconfirmed |
-| Team (names, verified credentials, portraits, consent) | `siteConfig.team` | Empty, so the section is hidden |
-| Social accounts | `siteConfig.social` | Empty |
-| OG image (1200×630) | `public/og.jpg` + `layout.tsx` | Not set |
-| Structured data | `siteConfig.structuredDataVerified` | `false`, so no JSON-LD is published |
+| Official logo SVG + favicon | `brand.logo`, `src/app/icon.svg` | Temporary text / neutral icon |
+| Photography (10 slots, with shot briefs) | `images` | Labelled placeholder plates |
+| Phone, email, WhatsApp | `contact` + env | Not set |
+| Address, maps, hours, access | `location` | Not set |
+| Mission & vision | `brand.mission`, `brand.vision` | Draft, marked "menunggu persetujuan" |
+| Neurological Rehab, Dry Needling, Home Visit | `services[].availability` | `unconfirmed` (badge shown) |
+| Programmes, corporate | `programs` | Flagged pending |
+| Home visit areas | `homeVisit` | Empty |
+| Team / testimonials | `team`, `testimonials` | Empty (consent required) |
+| Structured data | `structuredDataVerified` | `false` |
 
-When everything is confirmed, set `showPlaceholderMarkers: false`.
+When all of these are resolved, set `showPlaceholderMarkers: false`.
 
-## Project structure
-
-```
-src/
-  app/            layout (fonts, metadata), page, robots, sitemap, icon, globals.css (design tokens)
-  config/site.ts  every business fact + TODO_CONFIRM markers
-  lib/            booking link resolution, structured data builder
-  components/     Header, Hero, ValueProps, ServiceGrid, CareJourney, About,
-                  Location, Team, Faq, FinalCta, Footer
-  components/ui/  Button, Icon, Logo, ImagePlate, Ornaments, Reveal, SectionIntro, CurrentYear
-docs/
-  brand/          brand guidelines + reference slides (style references only, not clinic photos)
-  design-critique.md, research-plan.md, screenshots/
-```
-
-## Design system
-
-Tokens are defined once in `src/app/globals.css` and exposed to Tailwind (`bg-deep`, `text-teal-text`, `bg-mint-100`, …). Values come from the brand guidelines. Two **derived** tokens exist only for WCAG AA:
-
-| Token | Value | Why |
-|---|---|---|
-| `teal-text` | `#1D7279` | Brand teal `#2C98A0` is 3.27:1 on the surface color, too low for small text. This is 5.35:1 on surface and 4.82:1 on pale mint. |
-| `muted-text` | `#3D6F6D` | `#4A7E7C` is 4.38:1 on the surface color. This is 5.41:1. |
-
-Gold `#CBAF7F` is decorative, and appears as text only on deep teal (5.49:1).
+## Docs
+- `docs/design-system.md`: tokens (including the v2 font-colour change), components, booking form pattern
+- `docs/accessibility-audit.md`: WCAG 2.2 AA audit and contrast table
+- `docs/design-critique.md`: critique against the mockups, with deliberate departures
+- `docs/research-plan.md`: user research plan
+- `docs/brand/`: guidelines, identity slides, page mockups (style references only)
+- `docs/screenshots/`: renders of every page
 
 ## Verification (actually run)
-
-- `npm run lint`, `npx tsc --noEmit` and `npm run build` all pass.
-- axe-core 4.10 (WCAG 2.0/2.1/2.2 A+AA + best-practice): **0 violations** at 1440px and 390px.
-- No horizontal overflow at 1440px or 390px.
-- Configured-state build (test WhatsApp number + site URL): `wa.me` links with prefilled messages, canonical, sitemap and robots verified. JSON-LD correctly withheld.
-- Lighthouse was **not** run.
-
-Analytics hooks are **not** implemented. If needed, add click tracking on the CTA components in `src/components/ui/Button.tsx`.
+- `npm run lint`, `npx tsc --noEmit` and `npm run build` pass (7 static pages + 1 API route).
+- axe-core 4.10 (WCAG 2.0–2.2 A/AA + best-practice): **0 violations** on all 7 pages at 1440px and 390px.
+- Keyboard: skip link, dropdown (Enter/Tab/Escape), mobile menu focus trap, accordion and form focus management.
+- No horizontal overflow at 390px, 640px (≈200% zoom) or 1440px.
+- Booking end to end (Playwright): validation, service pre-selection, and all three delivery outcomes, including a real webhook POST to a local receiver with the secret header.
+- **Not run:** Lighthouse, screen readers, real devices.
 
 ## Deploy
-
-Push to GitHub and import the repo in Vercel (framework auto-detected), or run `vercel deploy`. Set the environment variables above for Production.
+Import the repo into Vercel and set the environment variables above. `/api/booking` runs as a Vercel Function; every other page is static.

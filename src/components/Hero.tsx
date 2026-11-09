@@ -1,5 +1,4 @@
-import { siteConfig } from "@/config/site";
-import { getBookingAction } from "@/lib/booking";
+import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { LinkButton } from "./ui/Button";
 import { ImagePlate } from "./ui/ImagePlate";
 import { MovementCurve, SpineDots } from "./ui/Ornaments";
@@ -18,10 +17,8 @@ const trust = [
 ];
 
 export function Hero() {
-  const booking = getBookingAction();
-
   return (
-    <section id="beranda" tabIndex={-1} aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-[calc(var(--header-h)+28px)] outline-none md:pt-[calc(var(--header-h)+56px)]">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-[calc(var(--header-h)+28px)] md:pt-[calc(var(--header-h)+56px)]">
       {/* calm mint light field behind the image column */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute top-[-10%] right-[-20%] h-[90%] w-[85%] rounded-full bg-[radial-gradient(closest-side,var(--elpiora-mint-100),rgb(223_242_231/0))] md:right-[-8%] md:w-[60%]" />
@@ -40,7 +37,7 @@ export function Hero() {
               {headline.map((line, i) => (
                 <span key={line.text} className="line-mask">
                   <span
-                    className={`line-rise ${line.em ? "font-normal text-teal-text italic" : ""}`}
+                    className={`line-rise ${line.em ? "accent" : ""}`}
                     style={{ "--d": `${120 + i * 90}ms` } as React.CSSProperties}
                   >
                     {line.text}
@@ -55,10 +52,10 @@ export function Hero() {
             </p>
 
             <div className="fade-in mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ "--d": "640ms" } as React.CSSProperties}>
-              <LinkButton href={booking.href} external={booking.external}>
+              <LinkButton href={BOOKING_PATH}>
                 Jadwalkan Konsultasi
               </LinkButton>
-              <LinkButton href="#layanan" variant="secondary" arrow={false}>
+              <LinkButton href="/layanan" variant="secondary" arrow={false}>
                 Jelajahi Layanan
               </LinkButton>
             </div>

@@ -22,7 +22,7 @@ const values = [
 
 export function ValueProps() {
   return (
-    <section id="pendekatan" tabIndex={-1} aria-labelledby="pendekatan-title" className="py-24 outline-none md:py-36">
+    <section id="pendekatan" aria-labelledby="pendekatan-title" className="py-24 md:py-32">
       <div className="shell">
         <div className="grid-12 gap-y-8">
           <Reveal className="col-span-4 md:col-span-8 lg:col-span-7">
@@ -32,7 +32,7 @@ export function ValueProps() {
               titleId="pendekatan-title"
               title={
                 <>
-                  Perawatan yang Memahami <em className="font-normal text-teal-text">Setiap Gerakan</em> Anda.
+                  Perawatan yang Memahami <em className="accent">Setiap Gerakan</em> Anda.
                 </>
               }
             />
@@ -55,7 +55,7 @@ export function ValueProps() {
                 <Icon className="size-8 text-teal-500" />
               </div>
               <h3 className="t-h3 mt-8">{title}</h3>
-              <p className="mt-4 max-w-[36ch] text-[0.9375rem] leading-relaxed text-ink/90">{body}</p>
+              <p className="mt-4 max-w-[36ch] text-[0.9375rem] leading-relaxed text-body">{body}</p>
             </Reveal>
           ))}
         </ol>

@@ -1,44 +1,49 @@
-# Design Critique: ELPIORA Landing Page
+# Design Critique: ELPIORA multi-page site (v2)
 
-Reviewed against `docs/brand/ELPIORA_BRAND_GUIDELINES.md` and the build brief, using desktop (1440px) and mobile (390px) renders of the production build. Stage: working prototype with real copy, placeholder imagery, and pending business facts.
+Reviewed against the five page mockups (`docs/brand/mockup-0*.webp`) and `docs/brand/ELPIORA_BRAND_GUIDELINES.md`, using desktop (1440px) and mobile (390px) renders of the production build. Stage: working prototype. Real copy, illustrated placeholder imagery, pending business facts.
 
 ### Overall impression
-On first load the page reads as calm, premium and clearly physiotherapy-led. The oversized Cormorant headline, the arched image and the gold movement line carry the brand without a real logo or photos. The biggest remaining opportunity is **authentic photography**. Until it arrives, the illustrated placeholder plates keep the page at "beautiful concept" rather than "trustworthy clinic."
+The site now has the structure of the mockups: a sticky nav with a Layanan dropdown, banner heroes, service grids, a process strip, home visit, testimonials, a booking page, and a deep-teal footer. It also keeps v1's editorial typography. The biggest gap against the mockups is still **photography**. The mockups are carried by warm photos of therapists, and until real images replace the placeholder plates, pages read calmer and emptier than the references.
+
+### Deliberate departures from the mockups
+| Mockup shows | Built instead | Why |
+|---|---|---|
+| Phone `+62 812-3456-7890`, address "Ruko The Breeze BSD…", `care@elpiora.id`, opening hours, map pin | "Menunggu konfirmasi" states driven by `siteConfig` | These are AI-generated placeholder facts. Publishing them would send patients to a wrong number or address. |
+| "10+ Years", "5,000+ Patients", "8 Service Types" | Removed. Brand traits from the identity slides are used instead | Unverifiable statistics (brand guidelines §8) |
+| Named testimonials with star ratings | Consent-based testimonial component with an honest empty state | No fabricated reviews |
+| Named therapists (e.g., "Dr. Rika Andini, PT, DPT") | Team section with placeholder frames | No invented people or credentials |
+| Home visit coverage "BSD, Tangerang Selatan, Jakarta" | Coverage list in config, empty until confirmed | Brief: don't claim service areas until verified |
+| English copy | Bahasa Indonesia (service names stay in English) | Original brief: `id-ID` |
+| Neurological Rehab, Home Visit, programmes, corporate | Included, visibly flagged "menunggu konfirmasi" | Present in the mockups, but availability isn't confirmed |
 
 ### Usability
 | Finding | Severity | Status / Recommendation |
 |---|---|---|
-| A bottom sticky mobile CTA duplicated the header's "Buat Janji" button and covered FAQ content | 🟡 Moderate | **Fixed:** removed. The header CTA stays visible on every screen size. |
-| Booking CTAs have no live channel until WhatsApp is configured | 🟡 Moderate | **By design:** hero and header CTAs scroll to Kontak, which states the channel is being prepared. Final-CTA buttons are visibly disabled with an explanation, so there are no dead links. Set `NEXT_PUBLIC_WHATSAPP_NUMBER` to activate them. |
-| Mobile menu links could fail to scroll while body scroll was locked | 🟡 Moderate | **Fixed:** the menu closes first, then scrolls. Focus moves into the menu, Escape closes it, and Tab stays inside it. |
-| Service cards ask "Tanyakan Layanan Ini" rather than linking to service pages that don't exist | 🟢 Minor | Add per-service detail pages later if wanted. The cards pre-fill a service-specific WhatsApp message once configured. |
+| Every "book" CTA used to depend on an unconfigured WhatsApp number | 🔴 Critical (v1) | **Fixed:** every CTA leads to the on-site form (`/kontak#formulir`). A service link pre-selects that service. |
+| Form submission can't reach anyone until a channel is set | 🟡 Moderate | **By design:** honest "data not sent" state. Configure `BOOKING_WEBHOOK_URL` and/or `NEXT_PUBLIC_WHATSAPP_NUMBER`. |
+| Seven nav items plus the CTA don't fit at 1024–1279px | 🟡 Moderate | **Handled:** the full nav shows from 1280px; below that, the menu button. |
+| The emergency disclaimer could be missed | 🟢 Minor | **Done:** a "Butuh penanganan segera?" card next to the form points to 119 / IGD. |
+| Many "menunggu konfirmasi" badges on /layanan | 🟢 Minor | Remove them as each service is confirmed (`availability: "listed"`). |
 
 ### Visual hierarchy
-- **What draws the eye first:** the H1 "Bergerak *Lebih Nyaman.*". That's correct: the promise comes before the brand chrome.
-- **Reading flow:** H1 → lead → primary CTA → arched visual → tagline pill → trust row. The single gold curve guides the eye from the CTAs toward the image.
-- **Emphasis:** one italic teal phrase per headline creates rhythm without visual noise. Section rhythm deliberately alternates: light editorial, mint bento, deep-teal journey, white about, light contact, mint FAQ, deep CTA panel.
+- **What draws the eye first:** the serif H1 with its italic accent, matching the mockups' typographic hero.
+- **Reading flow:** banner hero → numbered sections (01, 02, …) with gold hairlines → one deep-teal process band per page as an anchor → closing CTA panel → deep footer.
+- **Font colour refinement (requested):** headings stay deep `#123F43`. Italic accents move to a brighter teal `#268A92`, closer to the mockups and used only at display sizes. Body copy is a neutral slate `#33484A`, secondary text a grey `#52676A`, and eyebrows deep ink `#1E4F52`. All meet AA (see `docs/design-system.md`).
 
 ### Consistency
 | Element | Issue | Status |
 |---|---|---|
-| Color | Some plate art used raw hex values | **Fixed:** all colors come from `globals.css` tokens. |
-| Contrast token | `#217E85` teal text measured 4.1:1 on pale mint | **Fixed:** the derived token is now `#1D7279` (4.82:1 on mint, 5.35:1 on surface). |
-| Ornaments | The final CTA had both a gold rule and dots, and the dots were distorted | **Fixed:** a single, correctly proportioned spine-dot motif. |
-| Feature service card | Large empty dark field | **Fixed:** movement curve and spine motif added. |
-| Wide service cards | Text stops at about 46ch, leaving the right side airy on large screens | 🟢 Accepted as whitespace. Revisit once real service imagery exists. |
-
-### Accessibility
-- **Color contrast:** axe-core (WCAG 2.0/2.1/2.2 A & AA, plus best-practice) reports **0 violations** at both 1440px and 390px. Gold is used as text only on deep teal (5.49:1). Primary buttons are white on `#123F43` (11.55:1).
-- **Touch targets:** nav links, menu button, FAQ triggers and CTAs are all at least 44px.
-- **Readability:** body text is 16–17px fluid with 1.7 line-height. The script face appears only on the tagline.
-- **Other:** skip link, semantic landmarks, `aria-expanded`/`aria-controls` on the menu and accordion, `inert` on collapsed answers, `prefers-reduced-motion` honored, and placeholder plates carry `role="img"` with descriptive labels.
+| Inner-page heroes | Needed one shared pattern | **Done:** `PageHero` on all six inner pages. |
+| Placeholder captions | Clipped by curved image masks | **Fixed:** caption position is configurable per plate. |
+| Home service cards | Small cards looked empty next to the feature card | **Fixed:** descriptions added (clamped to 3 lines). |
+| Form field borders | `#E8EDE9` was too faint (1.19:1) | **Fixed:** new `field` token `#7C9495` (3.22:1). |
 
 ### What works well
-- Typography carries the premium feel on its own, which fits the "typography is 90%" principle and the brand's editorial serif.
-- Honesty is designed in rather than bolted on: placeholder markers, a "Menunggu konfirmasi" state for every fact, a dashed card for the unconfirmed Dry Needling service, and no fabricated numbers.
-- The care journey's dotted line reinterprets the logomark's vertebra detail as a path of progress without copying the logo.
+- One booking path site-wide, with service pre-selection, a summary that doubles as the WhatsApp message, and three honest delivery outcomes.
+- Mockup structure without mockup fiction: every fact traces back to `src/config/site.ts`.
+- A cohesive rhythm across pages: alternating surface, mint and deep-teal sections, plus reused components (`CareJourney`, `Faq`, `IconCards`, `FinalCta`).
 
 ### Priority recommendations
-1. **Commission real photography.** Each slot in `siteConfig.images` includes a shot brief. Use a session with real hands-on assessment, the reception, the treatment room, and a material detail. This is the single largest trust gain.
-2. **Supply the official logo SVGs** (primary + reversed) and favicon, and set them in `siteConfig.brand.logo`.
-3. **Confirm the facts:** WhatsApp number, address, hours, service availability (especially Dry Needling qualifications), then set `showPlaceholderMarkers: false` and `structuredDataVerified: true`.
+1. **Real photography and the official logo SVG.** Each image slot includes a shot brief, and this closes most of the gap with the mockups.
+2. **Connect a booking channel** (webhook and/or WhatsApp) and test one real submission end to end.
+3. **Confirm the facts:** services, home visit areas, contact details, hours, team. Then switch off `showPlaceholderMarkers`.

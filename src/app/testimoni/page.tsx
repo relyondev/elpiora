@@ -1,0 +1,65 @@
+import { FinalCta } from "@/components/FinalCta";
+import { PageHero } from "@/components/PageHero";
+import { TestimonialList } from "@/components/Testimonials";
+import { LinkButton } from "@/components/ui/Button";
+import { CheckIcon } from "@/components/ui/Icon";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionIntro } from "@/components/ui/SectionIntro";
+import { BOOKING_PATH, siteConfig } from "@/config/site";
+import { pageMeta } from "@/lib/meta";
+
+export const metadata = pageMeta("Testimoni", "Cerita pasien ELPIORA — dipublikasikan hanya dengan izin tertulis.", "/testimoni");
+
+const policy = [
+  "Setiap testimoni dipublikasikan hanya dengan izin tertulis dari pasien.",
+  "Kami tidak mengubah isi cerita menjadi klaim hasil yang lebih kuat.",
+  "Kami tidak menampilkan penilaian bintang atau angka yang tidak dapat diverifikasi.",
+  "Pengalaman setiap orang dapat berbeda — testimoni bukan jaminan hasil.",
+];
+
+export default function TestimoniPage() {
+  return (
+    <main id="konten">
+      <PageHero
+        eyebrow="Testimoni"
+        title={
+          <>
+            Cerita dari <span className="accent">Pasien Kami.</span>
+          </>
+        }
+        lead={<p>Pengalaman nyata dari orang-orang yang kembali bergerak bersama ELPIORA — dibagikan dengan izin mereka.</p>}
+        actions={<LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>}
+        image={siteConfig.images.about}
+      />
+
+      <section aria-labelledby="cerita-title" className="py-24 md:py-32">
+        <div className="shell">
+          <Reveal className="max-w-3xl">
+            <SectionIntro index="01" eyebrow="Kata Pasien" titleId="cerita-title" title="Cerita Pemulihan." />
+          </Reveal>
+          <div className="mt-12">
+            <TestimonialList />
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="kebijakan-title" className="bg-paper py-24 md:py-28">
+        <div className="shell grid-12 gap-y-10">
+          <Reveal className="col-span-4 md:col-span-8 lg:col-span-5">
+            <SectionIntro index="02" eyebrow="Kebijakan" titleId="kebijakan-title" title={<>Testimoni yang <span className="accent">Jujur.</span></>} />
+          </Reveal>
+          <Reveal as="ul" delay={100} className="col-span-4 divide-y divide-line border-y border-line md:col-span-8 lg:col-span-6 lg:col-start-7">
+            {policy.map((p) => (
+              <li key={p} className="flex gap-4 py-5 text-[0.9375rem] leading-relaxed text-body">
+                <CheckIcon className="size-6 shrink-0 text-teal-text" />
+                {p}
+              </li>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      <FinalCta />
+    </main>
+  );
+}

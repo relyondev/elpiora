@@ -11,7 +11,7 @@ const principles = [
 
 export function About() {
   return (
-    <section id="tentang" tabIndex={-1} aria-labelledby="tentang-title" className="bg-paper py-24 outline-none md:py-36">
+    <section aria-labelledby="tentang-title" className="bg-paper py-24 md:py-32">
       <div className="shell grid-12 items-center gap-y-14">
         <Reveal className="relative col-span-4 md:col-span-6 lg:col-span-5">
           <ImagePlate
@@ -26,16 +26,15 @@ export function About() {
         <div className="col-span-4 md:col-span-6 lg:col-span-6 lg:col-start-7">
           <Reveal>
             <p className="t-eyebrow flex items-center gap-4">
-              <span className="font-serif text-base font-medium tracking-normal normal-case">04</span>
               <span className="hairline w-10" aria-hidden="true" />
-              <span>Tentang ELPIORA</span>
+              <span>Cerita Kami</span>
             </p>
             <h2 id="tentang-title" className="t-h2 mt-6">
-              Bukan Sekadar Mengurangi Keluhan. <em className="font-normal text-teal-text">Kami Mendukung Anda Kembali Bergerak.</em>
+              Bukan Sekadar Mengurangi Keluhan. <em className="accent">Kami Mendukung Anda Kembali Bergerak.</em>
             </h2>
           </Reveal>
 
-          <Reveal delay={100} className="mt-8 space-y-5 text-[1.0625rem] leading-[1.75] text-ink">
+          <Reveal delay={100} className="mt-8 space-y-5 text-[1.0625rem] leading-[1.75] text-body">
             <p>
               Di ELPIORA, pemulihan tidak hanya soal meredakan rasa tidak nyaman, tetapi tentang kembali menjalani hal-hal yang berarti bagi
               Anda — berjalan tanpa ragu, bekerja dengan nyaman, dan berolahraga dengan lebih percaya diri.

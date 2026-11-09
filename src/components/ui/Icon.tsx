@@ -219,10 +219,75 @@ export function MailIcon(props: IconProps) {
   );
 }
 
+/** Neural pathway — neurological rehabilitation. */
+export function NeuroIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 4.5c-3.5 0-6.5 2.6-6.5 6 0 2 1 3.4 2.2 4.4.6.5.8 1.1.8 1.8v2.8h7v-2.8c0-.7.2-1.3.8-1.8 1.2-1 2.2-2.4 2.2-4.4 0-3.4-3-6-6.5-6Z" />
+      <path d="M9.5 10.5c1 0 1.5.8 2.5.8s1.5-.8 2.5-.8" />
+      <path d="M12 11.3v3.2" />
+      <path d="M9.5 21h5" opacity={0.6} />
+    </Svg>
+  );
+}
+
+/** House with heart — home visit. */
+export function HomeIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M4 11 12 4.5l8 6.5" />
+      <path d="M6 9.5V20h12V9.5" />
+      <path d="M12 17.5s-3-1.8-3-3.8a1.6 1.6 0 0 1 3-.8 1.6 1.6 0 0 1 3 .8c0 2-3 3.8-3 3.8Z" />
+    </Svg>
+  );
+}
+
+export function HeartHandIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 11.5s-4-2.4-4-5.1A2.2 2.2 0 0 1 12 5a2.2 2.2 0 0 1 4 1.4c0 2.7-4 5.1-4 5.1Z" />
+      <path d="M3.5 15.5h3l3.5 1.5h4a1.5 1.5 0 0 0 0-3h-3" />
+      <path d="M6.5 19.5h6.5l7-4.5a1.4 1.4 0 0 0-1.7-2.2L14.5 15" />
+    </Svg>
+  );
+}
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="m8.5 12.2 2.4 2.3 4.6-5" />
+    </Svg>
+  );
+}
+
+export function QuoteIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M10 7c-3 .8-4.5 3-4.5 6v4h4.5v-4.5H7.5" />
+      <path d="M18.5 7c-3 .8-4.5 3-4.5 6v4h4.5v-4.5H16" />
+    </Svg>
+  );
+}
+
+export function CalendarIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="4" y="5.5" width="16" height="14.5" rx="2" />
+      <path d="M4 10h16" />
+      <path d="M8.5 3.5v4" />
+      <path d="M15.5 3.5v4" />
+      <path d="M8.5 14h2" />
+    </Svg>
+  );
+}
+
 export const serviceIcons = {
   movement: MovementIcon,
   sport: SportIcon,
   workplace: WorkplaceIcon,
   wellness: WellnessIcon,
   needle: NeedleIcon,
+  neuro: NeuroIcon,
+  home: HomeIcon,
 } as const;

@@ -1,33 +1,16 @@
-import { siteConfig } from "@/config/site";
+import { BOOKING_PATH, siteConfig } from "@/config/site";
 
-export type BookingAction =
-  | { configured: true; href: string; external: true; channel: "whatsapp" | "booking" }
-  | { configured: false; href: "#kontak"; external: false; channel: null };
-
-/**
- * Resolves where a booking CTA should go.
- * - WhatsApp (with a prefilled message) when a valid number is configured.
- * - Otherwise the external booking URL, when configured.
- * - Otherwise the on-page contact section, which states honestly that the
- *   booking channel is still being prepared. Never a dead or invented link.
- */
-export function getBookingAction(message?: string): BookingAction {
-  const { whatsappNumber, whatsappMessage, bookingUrl } = siteConfig.contact;
-
-  if (whatsappNumber) {
-    const text = encodeURIComponent(message ?? whatsappMessage);
-    return { configured: true, href: `https://wa.me/${whatsappNumber}?text=${text}`, external: true, channel: "whatsapp" };
-  }
-
-  if (bookingUrl) {
-    return { configured: true, href: bookingUrl, external: true, channel: "booking" };
-  }
-
-  return { configured: false, href: "#kontak", external: false, channel: null };
+/** Booking form URL, optionally with a service pre-selected. */
+export function bookingHref(serviceId?: string): string {
+  if (!serviceId) return BOOKING_PATH;
+  return `/kontak?layanan=${encodeURIComponent(serviceId)}#formulir`;
 }
 
-export function serviceEnquiryMessage(serviceTitle: string): string {
-  return `Halo ELPIORA, saya ingin bertanya tentang layanan ${serviceTitle}. Boleh saya mendapatkan informasi lebih lanjut?`;
+/** wa.me link with a prefilled message, or null while no number is configured. */
+export function whatsappHref(message?: string): string | null {
+  const { whatsappNumber, whatsappMessage } = siteConfig.contact;
+  if (!whatsappNumber) return null;
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message ?? whatsappMessage)}`;
 }
 
 /** Formats international WhatsApp digits for display, e.g. 6281234567890 → +62 812-3456-7890. */
@@ -37,4 +20,11 @@ export function formatWhatsApp(digits: string): string {
     return `+62 ${local.slice(0, 3)}-${local.slice(3, 7)}-${local.slice(7)}`.replace(/-$/, "");
   }
   return `+${digits}`;
+}
+
+export function serviceTitle(id: string | null | undefined): string | null {
+  if (!id) return null;
+  if (id === "lainnya") return "Belum yakin / ingin berkonsultasi";
+  if (id === "korporat") return "Program korporat / event";
+  return siteConfig.services.find((s) => s.id === id)?.title ?? null;
 }

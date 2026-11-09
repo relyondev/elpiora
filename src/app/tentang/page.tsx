@@ -36,6 +36,7 @@ export default function TentangPage() {
   return (
     <main id="konten">
       <PageHero
+        note={{ label: "Pendekatan kami", text: "Mendengarkan dulu, lalu menyusun program bersama Anda", Icon: HeartHandIcon }}
         eyebrow="Tentang ELPIORA"
         title={
           <>
@@ -45,8 +46,8 @@ export default function TentangPage() {
         lead={<p>Kami memadukan ketelitian klinis dengan perhatian yang tulus untuk membantu Anda bergerak lebih nyaman dan kembali menjalani keseharian.</p>}
         actions={
           <>
-            <LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>
-            <LinkButton href="/layanan" variant="secondary" arrow={false}>
+            <LinkButton variant="champagne" href={BOOKING_PATH}>Buat Janji</LinkButton>
+            <LinkButton variant="secondary-on-dark" href="/layanan">
               Lihat Daftar Layanan
             </LinkButton>
           </>
@@ -98,13 +99,13 @@ export default function TentangPage() {
             <BrushUnderline className="mt-1 h-3 w-64" />
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               <div>
-                <p className="font-serif text-xl font-semibold text-deep italic">Restore function</p>
+                <p className="font-serif text-xl font-bold text-deep">Restore function</p>
                 <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
                   Memulihkan fungsi gerak: kemampuan untuk berjalan, bekerja, berolahraga, dan merawat diri dengan nyaman.
                 </p>
               </div>
               <div>
-                <p className="font-serif text-xl font-semibold text-deep italic">Renew life</p>
+                <p className="font-serif text-xl font-bold text-deep">Renew life</p>
                 <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
                   Memperbarui kualitas hidup: kembali pada hal-hal yang Anda sukai, dengan tubuh yang lebih siap dan percaya diri.
                 </p>

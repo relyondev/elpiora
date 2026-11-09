@@ -9,6 +9,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionIntro } from "@/components/ui/SectionIntro";
 import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { pageMeta } from "@/lib/meta";
+import { PinIcon } from "@/components/ui/Icon";
 
 export const metadata = pageMeta(
   "Fasilitas",
@@ -26,6 +27,7 @@ export default function FasilitasPage() {
   return (
     <main id="konten">
       <PageHero
+        note={{ label: "Foto klinik", text: "Ditampilkan setelah foto asli tersedia", Icon: PinIcon }}
         eyebrow="Fasilitas"
         title={
           <>
@@ -33,7 +35,7 @@ export default function FasilitasPage() {
           </>
         }
         lead={<p>Suasana ELPIORA dirancang hangat dan menenangkan, dengan material alami dan cahaya lembut.</p>}
-        actions={<LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>}
+        actions={<LinkButton variant="champagne" href={BOOKING_PATH}>Buat Janji</LinkButton>}
         image={siteConfig.images.clinicReception}
         imageVariant="reception"
       />

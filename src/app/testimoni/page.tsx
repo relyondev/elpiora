@@ -26,6 +26,7 @@ export default function TestimoniPage() {
   return (
     <main id="konten">
       <PageHero
+        note={{ label: "Kebijakan kami", text: "Hanya cerita dengan izin tertulis pasien", Icon: CheckIcon }}
         eyebrow="Testimoni"
         title={
           <>
@@ -33,7 +34,7 @@ export default function TestimoniPage() {
           </>
         }
         lead={<p>Pengalaman nyata dari orang-orang yang kembali bergerak bersama ELPIORA, dibagikan dengan izin mereka.</p>}
-        actions={<LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>}
+        actions={<LinkButton variant="champagne" href={BOOKING_PATH}>Buat Janji</LinkButton>}
         image={siteConfig.images.about}
       />
 

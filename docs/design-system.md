@@ -1,4 +1,28 @@
-# ELPIORA Design System (v3)
+# ELPIORA Design System (v3.1)
+
+> **v3.1 (banner reference + Garamond headlines):** every page now opens with the same **Banner** (rounded deep-teal gradient panel, floating header bar, glass information cards), following the supplied reference image. Headlines use **EB Garamond Bold**.
+>
+> **Font note:** "Apple Garamond" is Apple's proprietary typeface and is not licensed for web use. EB Garamond (open licence, Google Fonts) is the closest available match. To use a licensed Apple or ITC Garamond webfont instead, change only `--font-garamond` in `src/app/layout.tsx`.
+
+## v3.1 banner
+| Piece | Where | Notes |
+|---|---|---|
+| `Banner` | `src/components/Banner.tsx` | Rounded panel (28px mobile, 36px desktop) inset 12px from the viewport; background `--banner-bg`: deep `#062F34 → #0B4248 → #12636F → #1B8590` with turquoise light behind the visual |
+| `GlassCard` | same file | 80% deep-teal fill, 1px white/20 border, background blur (the only blurred element per banner). Holds one short true statement, never a figure. White text keeps at least 4.5:1 even over the light image plate |
+| Header bar | `Header.tsx` | Floating inside the banner: 45% deep tint with the reversed logo and light links, turning into a solid light bar with the full-colour logo after 24px of scroll or when the mobile menu opens |
+| Banner text | `globals.css` `.banner.on-dark` | White H1/H2, gold-light emphasis, mint-100 lead |
+| Buttons in banners | `Button.tsx` | `champagne` (primary) and `secondary-on-dark` (outline) |
+| Benefits strip | `Hero.tsx` | Takes the reference's logo-strip position. It carries the poster's four benefit lines because no real partner logos exist |
+
+Contrast was measured on the rendered pixels under every text box (text hidden, background sampled, worst pixel against the text colour): **91 text boxes on 6 banner views, 0 below WCAG AA**.
+
+## v3.1 typography (supersedes the v3 table)
+| Role | Font | Notes |
+|---|---|---|
+| H1 / H2 / H3, card titles | **EB Garamond 700** | Upright bold. The emphasis phrase (`.accent`) is the same face in teal, or gold-light on dark |
+| Body / UI | Montserrat | |
+| Tagline | Kaushan Script | Tagline only |
+
 
 > **v3 (official assets):** visual direction now follows the **official logo** (`docs/brand/LOGO-ELPIORA-4-official.svg`, `logo-official-reversed.webp`) and the **#ELPIORAINSIDE poster** (`docs/brand/poster-elpiora-inside.webp`). Layout and component positions are unchanged from v2.
 

@@ -1,17 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Kaushan_Script, Montserrat, Playfair_Display } from "next/font/google";
+import { EB_Garamond, Kaushan_Script, Montserrat } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-// v3 type (from the official "Move Better. Live Better." poster): Playfair Display headlines,
-// Montserrat body, Kaushan Script brush accents. The logotype itself is always the official image.
-const playfair = Playfair_Display({
+// Headline type: EB Garamond Bold. "Apple Garamond" is Apple's proprietary typeface and is not licensed for
+// web use, so EB Garamond (open licence, same Garamond lineage) is the closest available match.
+// To use a licensed Apple/ITC Garamond webfont instead, change only --font-garamond here.
+const garamond = EB_Garamond({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   style: ["normal", "italic"],
-  variable: "--font-playfair",
+  variable: "--font-garamond",
   display: "swap",
 });
 
@@ -60,7 +61,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id-ID" className={`${playfair.variable} ${montserrat.variable} ${kaushan.variable}`}>
+    <html lang="id-ID" className={`${garamond.variable} ${montserrat.variable} ${kaushan.variable}`}>
       <body>
         <a
           href="#konten"

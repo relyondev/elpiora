@@ -1,0 +1,73 @@
+import type { ReactNode } from "react";
+import { ArrowIcon } from "./Icon";
+
+type Variant = "primary" | "secondary" | "primary-on-dark" | "secondary-on-dark";
+
+const base =
+  "group inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 text-[0.9375rem] font-semibold tracking-[0.01em] transition-[background-color,color,border-color,box-shadow] duration-200 ease-brand sm:px-7";
+
+const variants: Record<Variant, string> = {
+  primary:
+    "bg-deep text-paper shadow-[0_1px_0_rgb(255_255_255/0.08)_inset,0_10px_30px_-12px_rgb(18_63_67/0.45)] hover:bg-ink",
+  secondary: "border border-deep/25 text-deep hover:border-deep/60 hover:bg-paper",
+  "primary-on-dark": "bg-mint-100 text-deep hover:bg-paper",
+  "secondary-on-dark": "border border-mint-100/35 text-mint-100 hover:border-mint-100/80 hover:bg-mint-100/5",
+};
+
+type CommonProps = {
+  children: ReactNode;
+  variant?: Variant;
+  arrow?: boolean;
+  className?: string;
+};
+
+type LinkButtonProps = CommonProps & {
+  href: string;
+  external?: boolean;
+  ariaLabel?: string;
+};
+
+export function LinkButton({ href, external, ariaLabel, children, variant = "primary", arrow = true, className = "" }: LinkButtonProps) {
+  return (
+    <a
+      href={href}
+      aria-label={ariaLabel}
+      className={`${base} ${variants[variant]} ${className}`}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      <span>{children}</span>
+      {arrow ? <ArrowIcon className="arrow-nudge size-4 shrink-0" /> : null}
+      {external ? <span className="sr-only"> (membuka di tab baru)</span> : null}
+    </a>
+  );
+}
+
+type DisabledButtonProps = CommonProps & { describedBy?: string };
+
+/** A visibly unavailable action — used instead of a dead link while a channel is not configured. */
+export function DisabledButton({ children, variant = "primary", describedBy, className = "" }: DisabledButtonProps) {
+  return (
+    <button
+      type="button"
+      disabled
+      aria-describedby={describedBy}
+      className={`${base} ${variants[variant]} cursor-not-allowed opacity-55 ${className}`}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function TextLink({ href, children, external, className = "" }: { href: string; children: ReactNode; external?: boolean; className?: string }) {
+  return (
+    <a
+      href={href}
+      className={`group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-deep underline decoration-gold decoration-1 underline-offset-[6px] transition-colors hover:text-teal-text ${className}`}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      {children}
+      <ArrowIcon className="arrow-nudge size-3.5" />
+      {external ? <span className="sr-only"> (membuka di tab baru)</span> : null}
+    </a>
+  );
+}

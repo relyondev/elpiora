@@ -1,0 +1,319 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   ELPIORA design tokens
+   Source of truth: docs/brand/ELPIORA_BRAND_GUIDELINES.md (§3, §4, §5)
+   Palette values are reference-derived (pending official brand kit).
+   Derived tokens (marked "derived") exist only to pass WCAG AA where the
+   reference value does not — see README › Accessibility.
+   ========================================================================== */
+
+:root {
+  --elpiora-teal-500: #2c98a0; /* Primary Teal — accents, large surfaces (not small text: 3.27:1 on surface) */
+  --elpiora-teal-400: #389fa6; /* Core Teal */
+  --elpiora-teal-300: #5fb7b8; /* Soft Teal — gradient midtone */
+  --elpiora-teal-text: #1d7279; /* derived — teal for small text on light (5.35:1 surface, 4.82:1 pale mint, 5.62:1 white) */
+  --elpiora-sage-400: #8db9a3; /* Sage Green */
+  --elpiora-mint-200: #bbdcc6; /* Mint */
+  --elpiora-mint-100: #dff2e7; /* Pale Mint */
+  --elpiora-gold-400: #cbaf7f; /* Champagne Gold — decorative; text only on deep (5.49:1) */
+  --elpiora-deep: #123f43; /* headings, dark panels (10.99:1 on surface) */
+  --elpiora-ink: #1e4f52; /* secondary text, dark surfaces */
+  --elpiora-muted: #4a7e7c; /* dividers, large text only (4.38:1 on surface) */
+  --elpiora-muted-text: #3d6f6d; /* derived — small muted text (5.41:1 on surface, 4.87:1 on pale mint) */
+  --elpiora-surface: #f7faf8;
+  --elpiora-white: #ffffff;
+  --elpiora-line: #e8ede9;
+
+  --elpiora-gradient: linear-gradient(110deg, #2c98a0 0%, #5fb7b8 42%, #dff2e7 100%);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --header-h: 72px;
+}
+
+@theme inline {
+  --color-teal-500: var(--elpiora-teal-500);
+  --color-teal-400: var(--elpiora-teal-400);
+  --color-teal-300: var(--elpiora-teal-300);
+  --color-teal-text: var(--elpiora-teal-text);
+  --color-sage: var(--elpiora-sage-400);
+  --color-mint-200: var(--elpiora-mint-200);
+  --color-mint-100: var(--elpiora-mint-100);
+  --color-gold: var(--elpiora-gold-400);
+  --color-deep: var(--elpiora-deep);
+  --color-ink: var(--elpiora-ink);
+  --color-muted: var(--elpiora-muted);
+  --color-muted-text: var(--elpiora-muted-text);
+  --color-surface: var(--elpiora-surface);
+  --color-paper: var(--elpiora-white);
+  --color-line: var(--elpiora-line);
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-montserrat), Montserrat, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-script: var(--font-satisfy), "Satisfy", cursive;
+
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--elpiora-surface);
+  color: var(--elpiora-ink);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--elpiora-mint-200);
+  color: var(--elpiora-deep);
+}
+
+:focus-visible {
+  outline: 2px solid var(--elpiora-teal-text);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--elpiora-gold-400);
+}
+
+/* ---------- Type scale (guidelines §4, fluid) ---------- */
+
+.t-display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.85rem, 1.6rem + 5.4vw, 6.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--elpiora-deep);
+  text-wrap: balance;
+}
+
+.t-h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.55rem + 2.9vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--elpiora-deep);
+  text-wrap: balance;
+}
+
+.t-h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 1.2rem + 0.9vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  color: var(--elpiora-deep);
+}
+
+.t-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: var(--elpiora-teal-text);
+}
+
+.t-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--elpiora-ink);
+  text-wrap: pretty;
+}
+
+.t-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.on-dark .t-display,
+.on-dark .t-h2,
+.on-dark .t-h3 {
+  color: var(--elpiora-mint-100);
+}
+
+.on-dark .t-eyebrow {
+  color: var(--elpiora-gold-400);
+}
+
+/* ---------- Layout ---------- */
+
+.shell {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 40px;
+  }
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, var(--elpiora-gold-400), rgb(203 175 127 / 0));
+}
+
+/* ---------- Motion ---------- */
+
+/* Scroll reveal — understated per guidelines §7.4 (≤16px, ≤500ms) */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entrance: each headline line rises from a clip mask */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.line-rise {
+  display: block;
+  animation: line-rise 900ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.fade-in {
+  animation: fade-in 800ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Gold line draws itself once, then rests */
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 2200ms var(--ease-in-out) 400ms forwards;
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Barely perceptible ambient drift of the hero light (guidelines §7.4) */
+.ambient-drift {
+  animation: ambient-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(-2%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, -2%, 0) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .line-rise,
+  .fade-in,
+  .ambient-drift {
+    animation: none;
+  }
+
+  .draw-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Arrow nudge on hover — only on devices that really hover (no sticky mobile hover) */
+@media (hover: hover) {
+  .group:hover .arrow-nudge {
+    transform: translateX(4px);
+  }
+}
+
+.arrow-nudge {
+  transition: transform 220ms var(--ease-out);
+}

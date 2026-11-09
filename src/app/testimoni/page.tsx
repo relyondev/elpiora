@@ -1,4 +1,5 @@
 import { FinalCta } from "@/components/FinalCta";
+import { ChecklistSection } from "@/components/ContentSections";
 import { PageHero } from "@/components/PageHero";
 import { TestimonialList } from "@/components/Testimonials";
 import { LinkButton } from "@/components/ui/Button";
@@ -58,6 +59,23 @@ export default function TestimoniPage() {
           </Reveal>
         </div>
       </section>
+
+      <ChecklistSection
+        eyebrow="Bagikan Cerita"
+        titleId="bagikan-title"
+        title={
+          <>
+            Ingin Berbagi <span className="accent">Pengalaman Anda?</span>
+          </>
+        }
+        intro="Cerita Anda dapat membantu orang lain yang sedang mempertimbangkan fisioterapi. Begini prosesnya:"
+        items={[
+          { title: "Sampaikan kepada tim kami", body: "Ceritakan pengalaman Anda saat sesi atau melalui kontak resmi ELPIORA." },
+          { title: "Tinjau bersama", body: "Kami menyiapkan kutipan singkat dan meminta Anda meninjau isinya." },
+          { title: "Persetujuan tertulis", body: "Testimoni hanya dipublikasikan setelah Anda memberikan izin tertulis." },
+          { title: "Pilih cara ditampilkan", body: "Anda dapat memilih nama lengkap, inisial, atau anonim." },
+        ]}
+      />
 
       <FinalCta />
     </main>

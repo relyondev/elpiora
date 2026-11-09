@@ -282,6 +282,31 @@ export function CalendarIcon(props: IconProps) {
   );
 }
 
+/** Vertebrae column — function of movement (poster benefit icon). */
+export function SpineIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M10 3.5c3 2 3 4.5 1 6.5s-2 4.5 1 6.5 2 3.5 0 4" />
+      <circle cx="13.5" cy="5" r="1" />
+      <circle cx="14" cy="9" r="1.1" />
+      <circle cx="13" cy="13" r="1.1" />
+      <circle cx="14" cy="17" r="1" />
+    </Svg>
+  );
+}
+
+/** Lotus — quality of life / balance (poster benefit icon). */
+export function LotusIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 18c-2.5-2-3.5-5-2.5-9 1.5 1 2.5 2.5 2.5 4 0-1.5 1-3 2.5-4 1 4 0 7-2.5 9Z" />
+      <path d="M12 18c-3 .5-6-1-7.5-4.5 2 0 3.6.6 4.6 1.6" />
+      <path d="M12 18c3 .5 6-1 7.5-4.5-2 0-3.6.6-4.6 1.6" />
+      <path d="M5 20h14" opacity={0.6} />
+    </Svg>
+  );
+}
+
 export const serviceIcons = {
   movement: MovementIcon,
   sport: SportIcon,

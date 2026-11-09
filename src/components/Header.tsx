@@ -112,7 +112,7 @@ export function Header() {
     >
       <div className="shell flex h-[var(--header-h)] items-center justify-between gap-6">
         <Link href="/" className="-m-2 flex min-h-11 items-center p-2" aria-label="ELPIORA — Beranda">
-          <Logo />
+          <Logo priority className="h-11 md:h-12" />
         </Link>
 
         <nav aria-label="Navigasi utama" className="hidden xl:block">

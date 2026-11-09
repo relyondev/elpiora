@@ -58,3 +58,51 @@ export function BotanicalSprig({ className = "" }: Props) {
     </svg>
   );
 }
+
+/**
+ * Flowing translucent ribbons with gold hairlines — the wave motif along the
+ * bottom of the ELPIORA poster. Decorative; place inside a `relative` parent.
+ */
+export function WaveRibbons({ className = "", tone = "light" }: Props & { tone?: "light" | "dark" }) {
+  const a = tone === "dark" ? 0.18 : 0.5;
+  return (
+    <svg className={className} viewBox="0 0 1440 220" fill="none" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id={`wr-teal-${tone}`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#5fb7b8" stopOpacity={a * 0.2} />
+          <stop offset="0.5" stopColor="#5fb7b8" stopOpacity={a} />
+          <stop offset="1" stopColor="#2c98a0" stopOpacity={a * 0.6} />
+        </linearGradient>
+        <linearGradient id={`wr-mint-${tone}`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#bbdcc6" stopOpacity={a * 0.9} />
+          <stop offset="1" stopColor="#dff2e7" stopOpacity={a * 0.3} />
+        </linearGradient>
+        <linearGradient id={`wr-gold-${tone}`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#d29c52" stopOpacity="0" />
+          <stop offset="0.35" stopColor="#eebf7b" stopOpacity="0.95" />
+          <stop offset="1" stopColor="#d29c52" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+      <path d="M0 150C220 90 420 200 700 150S1180 40 1440 110V220H0Z" fill={`url(#wr-mint-${tone})`} />
+      <path d="M0 185C260 120 520 215 820 165S1250 95 1440 150V220H0Z" fill={`url(#wr-teal-${tone})`} />
+      <path d="M0 130C260 70 470 190 760 140S1200 30 1440 80" stroke={`url(#wr-gold-${tone})`} strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+      <path d="M0 168C300 112 520 205 840 155S1260 80 1440 128" stroke={`url(#wr-gold-${tone})`} strokeWidth="1" vectorEffect="non-scaling-stroke" opacity="0.7" />
+    </svg>
+  );
+}
+
+/** Gold brush stroke underline used beneath the script tagline (poster). */
+export function BrushUnderline({ className = "" }: Props) {
+  return (
+    <svg className={className} viewBox="0 0 220 14" fill="none" aria-hidden="true" preserveAspectRatio="none">
+      <path d="M3 10C60 4 140 2 217 4" stroke="url(#bu-g)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M40 12C90 8 150 7 200 8" stroke="url(#bu-g)" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
+      <defs>
+        <linearGradient id="bu-g" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stopColor="#d29c52" />
+          <stop offset="1" stopColor="#eebf7b" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}

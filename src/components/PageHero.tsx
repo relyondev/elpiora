@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { ImageSlot } from "@/config/site";
 import { ImagePlate } from "./ui/ImagePlate";
-import { MovementCurve } from "./ui/Ornaments";
+import { MovementCurve, WaveRibbons } from "./ui/Ornaments";
 
 type Props = {
   eyebrow: string;
@@ -22,19 +22,17 @@ export function PageHero({ eyebrow, title, lead, actions, image, imageVariant = 
     <section aria-labelledby={titleId} className="relative isolate overflow-hidden pt-[calc(var(--header-h)+24px)] md:pt-[var(--header-h)]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(115deg,var(--elpiora-surface)_0%,var(--elpiora-surface)_38%,var(--elpiora-mint-100)_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-line" />
+        <WaveRibbons className="absolute inset-x-0 bottom-0 h-24 w-full md:h-32" />
       </div>
 
       <div className="shell grid items-center gap-10 pb-14 md:grid-cols-12 md:gap-6 md:pb-0">
         <div className="md:col-span-6 md:py-20 lg:col-span-5 lg:py-24">
-          <p className="t-eyebrow fade-in flex items-center gap-3">
-            <span className="hairline w-8" aria-hidden="true" />
-            {eyebrow}
-          </p>
-          <h1 id={titleId} className="t-h2 fade-in mt-5 !text-[clamp(2.6rem,1.7rem+3.6vw,5rem)] !leading-[1]" style={{ "--d": "80ms" } as React.CSSProperties}>
+          <p className="pill-hashtag fade-in">{eyebrow}</p>
+          <h1 id={titleId} className="t-h2 fade-in mt-6 !text-[clamp(2.5rem,1.6rem+3.4vw,4.6rem)] !leading-[1.04]" style={{ "--d": "80ms" } as React.CSSProperties}>
             {title}
           </h1>
-          <div className="t-lead fade-in mt-6 max-w-[36rem]" style={{ "--d": "180ms" } as React.CSSProperties}>
+          <span className="gold-rule fade-in mt-7" aria-hidden="true" />
+          <div className="t-lead fade-in mt-5 max-w-[36rem]" style={{ "--d": "180ms" } as React.CSSProperties}>
             {lead}
           </div>
           {actions ? (

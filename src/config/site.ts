@@ -91,15 +91,15 @@ export const siteConfig = {
     /** Official tagline — preserve wording, casing and the middle dot exactly. */
     tagline: "restore function · renew life",
     /**
-     * TODO_CONFIRM — official logo files. Place the supplied SVGs in /public/brand/
-     * and set the paths. Until then a clearly temporary text placeholder is shown.
-     * Never replace this with a re-drawn or AI-generated logo.
+     * Official logo files (supplied by ELPIORA, Nov 2026):
+     * - primary/full: extracted from LOGO-ELPIORA-4.svg (full colour, for light backgrounds)
+     * - reversed: supplied reversed artwork (white wordmark, for dark backgrounds)
+     * Originals are archived in docs/brand/. Never redraw, recolour or stretch.
      */
     logo: {
-      primary: null as string | null, // e.g. "/brand/elpiora-logo.svg" (full colour, light backgrounds)
-      reversed: null as string | null, // e.g. "/brand/elpiora-logo-reversed.svg" (dark backgrounds)
-      width: 168,
-      height: 40,
+      primary: { src: "/brand/elpiora-logo.png", width: 900, height: 227 }, // wordmark + descriptor
+      full: { src: "/brand/elpiora-logo-full.png", width: 1200, height: 414 }, // + "restore function · renew life"
+      reversed: { src: "/brand/elpiora-logo-reversed.png", width: 900, height: 240 },
       alt: "ELPIORA — Physiotherapy and Wellness",
     },
     /** Brand traits from the official identity slides (01 / 05). */
@@ -150,8 +150,15 @@ export const siteConfig = {
     access: null as string | null, // parking / public transport notes
   },
 
-  /** TODO_CONFIRM — add only official, active accounts. */
-  social: [] as { label: string; href: string }[],
+  /**
+   * Official accounts as printed on the ELPIORA "#ELPIORAINSIDE" poster.
+   * TODO_CONFIRM — verify each URL opens the right profile; add the Facebook
+   * page URL ("Elpiora Physiotheraphy") once known.
+   */
+  social: [
+    { label: "Instagram", handle: "@elpioraphysio", href: "https://www.instagram.com/elpioraphysio/", icon: "instagram" },
+    { label: "TikTok", handle: "@elpioraphysio", href: "https://www.tiktok.com/@elpioraphysio", icon: "tiktok" },
+  ] as { label: string; handle: string; href: string; icon: "instagram" | "tiktok" | "facebook" }[],
 
   services: [
     {
@@ -319,12 +326,13 @@ export const navigation: NavItem[] = [
     href: "/layanan",
     children: [
       { label: "Semua Layanan", href: "/layanan" },
-      ...siteConfig.services.map((s) => ({ label: s.title, href: `/layanan#${s.id}` })),
+      ...siteConfig.services.map((s) => ({ label: s.title, href: `/layanan/${s.id}` })),
     ],
   },
   { label: "Home Visit", href: "/home-visit" },
   { label: "Fasilitas", href: "/fasilitas" },
   { label: "Testimoni", href: "/testimoni" },
+  { label: "FAQ", href: "/faq" },
   { label: "Kontak", href: "/kontak" },
 ];
 

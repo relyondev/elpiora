@@ -45,7 +45,7 @@ export function ServicePreview() {
             return (
               <Reveal as="li" key={service.id} delay={(i % 4) * 60} className={i === 0 ? "sm:col-span-2" : ""}>
                 <Link
-                  href={`/layanan#${service.id}`}
+                  href={`/layanan/${service.id}`}
                   className={`group relative flex h-full min-h-48 flex-col overflow-hidden rounded-[24px] p-6 transition-[box-shadow,transform] duration-300 ease-brand md:p-7 ${
                     i === 0
                       ? "on-dark bg-deep text-mint-100"
@@ -134,8 +134,8 @@ export function ServiceCatalog() {
                   }`}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <span className="inline-flex size-14 items-center justify-center rounded-full bg-mint-100 text-teal-text">
-                      <Icon className="size-7" />
+                    <span className="icon-amber size-14" aria-hidden="true">
+                      <Icon className="size-7" strokeWidth={1.7} />
                     </span>
                     {unconfirmed ? <PlaceholderTag>Menunggu konfirmasi</PlaceholderTag> : null}
                   </div>
@@ -144,11 +144,15 @@ export function ServiceCatalog() {
                     {service.title}
                   </h3>
                   <p className="mt-4 text-[0.9375rem] leading-relaxed text-body">{service.description}</p>
-                  <div className="mt-auto pt-6">
-                    <TextLink href={bookingHref(service.id)}>
-                      {unconfirmed ? "Tanyakan ketersediaan" : "Ajukan janji"}
+                  <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-1 pt-6">
+                    <TextLink href={`/layanan/${service.id}`}>
+                      Pelajari layanan
                       <span className="sr-only">: {service.title}</span>
                     </TextLink>
+                    <Link href={bookingHref(service.id)} className="inline-flex min-h-11 items-center text-sm font-semibold text-teal-text hover:text-deep">
+                      {unconfirmed ? "Tanyakan ketersediaan" : "Ajukan janji"}
+                      <span className="sr-only">: {service.title}</span>
+                    </Link>
                   </div>
                 </article>
               </Reveal>

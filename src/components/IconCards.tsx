@@ -13,8 +13,8 @@ export function IconCards({ items, columns = 4, footer }: { items: IconCard[]; c
           <Reveal as="li" key={title} delay={(i % 5) * 60}>
             <div className="flex h-full flex-col rounded-[22px] bg-paper p-6 shadow-[0_1px_0_var(--elpiora-line)]">
               {Icon ? (
-                <span className="inline-flex size-12 items-center justify-center rounded-full bg-mint-100 text-teal-text">
-                  <Icon className="size-6" />
+                <span className="icon-amber size-12" aria-hidden="true">
+                  <Icon className="size-6" strokeWidth={1.7} />
                 </span>
               ) : (
                 <span className="font-serif text-lg text-teal-text" aria-hidden="true">

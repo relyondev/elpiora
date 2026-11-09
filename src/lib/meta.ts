@@ -11,4 +11,14 @@ export function pageMeta(title: string, description: string, path: string): Meta
   };
 }
 
-export const routes = ["/", "/tentang", "/layanan", "/home-visit", "/fasilitas", "/testimoni", "/kontak"] as const;
+export const routes = [
+  "/",
+  "/tentang",
+  "/layanan",
+  ...siteConfig.services.map((s) => `/layanan/${s.id}`),
+  "/home-visit",
+  "/fasilitas",
+  "/testimoni",
+  "/faq",
+  "/kontak",
+];

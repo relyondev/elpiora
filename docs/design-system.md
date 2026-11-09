@@ -1,4 +1,43 @@
-# ELPIORA Design System (v2)
+# ELPIORA Design System (v3)
+
+> **v3 (official assets):** visual direction now follows the **official logo** (`docs/brand/LOGO-ELPIORA-4-official.svg`, `logo-official-reversed.webp`) and the **#ELPIORAINSIDE poster** (`docs/brand/poster-elpiora-inside.webp`). Layout and component positions are unchanged from v2.
+
+## v3 tokens (supersede the v2 table below where they differ)
+
+| Tailwind | Value | Source | Use | Contrast |
+|---|---|---|---|---|
+| `deep` | `#0B4248` | Poster headline "Move Better." | Headings, primary buttons, dark bands, lead copy | 10.59:1 on surface |
+| `accent` / `.accent` | `#0D899D` | Poster "Live Better." | Bold-italic display emphasis, ≥24px only | 3.93:1 surface, 3.54:1 mint (AA large) |
+| `teal-text` | `#146F7D` | Poster bold teal | Small links, icons, `<strong>` in lead | 5.55:1 |
+| `body` | `#4E6466` | Poster grey list | Body copy | 5.99:1 surface, 5.39:1 mint |
+| `muted-text` | `#5B6E70` | — | Captions, meta | 5.11:1 |
+| `gold` / `gold-light` / gold-deep | `#E3B36F` / `#EEBF7B` / `#D29C52` | Official logo gold | Hairlines, rules, ornaments; text only on `deep` | — |
+| `gold-text` | `#8C6428` | Poster hashtag pill (darkened) | Pill text on cream | 5.04:1 |
+| amber gradient | `#FFD54A → #F5B50A` | Poster icon circles | `.icon-amber` (decorative, white glyph) | n/a (decorative) |
+| champagne gradient | `#F3D9B1 → #D9B07A` + `cocoa #3A2E1F` | Poster "Baca Selengkapnya" | `variant="champagne"` secondary button | 7.2:1+ |
+| surface | `#F8FBFA` | Poster background | Page background | — |
+
+## v3 typography
+| Role | Font | Notes |
+|---|---|---|
+| Display / H1 / H2 | **Playfair Display** 600 *italic* | Matches the poster headline; `.accent` = 700 italic in `#0D899D` |
+| H3 | Playfair Display 600 upright | |
+| Body / UI | **Montserrat** | Lead copy 500 in deep teal, like the poster |
+| Script | **Kaushan Script** | Brush script like the poster's "Restore Movement"; tagline only, rotated −2° to −3° with a gold `BrushUnderline` |
+| Logotype | Official image only | Never typeset |
+
+## v3 objects
+- `.pill-hashtag`: cream pill with gold border, uppercase gold-text (hero and page eyebrows), like the poster's `#ELPIORAINSIDE`.
+- `.pill-teal`: teal gradient pill with white text, like the poster's `MEETELPIORA`.
+- `.icon-amber`: amber gradient circle with a white line icon (benefit lists, service icons).
+- `.gold-rule`: short gold gradient bar under headlines.
+- `WaveRibbons`: translucent mint/teal waves with gold hairlines (hero, page heroes, CTA, footer).
+- `BrushUnderline`: gold brush stroke under the script tagline.
+- `Logo`: `on-light` (full colour) or `on-dark` (reversed); `variant="full"` includes the tagline.
+
+---
+
+## v2 reference (historical)
 
 Tokens live in `src/app/globals.css` (`:root` → Tailwind `@theme`). Components live in `src/components`. Palette values come from the brand guidelines (reference-derived, pending the official kit). Values marked *derived* exist to meet WCAG AA.
 

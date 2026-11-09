@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { BOOKING_PATH } from "@/config/site";
 import { LinkButton } from "./ui/Button";
-import { MovementCurve, SpineDots } from "./ui/Ornaments";
+import { MovementCurve, SpineDots, WaveRibbons } from "./ui/Ornaments";
 import { Reveal } from "./ui/Reveal";
 
 type Props = {
@@ -29,6 +29,7 @@ export function FinalCta({
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
               <div className="absolute -bottom-1/2 left-1/2 h-full w-[120%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(95_183_184/0.42),rgb(187_220_198/0.12)_60%,rgb(187_220_198/0))]" />
               <MovementCurve className="absolute inset-0 size-full opacity-35" />
+              <WaveRibbons tone="dark" className="absolute inset-x-0 bottom-0 h-32 w-full" />
             </div>
 
             <SpineDots vertical={false} count={7} className="mx-auto mb-10 h-3 w-24 text-gold" />
@@ -42,7 +43,7 @@ export function FinalCta({
               <LinkButton href={primaryHref} variant="primary-on-dark">
                 {primaryLabel}
               </LinkButton>
-              <LinkButton href={secondaryHref} variant="secondary-on-dark" arrow={false}>
+              <LinkButton href={secondaryHref} variant="champagne">
                 {secondaryLabel}
               </LinkButton>
             </div>

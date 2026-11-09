@@ -1,4 +1,5 @@
 import { FinalCta } from "@/components/FinalCta";
+import { ChecklistSection } from "@/components/ContentSections";
 import { ClinicMosaic, ContactCard } from "@/components/Location";
 import { PageHero } from "@/components/PageHero";
 import { LinkButton } from "@/components/ui/Button";
@@ -71,6 +72,24 @@ export default function FasilitasPage() {
           </div>
         </div>
       </section>
+
+      <ChecklistSection
+        eyebrow="Kunjungan Pertama"
+        titleId="pertama-title"
+        tone="paper"
+        title={
+          <>
+            Agar Kunjungan Pertama <span className="accent">Terasa Tenang.</span>
+          </>
+        }
+        intro="Persiapan kecil yang membantu sesi pertama Anda berjalan lancar."
+        items={[
+          { title: "Datang 10–15 menit lebih awal", body: "Memberi waktu untuk registrasi dan bersantai sebelum sesi." },
+          { title: "Kenakan pakaian yang nyaman", body: "Pakaian olahraga atau yang longgar memudahkan asesmen gerak." },
+          { title: "Bawa catatan kesehatan", body: "Hasil pemeriksaan, rujukan, atau catatan dokter yang berkaitan, bila ada." },
+          { title: "Siapkan pertanyaan Anda", body: "Catat hal-hal yang ingin Anda tanyakan agar tidak terlewat." },
+        ]}
+      />
 
       <section aria-labelledby="lokasi-title" className="bg-mint-100 py-24 md:py-32">
         <div className="shell grid gap-10 lg:grid-cols-12">

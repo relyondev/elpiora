@@ -128,3 +128,142 @@ export const contactFaq: FaqItem[] = [
     ),
   },
 ];
+
+/** Full FAQ (/faq), grouped by topic. General guidance only; facts come from siteConfig. */
+export type FaqCategory = { id: string; title: string; intro: string; items: FaqItem[] };
+
+export const faqCategories: FaqCategory[] = [
+  {
+    id: "umum",
+    title: "Tentang Fisioterapi",
+    intro: "Pengenalan singkat tentang fisioterapi dan pendekatan ELPIORA.",
+    items: [
+      {
+        q: "Apa itu fisioterapi?",
+        a: (
+          <p>
+            Fisioterapi adalah layanan kesehatan yang berfokus pada gerak dan fungsi tubuh. Fisioterapis menilai cara tubuh Anda bergerak, lalu
+            menggunakan latihan, edukasi, dan penanganan lain yang sesuai untuk membantu Anda bergerak lebih nyaman dan menjalani aktivitas
+            sehari-hari.
+          </p>
+        ),
+      },
+      {
+        q: "Keluhan apa saja yang umumnya ditangani fisioterapis?",
+        a: (
+          <p>
+            Contohnya keluhan otot dan sendi (seperti nyeri punggung, leher, bahu, atau lutut), pemulihan cedera olahraga, pemulihan setelah
+            operasi, keluhan terkait postur dan pekerjaan, serta gangguan keseimbangan. Kesesuaian untuk kondisi Anda akan dinilai saat asesmen.
+          </p>
+        ),
+      },
+      {
+        q: "Apa yang membedakan pendekatan ELPIORA?",
+        a: (
+          <p>
+            Kami memulai dengan mendengarkan, menjelaskan setiap langkah dengan jelas, dan menyusun program yang personal sesuai tujuan Anda — dalam
+            suasana yang tenang dan nyaman. Selengkapnya di halaman{" "}
+            <Link href="/tentang" className={linkCls}>
+              Tentang
+            </Link>
+            .
+          </p>
+        ),
+      },
+      generalFaq[3],
+    ],
+  },
+  {
+    id: "janji",
+    title: "Janji & Jadwal",
+    intro: "Cara membuat, mengubah, dan menyiapkan janji temu.",
+    items: [
+      generalFaq[0],
+      contactFaq[0],
+      {
+        q: "Bagaimana jika saya perlu mengubah atau membatalkan jadwal?",
+        a: <p>Silakan hubungi tim kami sesegera mungkin. Kebijakan perubahan jadwal akan diinformasikan saat konfirmasi janji.</p>,
+      },
+      {
+        q: "Berapa lama satu sesi berlangsung?",
+        a: <p>Durasi sesi dapat berbeda sesuai jenis layanan dan kebutuhan program. Tim kami akan menginformasikannya saat konfirmasi jadwal.</p>,
+      },
+      generalFaq[4],
+    ],
+  },
+  {
+    id: "sesi-pertama",
+    title: "Sesi Pertama",
+    intro: "Apa yang perlu disiapkan dan apa yang akan terjadi.",
+    items: [
+      generalFaq[1],
+      generalFaq[2],
+      {
+        q: "Apa yang terjadi pada sesi pertama?",
+        a: (
+          <p>
+            Umumnya diawali dengan percakapan tentang keluhan, riwayat, dan tujuan Anda, dilanjutkan asesmen gerak. Setelah itu fisioterapis akan
+            menjelaskan temuan dan mendiskusikan rencana perawatan bersama Anda.
+          </p>
+        ),
+      },
+      contactFaq[1],
+      {
+        q: "Bolehkah saya ditemani keluarga?",
+        a: <p>Tentu. Pendamping dapat membantu, terutama bila Anda membutuhkan bantuan bergerak atau ingin keluarga ikut memahami program latihan.</p>,
+      },
+    ],
+  },
+  {
+    id: "layanan",
+    title: "Layanan & Program",
+    intro: "Memilih layanan dan memahami program perawatan.",
+    items: [
+      ...servicesFaq,
+      {
+        q: "Apakah saya harus menyelesaikan seluruh program?",
+        a: (
+          <p>
+            Program disusun bersama dan dapat ditinjau ulang kapan saja. Fisioterapis akan menjelaskan perkembangan Anda agar keputusan dapat diambil
+            dengan jelas.
+          </p>
+        ),
+      },
+    ],
+  },
+  {
+    id: "home-visit",
+    title: "Home Visit",
+    intro: "Fisioterapi di rumah — persiapan dan area layanan.",
+    items: [...homeVisitFaq, contactFaq[3]],
+  },
+  {
+    id: "biaya-privasi",
+    title: "Biaya & Privasi",
+    intro: "Informasi biaya, pembayaran, dan perlindungan data Anda.",
+    items: [
+      {
+        q: "Berapa biaya layanan di ELPIORA?",
+        a: (
+          <p>
+            Informasi biaya akan disampaikan oleh tim kami saat Anda menghubungi atau mengonfirmasi janji, sesuai layanan yang Anda pilih. Kami tidak
+            mencantumkan harga di situs sampai informasinya dikonfirmasi.
+          </p>
+        ),
+      },
+      {
+        q: "Apakah biaya dapat ditanggung asuransi?",
+        a: <p>Ketentuan asuransi berbeda untuk setiap penyedia dan polis. Silakan tanyakan kepada tim kami serta penyedia asuransi Anda.</p>,
+      },
+      {
+        q: "Bagaimana data saya digunakan?",
+        a: (
+          <p>
+            Data yang Anda kirim melalui formulir digunakan untuk menghubungi Anda terkait permintaan janji. Hindari mencantumkan detail medis yang
+            tidak diperlukan di formulir — informasi kesehatan akan dibahas langsung bersama fisioterapis.
+          </p>
+        ),
+      },
+    ],
+  },
+];

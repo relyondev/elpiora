@@ -58,7 +58,9 @@ type Props = {
   title?: ReactNode;
   intro?: string;
   titleId?: string;
-  tone?: "mint" | "paper";
+  tone?: "mint" | "paper" | "surface";
+  sectionId?: string;
+  eyebrow?: string;
 };
 
 export function Faq({
@@ -68,13 +70,16 @@ export function Faq({
   intro = "Informasi di bawah bersifat umum. Untuk pertanyaan tentang kondisi Anda secara spesifik, fisioterapis akan membantu saat konsultasi.",
   titleId = "faq-title",
   tone = "mint",
+  sectionId = "faq",
+  eyebrow = "FAQ",
 }: Props) {
+  const bg = tone === "mint" ? "bg-mint-100" : tone === "paper" ? "bg-paper" : "bg-surface";
   return (
-    <section id="faq" aria-labelledby={titleId} className={`py-24 md:py-32 ${tone === "mint" ? "bg-mint-100" : "bg-paper"}`}>
+    <section id={sectionId} aria-labelledby={titleId} className={`scroll-mt-[var(--header-h)] py-24 md:py-32 ${bg}`}>
       <div className="shell grid-12 gap-y-12">
         <Reveal className="col-span-4 md:col-span-8 lg:col-span-4">
           <div className="lg:sticky lg:top-[calc(var(--header-h)+48px)]">
-            <SectionIntro index={index} eyebrow="FAQ" titleId={titleId} title={title} />
+            <SectionIntro index={index} eyebrow={eyebrow} titleId={titleId} title={title} />
             <p className="mt-6 max-w-[34ch] text-[0.9375rem] leading-relaxed text-body">{intro}</p>
           </div>
         </Reveal>

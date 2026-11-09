@@ -1,4 +1,5 @@
 import { CareJourney } from "@/components/CareJourney";
+import { ChecklistSection } from "@/components/ContentSections";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { IconCards } from "@/components/IconCards";
@@ -171,6 +172,25 @@ export default function HomeVisitPage() {
           </Reveal>
         </div>
       </section>
+
+      <ChecklistSection
+        eyebrow="Persiapan"
+        titleId="persiapan-title"
+        tone="paper"
+        title={
+          <>
+            Sebelum Fisioterapis <span className="accent">Datang.</span>
+          </>
+        }
+        intro="Beberapa hal sederhana agar sesi di rumah berjalan aman dan nyaman."
+        items={[
+          { title: "Ruang yang cukup untuk bergerak", body: "Area lapang tanpa barang yang mudah tersandung, idealnya dekat kursi yang kokoh." },
+          { title: "Pakaian yang nyaman", body: "Pakaian yang memudahkan bergerak dan memungkinkan area keluhan diperiksa." },
+          { title: "Dokumen pendukung", body: "Hasil pemeriksaan, catatan dokter, atau daftar obat yang sedang digunakan, bila ada." },
+          { title: "Pendamping bila diperlukan", body: "Keluarga atau pendamping dapat ikut mendengarkan penjelasan dan program latihan." },
+          { title: "Informasikan kondisi terbaru", body: "Sampaikan perubahan kondisi sejak sesi sebelumnya kepada fisioterapis." },
+        ]}
+      />
 
       <Faq items={homeVisitFaq} index="04" title={<>Pertanyaan Seputar <span className="accent">Home Visit.</span></>} tone="paper" />
 

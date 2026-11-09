@@ -1,4 +1,5 @@
 import { CareJourney } from "@/components/CareJourney";
+import { ChecklistSection } from "@/components/ContentSections";
 import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { PageHero } from "@/components/PageHero";
@@ -49,6 +50,25 @@ export default function LayananPage() {
       />
 
       <ServiceCatalog />
+
+      <ChecklistSection
+        eyebrow="Panduan Memilih"
+        titleId="memilih-title"
+        tone="paper"
+        title={
+          <>
+            Belum Yakin Layanan <span className="accent">Mana yang Tepat?</span>
+          </>
+        }
+        intro="Anda tidak perlu menentukannya sendiri. Gunakan panduan singkat ini, atau pilih “Belum yakin” pada formulir."
+        items={[
+          { title: "Ada nyeri atau kaku pada otot dan sendi", body: "Mulai dari Pain & Movement — asesmen akan membantu memahami penyebabnya." },
+          { title: "Cedera saat berolahraga", body: "Sports Rehabilitation membantu Anda kembali berlatih secara bertahap." },
+          { title: "Keluhan muncul karena pekerjaan", body: "Workplace Health & Ergonomics berfokus pada kebiasaan dan pengaturan kerja." },
+          { title: "Ingin tetap bugar dan seimbang", body: "Wellness & Movement untuk menjaga kekuatan, kelenturan, dan keseimbangan." },
+          { title: "Sulit bepergian ke klinik", body: "Home Visit membawa sesi fisioterapi ke rumah Anda (area menunggu konfirmasi)." },
+        ]}
+      />
 
       <CareJourney
         index="02"

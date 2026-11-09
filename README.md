@@ -4,7 +4,9 @@
 
 A multi-page website in Bahasa Indonesia (`id-ID`) with an on-site booking form. The layout follows the page mockups in `docs/brand/mockup-0*.webp`; facts come only from `src/config/site.ts`.
 
-**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · `next/font` (Cormorant Garamond, Montserrat, Satisfy). No UI or animation libraries.
+**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · `next/font` (Playfair Display, Montserrat, Kaushan Script). No UI or animation libraries.
+
+**Visual direction (v3):** the official ELPIORA logo plus the #ELPIORAINSIDE poster. See `docs/design-system.md`.
 
 ## Pages
 
@@ -15,8 +17,12 @@ A multi-page website in Bahasa Indonesia (`id-ID`) with an on-site booking form.
 | `/layanan` | Full service catalogue (anchors `#<service-id>`), care process, programmes, FAQ |
 | `/home-visit` | Who it's for, needs, process, benefits, coverage area, FAQ |
 | `/fasilitas` | Atmosphere mosaic, spaces, location & contact |
-| `/testimoni` | Consented testimonials + publishing policy |
+| `/layanan/[id]` | 7 service detail pages: overview, suitability, session content, stages, FAQ, related |
+| `/testimoni` | Consented testimonials, publishing policy, how to share a story |
+| `/faq` | 24 Q&As in 6 topics with a topic index |
 | `/kontak` | **Booking form** (`#formulir`), contact card, booking steps, FAQ, corporate enquiry |
+
+Full routing and directory map: `docs/site-structure.md`.
 
 Every "Buat Janji" CTA goes to `/kontak#formulir`. Service links use `/kontak?layanan=<id>#formulir` to pre-select the service.
 
@@ -56,7 +62,9 @@ All facts live in **`src/config/site.ts`**. The mockups' phone number, address, 
 
 | Item | Config | State |
 |---|---|---|
-| Official logo SVG + favicon | `brand.logo`, `src/app/icon.svg` | Temporary text / neutral icon |
+| Official logo | `public/brand/*`, `brand.logo` | ✅ In use (from the supplied SVG and reversed artwork) |
+| Favicon | `src/app/icon.png` | ✅ Cropped from the official logo (E + figure). Replace if an official icon file exists |
+| Social accounts | `social` | Instagram + TikTok `@elpioraphysio` from the poster. Verify URLs; Facebook URL still needed |
 | Photography (10 slots, with shot briefs) | `images` | Labelled placeholder plates |
 | Phone, email, WhatsApp | `contact` + env | Not set |
 | Address, maps, hours, access | `location` | Not set |
@@ -79,7 +87,7 @@ When all of these are resolved, set `showPlaceholderMarkers: false`.
 
 ## Verification (actually run)
 - `npm run lint`, `npx tsc --noEmit` and `npm run build` pass (7 static pages + 1 API route).
-- axe-core 4.10 (WCAG 2.0–2.2 A/AA + best-practice): **0 violations** on all 7 pages at 1440px and 390px.
+- axe-core 4.10 (WCAG 2.0–2.2 A/AA + best-practice): **0 violations** on 10 routes (incl. service detail pages and /faq) at 1440px and 390px.
 - Keyboard: skip link, dropdown (Enter/Tab/Escape), mobile menu focus trap, accordion and form focus management.
 - No horizontal overflow at 390px, 640px (≈200% zoom) or 1440px.
 - Booking end to end (Playwright): validation, service pre-selection, and all three delivery outcomes, including a real webhook POST to a local receiver with the secret header.

@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Montserrat, Satisfy } from "next/font/google";
+import { Kaushan_Script, Montserrat, Playfair_Display } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-// Recommended matches (guidelines §4) — not the custom logotype, which must come from official files.
-const cormorant = Cormorant_Garamond({
+// v3 type (from the official "Move Better. Live Better." poster): Playfair Display headlines,
+// Montserrat body, Kaushan Script brush accents. The logotype itself is always the official image.
+const playfair = Playfair_Display({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -20,11 +21,11 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-// Accent script — tagline only, never navigation, buttons or body copy.
-const satisfy = Satisfy({
+// Brush script — tagline and short accents only, never navigation, buttons or body copy.
+const kaushan = Kaushan_Script({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-satisfy",
+  variable: "--font-kaushan",
   display: "swap",
 });
 
@@ -52,14 +53,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F7FAF8",
+  themeColor: "#F8FBFA",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="id-ID" className={`${cormorant.variable} ${montserrat.variable} ${satisfy.variable}`}>
+    <html lang="id-ID" className={`${playfair.variable} ${montserrat.variable} ${kaushan.variable}`}>
       <body>
         <a
           href="#konten"

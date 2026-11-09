@@ -1,4 +1,7 @@
 import { About } from "@/components/About";
+import { ChecklistSection } from "@/components/ContentSections";
+import { Logo } from "@/components/ui/Logo";
+import { BrushUnderline, WaveRibbons } from "@/components/ui/Ornaments";
 import { FinalCta } from "@/components/FinalCta";
 import { IconCards } from "@/components/IconCards";
 import { PageHero } from "@/components/PageHero";
@@ -82,6 +85,39 @@ export default function TentangPage() {
         </div>
       </section>
 
+      {/* Philosophy — the official tagline explained */}
+      <section aria-labelledby="filosofi-title" className="relative isolate overflow-hidden bg-paper py-24 md:py-32">
+        <WaveRibbons className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 w-full" />
+        <div className="shell grid items-center gap-12 lg:grid-cols-12">
+          <Reveal className="lg:col-span-5">
+            <Logo variant="full" className="w-full max-w-[420px]" />
+          </Reveal>
+          <Reveal delay={100} className="lg:col-span-6 lg:col-start-7">
+            <SectionIntro eyebrow="Filosofi Kami" titleId="filosofi-title" title={<>Dua Langkah, <span className="accent">Satu Tujuan.</span></>} />
+            <p className="t-script mt-8 inline-block -rotate-2 text-3xl text-deep md:text-4xl">{siteConfig.brand.tagline}</p>
+            <BrushUnderline className="mt-1 h-3 w-64" />
+            <div className="mt-8 grid gap-6 sm:grid-cols-2">
+              <div>
+                <p className="font-serif text-xl font-semibold text-deep italic">Restore function</p>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
+                  Memulihkan fungsi gerak — kemampuan untuk berjalan, bekerja, berolahraga, dan merawat diri dengan nyaman.
+                </p>
+              </div>
+              <div>
+                <p className="font-serif text-xl font-semibold text-deep italic">Renew life</p>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-body">
+                  Memperbarui kualitas hidup — kembali pada hal-hal yang Anda sukai, dengan tubuh yang lebih siap dan percaya diri.
+                </p>
+              </div>
+            </div>
+            <p className="mt-6 text-[0.9375rem] leading-relaxed text-body">
+              Figur dalam logo ELPIORA — sosok yang bergerak dengan tulang belakang bertitik emas — menggambarkan hal yang sama: gerak yang pulih,
+              tubuh yang tegak, dan semangat untuk melangkah lagi.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Why ELPIORA */}
       <section aria-labelledby="alasan-title" className="bg-paper py-24 md:py-32">
         <div className="shell grid-12 gap-y-12">
@@ -101,6 +137,24 @@ export default function TentangPage() {
           </Reveal>
         </div>
       </section>
+
+      <ChecklistSection
+        eyebrow="Komitmen Kami"
+        titleId="komitmen-title"
+        title={
+          <>
+            Yang Kami Jaga dalam <span className="accent">Setiap Sesi.</span>
+          </>
+        }
+        intro="Prinsip yang menjadi pegangan kami dalam mendampingi setiap pasien."
+        items={[
+          { title: "Persetujuan Anda", body: "Setiap penanganan dijelaskan terlebih dahulu dan dilakukan dengan persetujuan Anda." },
+          { title: "Komunikasi yang jelas", body: "Temuan asesmen, rencana, dan perkembangan disampaikan dengan bahasa yang mudah dipahami." },
+          { title: "Praktik berbasis bukti", body: "Program disusun dengan mengacu pada praktik fisioterapi yang didukung ilmu pengetahuan terkini." },
+          { title: "Kerahasiaan data", body: "Informasi kesehatan Anda diperlakukan secara rahasia dan hanya digunakan untuk keperluan perawatan." },
+          { title: "Rujukan bila diperlukan", body: "Bila ada tanda yang memerlukan pemeriksaan lain, kami akan menyarankan Anda berkonsultasi dengan dokter." },
+        ]}
+      />
 
       <Team showPlaceholder />
 

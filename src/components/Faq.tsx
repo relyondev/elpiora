@@ -61,7 +61,6 @@ type Props = {
   tone?: "mint" | "paper" | "surface";
   sectionId?: string;
   eyebrow?: string;
-  footer?: ReactNode;
 };
 
 export function Faq({
@@ -73,7 +72,6 @@ export function Faq({
   tone = "mint",
   sectionId = "faq",
   eyebrow = "FAQ",
-  footer,
 }: Props) {
   const bg = tone === "mint" ? "bg-mint-100" : tone === "paper" ? "bg-paper" : "bg-surface";
   return (
@@ -92,7 +90,6 @@ export function Faq({
               <FaqRow key={item.q} item={item} defaultOpen={i === 0} />
             ))}
           </ul>
-          {footer ? <div className="mt-6">{footer}</div> : null}
         </Reveal>
       </div>
     </section>

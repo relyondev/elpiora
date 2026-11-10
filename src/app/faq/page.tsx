@@ -3,15 +3,14 @@ import { Faq } from "@/components/Faq";
 import { FinalCta } from "@/components/FinalCta";
 import { PageHero } from "@/components/PageHero";
 import { LinkButton } from "@/components/ui/Button";
-import { ChatIcon } from "@/components/ui/Icon";
-import { siteConfig } from "@/config/site";
+import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { faqCategories } from "@/content/faq";
-import { bookingHref } from "@/lib/booking";
 import { pageMeta } from "@/lib/meta";
+import { ChatIcon } from "@/components/ui/Icon";
 
 export const metadata = pageMeta(
-  "FAQ: Pertanyaan yang Sering Diajukan | ELPIORA",
-  "Jawaban seputar fisioterapi, Home Visit, booking, pembayaran, keamanan, dan privasi di ELPIORA.",
+  "FAQ: Pertanyaan yang Sering Diajukan",
+  "Jawaban seputar fisioterapi, janji temu, sesi pertama, layanan, home visit, biaya, dan privasi di ELPIORA.",
   "/faq",
 );
 
@@ -19,29 +18,28 @@ export default function FaqPage() {
   return (
     <main id="konten">
       <PageHero
+        note={{ label: "Belum menemukan jawaban?", text: "Tanyakan lewat formulir janji", Icon: ChatIcon }}
         eyebrow="FAQ"
         title={
           <>
             Ada Pertanyaan? <span className="accent">Kami Bantu Jawab.</span>
           </>
         }
-        lead={<p>Kumpulan jawaban seputar fisioterapi, Home Visit, booking dan pembayaran, hingga keamanan dan privasi data Anda.</p>}
+        lead={<p>Kumpulan jawaban seputar fisioterapi, janji temu, sesi pertama, layanan, hingga privasi data Anda.</p>}
         actions={
           <>
-            <LinkButton href="#topik" variant="champagne">
-              Pilih Topik Pertanyaan
-            </LinkButton>
-            <LinkButton href={bookingHref()} variant="secondary-on-dark">
-              Konsultasi &amp; Booking
+            <LinkButton variant="champagne" href="#topik">Pilih Topik Pertanyaan</LinkButton>
+            <LinkButton variant="secondary-on-dark" href={BOOKING_PATH}>
+              Buat Janji
             </LinkButton>
           </>
         }
         image={siteConfig.images.about}
-        note={{ label: "Belum menemukan jawaban?", text: "Tanyakan lewat formulir booking", Icon: ChatIcon }}
       />
 
+      {/* Topic index */}
       <nav id="topik" aria-label="Topik FAQ" className="shell scroll-mt-[calc(var(--header-h)+16px)] py-12 md:py-16">
-        <p className="t-eyebrow">Pilih topik</p>
+        <p className="t-eyebrow">Pilih Topik</p>
         <ul className="mt-5 flex flex-wrap gap-3">
           {faqCategories.map((c) => (
             <li key={c.id}>
@@ -58,13 +56,23 @@ export default function FaqPage() {
       </nav>
 
       {faqCategories.map((c, i) => (
-        <Faq key={c.id} sectionId={c.id} items={c.items} eyebrow="FAQ" title={c.title} intro={c.intro} titleId={`faq-${c.id}-title`} tone={i % 2 === 0 ? "mint" : "surface"} />
+        <Faq
+          key={c.id}
+          sectionId={c.id}
+          items={c.items}
+          index={String(i + 1).padStart(2, "0")}
+          eyebrow="FAQ"
+          title={c.title}
+          intro={c.intro}
+          titleId={`faq-${c.id}-title`}
+          tone={i % 2 === 0 ? "mint" : "surface"}
+        />
       ))}
 
       <FinalCta
         title="Belum Menemukan Jawabannya?"
         lead="Ajukan pertanyaan atau permintaan janji melalui formulir, dan tim kami akan menghubungi Anda."
-        primaryLabel="Konsultasi & Booking"
+        primaryLabel="Hubungi Kami"
         secondaryLabel="Lihat Daftar Layanan"
       />
     </main>

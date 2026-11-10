@@ -1,143 +1,269 @@
 import Link from "next/link";
 import type { FaqItem } from "@/components/Faq";
+import { BOOKING_PATH, siteConfig } from "@/config/site";
 
-/**
- * FAQ content from the blueprint (page 27). Answers that depend on operational facts the clinic has not
- * confirmed (prices, policies, insurance, packages) say so plainly instead of inventing a policy.
- */
+/** FAQ content per page. Safe, general guidance only — no triage or outcome promises. */
 
-const link = "font-semibold underline decoration-gold underline-offset-4";
-const pending = (what: string) => (
-  <p>
-    {what} sedang kami konfirmasi dan akan diperbarui di halaman ini. Untuk informasi terbaru, hubungi tim lewat halaman{" "}
-    <Link href="/contact" className={link}>
-      Contact
-    </Link>
-    .
-  </p>
-);
+const linkCls = "underline decoration-gold underline-offset-4";
 
+export const generalFaq: FaqItem[] = [
+  {
+    q: "Bagaimana cara membuat janji?",
+    a: (
+      <p>
+        Isi <Link href={BOOKING_PATH} className={linkCls}>formulir permintaan janji</Link> di halaman Kontak. Tim kami akan menghubungi Anda
+        untuk mengonfirmasi jadwal yang tersedia.
+      </p>
+    ),
+  },
+  {
+    q: "Apa yang perlu dipersiapkan sebelum sesi?",
+    a: (
+      <p>
+        Kenakan pakaian yang nyaman dan memudahkan bergerak. Jika ada, bawa hasil pemeriksaan, catatan medis, atau rujukan sebelumnya yang
+        berkaitan dengan keluhan Anda. Datang beberapa menit lebih awal juga membantu sesi berjalan lebih tenang.
+      </p>
+    ),
+  },
+  {
+    q: "Apakah perlu konsultasi terlebih dahulu?",
+    a: (
+      <p>
+        Sesi pertama umumnya diawali dengan konsultasi dan asesmen, agar fisioterapis dapat memahami kondisi Anda sebelum menyusun program.
+        Untuk pertanyaan seputar kebutuhan rujukan, silakan hubungi tim kami.
+      </p>
+    ),
+  },
+  {
+    q: "Bagaimana mengetahui layanan yang sesuai?",
+    a: (
+      <p>
+        Anda tidak perlu menentukannya sendiri. Pilih &ldquo;Belum yakin&rdquo; pada formulir. Ceritakan keluhan dan tujuan Anda saat
+        konsultasi, dan fisioterapis akan membantu menjelaskan pilihan yang tersedia. Bila keluhan terasa berat, muncul tiba-tiba, atau Anda
+        ragu, sebaiknya konsultasikan juga dengan dokter.
+      </p>
+    ),
+  },
+  {
+    q: "Di mana lokasi ELPIORA?",
+    a: siteConfig.location.address ? (
+      <p>{siteConfig.location.address}</p>
+    ) : (
+      <p>Informasi alamat dan lokasi klinik sedang kami siapkan dan akan diumumkan di halaman Kontak.</p>
+    ),
+  },
+];
+
+export const servicesFaq: FaqItem[] = [
+  {
+    q: "Apakah saya memerlukan rujukan untuk fisioterapi?",
+    a: <p>Kebutuhan rujukan dapat berbeda untuk tiap kondisi. Tim kami akan membantu menjelaskan saat Anda menghubungi kami.</p>,
+  },
+  {
+    q: "Berapa banyak sesi yang saya butuhkan?",
+    a: (
+      <p>
+        Jumlah sesi berbeda untuk setiap orang, tergantung kondisi, tujuan, dan perkembangan Anda. Fisioterapis akan mendiskusikan perkiraan
+        program setelah asesmen.
+      </p>
+    ),
+  },
+  {
+    q: "Apakah fisioterapi sesuai untuk lansia?",
+    a: (
+      <p>
+        Fisioterapi dapat disesuaikan untuk berbagai usia. Program untuk lansia disusun dengan memperhatikan kondisi kesehatan secara
+        keseluruhan, termasuk arahan dari dokter yang merawat.
+      </p>
+    ),
+  },
+];
+
+export const homeVisitFaq: FaqItem[] = [
+  {
+    q: "Peralatan apa yang dibawa saat home visit?",
+    a: (
+      <p>
+        Fisioterapis akan menginformasikan kebutuhan peralatan sebelum kunjungan. Umumnya sesi memanfaatkan peralatan latihan portabel yang
+        disesuaikan dengan program Anda.
+      </p>
+    ),
+  },
+  {
+    q: "Berapa lama satu sesi home visit?",
+    a: <p>Durasi sesi akan dikonfirmasi oleh tim saat penjadwalan, sesuai kebutuhan program Anda.</p>,
+  },
+  {
+    q: "Area mana saja yang dilayani?",
+    a: siteConfig.homeVisit.coverageAreas.length ? (
+      <p>Saat ini: {siteConfig.homeVisit.coverageAreas.join(", ")}. Silakan konfirmasi alamat Anda dengan tim kami.</p>
+    ) : (
+      <p>Area layanan home visit sedang kami konfirmasi dan akan diumumkan di halaman ini.</p>
+    ),
+  },
+];
+
+export const contactFaq: FaqItem[] = [
+  {
+    q: "Apakah permintaan dari formulir langsung menjadi janji?",
+    a: <p>Belum. Formulir adalah permintaan janji. Tim kami akan menghubungi Anda untuk mengonfirmasi tanggal dan waktu yang tersedia.</p>,
+  },
+  {
+    q: "Apa yang sebaiknya saya tulis di kolom catatan?",
+    a: (
+      <p>
+        Cukup gambaran singkat, misalnya keluhan utama dan tujuan Anda. Detail medis lengkap akan dibahas langsung bersama fisioterapis saat
+        konsultasi.
+      </p>
+    ),
+  },
+  generalFaq[1],
+  {
+    q: "Bisakah saya meminta home visit?",
+    a: (
+      <p>
+        Bisa diajukan dengan memilih &ldquo;Kunjungan ke rumah&rdquo; pada formulir. Ketersediaan dan area layanan akan dikonfirmasi oleh tim
+        ELPIORA.
+      </p>
+    ),
+  },
+];
+
+/** Full FAQ (/faq), grouped by topic. General guidance only; facts come from siteConfig. */
 export type FaqCategory = { id: string; title: string; intro: string; items: FaqItem[] };
 
-const aboutPhysio: FaqItem[] = [
-  {
-    q: "Apa itu fisioterapi?",
-    a: <p>Fisioterapi adalah pelayanan kesehatan yang membantu menilai dan meningkatkan gerak, fungsi, serta kemampuan beraktivitas melalui pendekatan yang disesuaikan dengan kondisi Anda.</p>,
-  },
-  {
-    q: "Apakah harus sakit terlebih dahulu?",
-    a: <p>Tidak selalu. Sebagian layanan bertujuan meningkatkan kapasitas gerak atau mengelola risiko sebelum muncul keluhan.</p>,
-  },
-  {
-    q: "Apakah perlu rujukan dokter untuk fisioterapi?",
-    a: <p>Bergantung pada kondisi, jalur layanan, dan persyaratan operasional atau klinis yang berlaku. Tim kami akan membantu menjelaskannya.</p>,
-  },
-  {
-    q: "Apakah sesi pertama langsung terapi?",
-    a: <p>Umumnya diawali penilaian lebih dulu. Tindakan bergantung pada hasil pemeriksaan dan keselamatan Anda.</p>,
-  },
-  {
-    q: "Berapa sesi yang dibutuhkan?",
-    a: <p>Berbeda untuk setiap pasien. Jumlah sesi ditentukan setelah asesmen dan evaluasi perkembangan.</p>,
-  },
-  {
-    q: "Apakah terapi selalu menyakitkan?",
-    a: <p>Tidak. Respons dan toleransi Anda terhadap latihan atau teknik perlu dikomunikasikan kepada fisioterapis agar program dapat disesuaikan.</p>,
-  },
-  {
-    q: "Apakah semua pasien cocok untuk dry needling?",
-    a: (
-      <p>
-        Tidak. Ada indikasi dan risiko yang perlu diskrining. Baca penjelasannya di halaman{" "}
-        <Link href="/services/dry-needling" className={link}>
-          Dry Needling Therapy
-        </Link>
-        .
-      </p>
-    ),
-  },
-];
-
-const homeVisit: FaqItem[] = [
-  {
-    q: "Apakah bisa terapi di rumah?",
-    a: (
-      <p>
-        Layanan Home Visit direncanakan untuk wilayah yang ditentukan dan bergantung pada ketersediaan tim. Lihat{" "}
-        <Link href="/home-visit" className={link}>
-          halaman Home Visit
-        </Link>
-        .
-      </p>
-    ),
-  },
-  {
-    q: "Apa persiapan di rumah?",
-    a: <p>Siapkan tempat yang aman, ruang gerak yang cukup, pakaian yang nyaman, dan informasi medis yang relevan.</p>,
-  },
-  {
-    q: "Apakah lansia dan pasien stroke bisa mendapat Home Visit?",
-    a: <p>Dapat dipertimbangkan berdasarkan kondisi dan penilaian keselamatan oleh fisioterapis.</p>,
-  },
-  { q: "Apakah ada biaya transport?", a: pending("Kebijakan biaya perjalanan per zona") },
-];
-
-const booking: FaqItem[] = [
-  {
-    q: "Bagaimana memilih layanan yang sesuai?",
-    a: (
-      <p>
-        Anda tidak perlu menentukannya sendiri. Hubungi tim atau pilih &ldquo;Belum yakin&rdquo; di{" "}
-        <Link href="/booking" className={link}>
-          formulir booking
-        </Link>
-        . Pemilihan akhir didasarkan pada asesmen.
-      </p>
-    ),
-  },
-  { q: "Bisakah mengubah jadwal (reschedule)?", a: pending("Kebijakan perubahan jadwal") },
-  { q: "Apa metode pembayarannya?", a: pending("Informasi metode pembayaran") },
-  { q: "Apakah menerima asuransi?", a: pending("Informasi penerimaan asuransi") },
-  { q: "Apakah tersedia paket?", a: pending("Informasi paket layanan") },
-];
-
-const safety: FaqItem[] = [
-  {
-    q: "Bagaimana bila kondisi saya darurat?",
-    a: <p>Website dan WhatsApp ELPIORA tidak untuk keadaan darurat. Hubungi layanan darurat 119 atau segera menuju IGD terdekat.</p>,
-  },
-  {
-    q: "Bagaimana privasi informasi kesehatan saya?",
-    a: (
-      <p>
-        Data yang Anda kirim digunakan untuk menghubungi Anda terkait permintaan janji. Penjelasan lengkap tersedia di{" "}
-        <Link href="/privacy-policy" className={link}>
-          kebijakan privasi
-        </Link>
-        .
-      </p>
-    ),
-  },
-];
-
 export const faqCategories: FaqCategory[] = [
-  { id: "fisioterapi", title: "Tentang fisioterapi", intro: "Pengenalan singkat tentang fisioterapi.", items: aboutPhysio },
-  { id: "home-visit", title: "Home Visit", intro: "Fisioterapi di rumah: persiapan dan area layanan.", items: homeVisit },
-  { id: "booking", title: "Booking dan pembayaran", intro: "Memilih layanan, jadwal, dan pembayaran.", items: booking },
-  { id: "keamanan", title: "Keamanan dan rujukan", intro: "Kondisi darurat dan perlindungan data.", items: safety },
-];
-
-/** Five questions for the home page (blueprint, home section 09). */
-export const homeFaq: FaqItem[] = [
-  aboutPhysio[2],
   {
-    q: "Apakah konsultasi awal termasuk asesmen?",
-    a: <p>Umumnya sesi pertama diawali penilaian. Tindakan bergantung pada hasil pemeriksaan dan keselamatan Anda.</p>,
+    id: "umum",
+    title: "Tentang Fisioterapi",
+    intro: "Pengenalan singkat tentang fisioterapi dan pendekatan ELPIORA.",
+    items: [
+      {
+        q: "Apa itu fisioterapi?",
+        a: (
+          <p>
+            Fisioterapi adalah layanan kesehatan yang berfokus pada gerak dan fungsi tubuh. Fisioterapis menilai cara tubuh Anda bergerak, lalu
+            menggunakan latihan, edukasi, dan penanganan lain yang sesuai untuk membantu Anda bergerak lebih nyaman dan menjalani aktivitas
+            sehari-hari.
+          </p>
+        ),
+      },
+      {
+        q: "Keluhan apa saja yang umumnya ditangani fisioterapis?",
+        a: (
+          <p>
+            Contohnya keluhan otot dan sendi (seperti nyeri punggung, leher, bahu, atau lutut), pemulihan cedera olahraga, pemulihan setelah
+            operasi, keluhan terkait postur dan pekerjaan, serta gangguan keseimbangan. Kesesuaian untuk kondisi Anda akan dinilai saat asesmen.
+          </p>
+        ),
+      },
+      {
+        q: "Apa yang membedakan pendekatan ELPIORA?",
+        a: (
+          <p>
+            Kami memulai dengan mendengarkan, menjelaskan setiap langkah dengan jelas, dan menyusun program yang personal sesuai tujuan Anda, dalam
+            suasana yang tenang dan nyaman. Selengkapnya di halaman{" "}
+            <Link href="/tentang" className={linkCls}>
+              Tentang
+            </Link>
+            .
+          </p>
+        ),
+      },
+      generalFaq[3],
+    ],
   },
   {
-    q: "Berapa kali sesi fisioterapi biasanya diperlukan?",
-    a: <p>Berbeda untuk setiap pasien. Jumlah sesi ditentukan setelah asesmen dan evaluasi perkembangan.</p>,
+    id: "janji",
+    title: "Janji & Jadwal",
+    intro: "Cara membuat, mengubah, dan menyiapkan janji temu.",
+    items: [
+      generalFaq[0],
+      contactFaq[0],
+      {
+        q: "Bagaimana jika saya perlu mengubah atau membatalkan jadwal?",
+        a: <p>Silakan hubungi tim kami sesegera mungkin. Kebijakan perubahan jadwal akan diinformasikan saat konfirmasi janji.</p>,
+      },
+      {
+        q: "Berapa lama satu sesi berlangsung?",
+        a: <p>Durasi sesi dapat berbeda sesuai jenis layanan dan kebutuhan program. Tim kami akan menginformasikannya saat konfirmasi jadwal.</p>,
+      },
+      generalFaq[4],
+    ],
   },
-  homeVisit[0],
-  booking[0],
+  {
+    id: "sesi-pertama",
+    title: "Sesi Pertama",
+    intro: "Apa yang perlu disiapkan dan apa yang akan terjadi.",
+    items: [
+      generalFaq[1],
+      generalFaq[2],
+      {
+        q: "Apa yang terjadi pada sesi pertama?",
+        a: (
+          <p>
+            Umumnya diawali dengan percakapan tentang keluhan, riwayat, dan tujuan Anda, dilanjutkan asesmen gerak. Setelah itu fisioterapis akan
+            menjelaskan temuan dan mendiskusikan rencana perawatan bersama Anda.
+          </p>
+        ),
+      },
+      contactFaq[1],
+      {
+        q: "Bolehkah saya ditemani keluarga?",
+        a: <p>Tentu. Pendamping dapat membantu, terutama bila Anda membutuhkan bantuan bergerak atau ingin keluarga ikut memahami program latihan.</p>,
+      },
+    ],
+  },
+  {
+    id: "layanan",
+    title: "Layanan & Program",
+    intro: "Memilih layanan dan memahami program perawatan.",
+    items: [
+      ...servicesFaq,
+      {
+        q: "Apakah saya harus menyelesaikan seluruh program?",
+        a: (
+          <p>
+            Program disusun bersama dan dapat ditinjau ulang kapan saja. Fisioterapis akan menjelaskan perkembangan Anda agar keputusan dapat diambil
+            dengan jelas.
+          </p>
+        ),
+      },
+    ],
+  },
+  {
+    id: "home-visit",
+    title: "Home Visit",
+    intro: "Persiapan dan area layanan fisioterapi di rumah.",
+    items: [...homeVisitFaq, contactFaq[3]],
+  },
+  {
+    id: "biaya-privasi",
+    title: "Biaya & Privasi",
+    intro: "Informasi biaya, pembayaran, dan perlindungan data Anda.",
+    items: [
+      {
+        q: "Berapa biaya layanan di ELPIORA?",
+        a: (
+          <p>
+            Informasi biaya akan disampaikan oleh tim kami saat Anda menghubungi atau mengonfirmasi janji, sesuai layanan yang Anda pilih. Kami tidak
+            mencantumkan harga di situs sampai informasinya dikonfirmasi.
+          </p>
+        ),
+      },
+      {
+        q: "Apakah biaya dapat ditanggung asuransi?",
+        a: <p>Ketentuan asuransi berbeda untuk setiap penyedia dan polis. Silakan tanyakan kepada tim kami serta penyedia asuransi Anda.</p>,
+      },
+      {
+        q: "Bagaimana data saya digunakan?",
+        a: (
+          <p>
+            Data yang Anda kirim melalui formulir digunakan untuk menghubungi Anda terkait permintaan janji. Hindari mencantumkan detail medis yang
+            tidak diperlukan di formulir. Informasi kesehatan akan dibahas langsung bersama fisioterapis.
+          </p>
+        ),
+      },
+    ],
+  },
 ];

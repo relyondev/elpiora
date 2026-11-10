@@ -9,7 +9,6 @@ type Props = {
   lead?: string;
   primaryLabel?: string;
   primaryHref?: string;
-  primaryExternal?: boolean;
   secondaryLabel?: string;
   secondaryHref?: string;
 };
@@ -19,9 +18,8 @@ export function FinalCta({
   lead = "Ceritakan kebutuhan Anda, dan kami akan membantu menemukan langkah awal yang sesuai.",
   primaryLabel = "Buat Janji Konsultasi",
   primaryHref = BOOKING_PATH,
-  primaryExternal = false,
   secondaryLabel = "Lihat Daftar Layanan",
-  secondaryHref = "/services",
+  secondaryHref = "/layanan",
 }: Props) {
   return (
     <section aria-labelledby="cta-title" className="py-6 md:py-10">
@@ -41,7 +39,7 @@ export function FinalCta({
             <p className="mx-auto mt-6 max-w-[42ch] text-[1.0625rem] leading-relaxed text-mint-200">{lead}</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <LinkButton href={primaryHref} external={primaryExternal} variant="primary-on-dark">
+              <LinkButton href={primaryHref} variant="primary-on-dark">
                 {primaryLabel}
               </LinkButton>
               <LinkButton href={secondaryHref} variant="champagne">

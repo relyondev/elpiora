@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 type Props = {
   index?: string;
-  eyebrow?: string;
+  eyebrow: string;
   title: ReactNode;
   titleId: string;
   className?: string;
@@ -13,13 +13,11 @@ type Props = {
 export function SectionIntro({ eyebrow, title, titleId, className = "", as: Heading = "h2" }: Props) {
   return (
     <div className={className}>
-      {eyebrow ? (
-        <p className="t-eyebrow flex items-center gap-4">
-          <span className="hairline w-10" aria-hidden="true" />
-          <span>{eyebrow}</span>
-        </p>
-      ) : null}
-      <Heading id={titleId} className={`t-h2 ${eyebrow ? "mt-6" : ""}`}>
+      <p className="t-eyebrow flex items-center gap-4">
+        <span className="hairline w-10" aria-hidden="true" />
+        <span>{eyebrow}</span>
+      </p>
+      <Heading id={titleId} className="t-h2 mt-6">
         {title}
       </Heading>
     </div>

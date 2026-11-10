@@ -1,10 +1,10 @@
 /**
- * ELPIORA: central site configuration.
+ * ELPIORA — central site configuration.
  *
  * Every business fact the website displays lives here, so nothing factual is
  * scattered through components. Anything not yet supplied by ELPIORA is `null`
  * (or an empty list) and marked `TODO_CONFIRM`. Components render an honest
- * "menunggu konfirmasi" state for nulls and never invent a value.
+ * "menunggu konfirmasi" state for nulls — they never invent a value.
  *
  * Note on the page mockups (docs/brand/mockup-*.webp): they are AI concept
  * art. Their phone number, address, email, statistics, team members and
@@ -30,22 +30,22 @@ export type ServiceAvailability = "listed" | "unconfirmed";
 export type ServiceIcon = "movement" | "sport" | "workplace" | "wellness" | "needle" | "neuro" | "home";
 
 export type Service = {
-  /** URL slug: /services/<id> (from the content blueprint). */
   id: string;
-  /** Service names stay in English, as in the blueprint. */
+  /** Service names are kept in English as supplied in the brief and mockups. */
   title: string;
-  /** Short descriptor under the title. */
+  /** Indonesian sub-label. */
   label: string;
-  /** Card text from the blueprint. */
   description: string;
   icon: ServiceIcon;
   /**
-   * "listed"      - wording from the blueprint, still pending clinical review.
-   * "unconfirmed" - shown with a visible "menunggu konfirmasi" tag until
+   * "listed"      — provided in the original brief, wording still editable (TODO_CONFIRM).
+   * "unconfirmed" — shown with a visible "menunggu konfirmasi" badge until
    *                 qualifications and availability are confirmed.
    */
   availability: ServiceAvailability;
 };
+
+export type Program = { id: string; title: string; description: string };
 
 export type TeamMember = {
   name: string;
@@ -110,19 +110,14 @@ export const siteConfig = {
       { title: "Precise", label: "Teliti dalam setiap gerak", body: "Asesmen dan program disusun dengan cermat." },
       { title: "Uplifting", label: "Menuju hari yang lebih baik", body: "Mendampingi dengan hangat dan penuh semangat." },
     ],
-    /** Blueprint drafts "untuk disetujui" (page 02). TODO_CONFIRM with ELPIORA before launch. */
+    /**
+     * TODO_CONFIRM — DRAFT mission & vision written for the prototype.
+     * Replace with ELPIORA's own statements (or approve these).
+     */
     mission:
-      "Membantu individu meningkatkan kemampuan bergerak dan kualitas hidup melalui pelayanan fisioterapi yang personal, profesional, edukatif, dan berorientasi pada fungsi.",
+      "Memberikan layanan fisioterapi dan kesehatan gerak yang personal, jelas, dan penuh empati, untuk membantu setiap orang kembali bergerak dengan nyaman.",
     vision:
-      "Menjadi layanan fisioterapi dan wellness yang dipercaya dalam mendampingi masyarakat untuk bergerak lebih baik sepanjang tahap kehidupan.",
-    /** Core values proposed in the blueprint ("usulan editorial untuk dikonfirmasi"). */
-    values: [
-      { title: "Clinical reasoning & evidence-informed care", body: "Keputusan didasarkan pada asesmen, pengetahuan ilmiah, dan kebutuhan pasien." },
-      { title: "Personalised care", body: "Rencana terapi tidak disamaratakan untuk semua orang." },
-      { title: "Compassion & respect", body: "Memberi ruang untuk mendengar dan memahami pasien." },
-      { title: "Active rehabilitation", body: "Memberdayakan pasien lewat latihan dan edukasi." },
-      { title: "Continuity", body: "Memantau kemajuan dan menyesuaikan sasaran." },
-    ],
+      "Menjadi tempat pemulihan gerak yang dipercaya karena ketelitian klinis, perhatian personal, dan suasana yang menenangkan.",
     missionIsDraft: true,
   },
 
@@ -138,25 +133,21 @@ export const siteConfig = {
 
   contact: {
     /** TODO_CONFIRM — set NEXT_PUBLIC_WHATSAPP_NUMBER (international digits, e.g. 6281234567890). */
-    // DUMMY fallback number (not real). The env variable overrides it.
-    whatsappNumber: parseWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) ?? "628000000000",
-    // Blueprint wording. No diagnosis or sensitive details belong in a prefilled URL.
-    whatsappMessage: "Halo ELPIORA, saya ingin informasi booking fisioterapi. Pilihan layanan: [___]. Area: [___]. Kapan jadwal tersedia?",
-    phone: "+62 21 5550 0100" as string | null, // DUMMY, replace with the real number
-    email: "halo@elpiora.example" as string | null, // DUMMY, replace with the real address
+    whatsappNumber: parseWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
+    whatsappMessage:
+      "Halo ELPIORA, saya ingin menjadwalkan konsultasi fisioterapi. Boleh saya mendapatkan informasi jadwal yang tersedia?",
+    phone: null as string | null, // TODO_CONFIRM — display format, e.g. "+62 21 0000 0000"
+    email: null as string | null, // TODO_CONFIRM
   },
 
   location: {
     /** TODO_CONFIRM — do not publish a branch, address or service area (BSD, Tangerang Selatan, Jakarta) until verified. */
-    branchName: "ELPIORA Studio (contoh)" as string | null, // DUMMY
-    address: "Jl. Contoh Sehat No. 12, BSD City (alamat contoh)" as string | null, // DUMMY
-    city: "Tangerang Selatan" as string | null, // DUMMY
+    branchName: null as string | null,
+    address: null as string | null,
+    city: null as string | null,
     mapsUrl: null as string | null,
-    hours: [
-      { days: "Senin - Jumat", hours: "08.00 - 19.00" },
-      { days: "Sabtu", hours: "08.00 - 15.00" },
-    ] as OpeningHours[] | null, // DUMMY
-    access: "Area parkir tersedia (contoh)." as string | null, // DUMMY: parking / public transport notes
+    hours: null as OpeningHours[] | null,
+    access: null as string | null, // parking / public transport notes
   },
 
   /**
@@ -169,77 +160,85 @@ export const siteConfig = {
     { label: "TikTok", handle: "@elpioraphysio", href: "https://www.tiktok.com/@elpioraphysio", icon: "tiktok" },
   ] as { label: string; handle: string; href: string; icon: "instagram" | "tiktok" | "facebook" }[],
 
-  /** The six service categories from the content blueprint (section B/D). */
   services: [
     {
-      id: "musculoskeletal-physiotherapy",
+      id: "pain-movement",
       title: "Pain & Movement",
-      label: "Musculoskeletal & orthopaedic physiotherapy",
-      description: "Nyeri leher, bahu, punggung, pinggang, lutut, pinggul, kekakuan sendi, pemulihan cedera dan operasi ortopedi.",
+      label: "Nyeri & Fungsi Gerak",
+      description:
+        "Penanganan keluhan muskuloskeletal (seperti nyeri leher, punggung, atau sendi) dengan fokus pada mobilitas dan fungsi gerak sehari-hari.",
       icon: "movement",
       availability: "listed",
     },
     {
       id: "sports-rehabilitation",
       title: "Sports Rehabilitation",
-      label: "Sports physiotherapy & return to sport",
-      description: "Penilaian cedera olahraga, latihan pemulihan, penguatan, kontrol gerak, pencegahan cedera berulang, dan return-to-sport.",
+      label: "Rehabilitasi Olahraga",
+      description:
+        "Dukungan pemulihan setelah cedera olahraga, dengan program bertahap untuk membantu Anda kembali beraktivitas.",
       icon: "sport",
       availability: "listed",
     },
     {
       id: "workplace-ergonomics",
       title: "Workplace Health & Ergonomics",
-      label: "Occupational physiotherapy",
-      description: "Evaluasi workstation, edukasi posisi kerja, strategi bergerak, latihan kekuatan dan mobilitas bagi pekerja.",
+      label: "Kesehatan Kerja & Ergonomi",
+      description:
+        "Penilaian kebutuhan gerak dan ergonomi aktivitas kerja, untuk keseharian di meja kerja maupun di lapangan.",
       icon: "workplace",
       availability: "listed",
     },
     {
-      id: "dry-needling",
-      title: "Dry Needling Therapy",
-      label: "Selective musculoskeletal intervention",
-      description: "Teknik dengan jarum halus untuk indikasi muskuloskeletal terpilih, berdasarkan asesmen, persetujuan, dan kompetensi klinisi.",
-      icon: "needle",
-      availability: "unconfirmed", // TODO_CONFIRM: therapist qualification and readiness
-    },
-    {
       id: "wellness-movement",
-      title: "Wellness & Movement Optimisation",
-      label: "Preventive physiotherapy",
-      description: "Movement screening, mobility, strength, balance, active aging, dan program preventive physiotherapy.",
+      title: "Wellness & Movement",
+      label: "Kesehatan Gerak",
+      description:
+        "Program kesehatan gerak dan kebugaran fungsional untuk menjaga tubuh tetap aktif, seimbang, dan nyaman bergerak.",
       icon: "wellness",
       availability: "listed",
     },
     {
       id: "neurological-rehabilitation",
-      title: "Neurological & Functional Rehabilitation",
-      label: "Neurological physiotherapy",
+      title: "Neurological Rehabilitation",
+      label: "Rehabilitasi Neurologis",
       description:
-        "Latihan setelah stroke, Parkinson, multiple sclerosis, gangguan keseimbangan, pola berjalan, kelemahan otot, kontrol motorik, dan fungsi harian.",
+        "Dukungan latihan gerak, keseimbangan, dan kemandirian setelah kondisi neurologis, disusun bersama tim medis Anda.",
       icon: "neuro",
-      availability: "unconfirmed", // TODO_CONFIRM: complex neurological cases
+      availability: "unconfirmed", // TODO_CONFIRM — appears in mockups only
+    },
+    {
+      id: "dry-needling",
+      title: "Dry Needling",
+      label: "Layanan Tambahan",
+      description:
+        "Informasi layanan ini akan diperbarui setelah kualifikasi terapis dan ketersediaannya dikonfirmasi.",
+      icon: "needle",
+      availability: "unconfirmed",
+    },
+    {
+      id: "home-visit",
+      title: "Home Visit Physiotherapy",
+      label: "Fisioterapi di Rumah",
+      description:
+        "Sesi fisioterapi di rumah Anda bagi yang sulit bepergian. Area dan jadwal kunjungan akan dikonfirmasi oleh tim.",
+      icon: "home",
+      availability: "unconfirmed", // TODO_CONFIRM — appears in mockups only
     },
   ] satisfies Service[],
 
-  /**
-   * Publication gates (blueprint section C/K). A page whose honest content needs real material
-   * returns 404 and is not linked until its gate opens:
-   * - /facilities: real photos and a verified location
-   * - /education: clinically reviewed articles
-   * - /about/our-team: real team members (config `team`)
-   * - /patient-stories: real, consented testimonials (config `testimonials`)
-   */
-  publish: {
-    facilities: false, // TODO_CONFIRM
-    education: false, // TODO_CONFIRM
-  },
+  /** TODO_CONFIRM — specialty programmes shown in the mockups; all pending confirmation. */
+  programs: [
+    { id: "post-operative", title: "Rehabilitasi Pasca-Operasi", description: "Program bertahap untuk membantu mobilitas dan fungsi setelah operasi, sesuai arahan dokter Anda." },
+    { id: "stroke", title: "Rehabilitasi Pasca-Stroke", description: "Latihan kekuatan, koordinasi, dan kemandirian dalam aktivitas sehari-hari." },
+    { id: "posture", title: "Koreksi Postur", description: "Latihan dan edukasi postur untuk kenyamanan saat bekerja dan beraktivitas." },
+    { id: "preventive", title: "Preventive Wellness", description: "Menjaga tubuh tetap kuat, lentur, dan tangguh melalui latihan yang terarah." },
+  ] satisfies Program[],
 
   homeVisit: {
     /** TODO_CONFIRM — set true only once the service, therapists and areas are confirmed. */
-    confirmed: true, // DUMMY
+    confirmed: false,
     /** TODO_CONFIRM — e.g. ["BSD", "Tangerang Selatan"]. Empty = coverage not yet announced. */
-    coverageAreas: ["BSD", "Tangerang Selatan"] as string[], // DUMMY
+    coverageAreas: [] as string[],
   },
 
   /**
@@ -247,39 +246,13 @@ export const siteConfig = {
    * Add members only with real names, verified qualifications, real portraits
    * and their consent.
    */
-  team: [
-    {
-      name: "(Nama Tim Trial) Fisioterapis 1",
-      role: "Fisioterapis (contoh)",
-      credentials: "(Trial) Kualifikasi menunggu data asli",
-      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
-      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
-    },
-    {
-      name: "(Nama Tim Trial) Fisioterapis 2",
-      role: "Fisioterapis (contoh)",
-      credentials: "(Trial) Kualifikasi menunggu data asli",
-      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
-      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
-    },
-    {
-      name: "(Nama Tim Trial) Fisioterapis 3",
-      role: "Fisioterapis (contoh)",
-      credentials: "(Trial) Kualifikasi menunggu data asli",
-      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
-      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
-    },
-  ] as TeamMember[], // DUMMY,
+  team: [] as TeamMember[],
 
   /**
    * TODO_CONFIRM — publish only real testimonials with written consent.
    * Never paraphrase into stronger claims; no star ratings unless verified.
    */
-  testimonials: [
-    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien A", context: "Contoh", consentOnFile: true },
-    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien B", context: "Contoh", consentOnFile: true },
-    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien C", context: "Contoh", consentOnFile: true },
-  ] as Testimonial[], // DUMMY,
+  testimonials: [] as Testimonial[],
 
   images: {
     hero: {
@@ -327,16 +300,6 @@ export const siteConfig = {
       alt: "Detail interior klinik ELPIORA dengan tanaman dan material alami",
       brief: "Detail material · tanaman · tekstur alami",
     },
-    corporateHero: {
-      src: null,
-      alt: "Fisioterapis memandu sesi gerak dan peregangan singkat untuk sekelompok pekerja kantor",
-      brief: "Workshop ergonomi di kantor · peserta asli dengan izin · cahaya alami",
-    },
-    eventHero: {
-      src: null,
-      alt: "Fisioterapis memberi edukasi pemanasan dan pemulihan di sebuah acara olahraga komunitas",
-      brief: "Pos fisioterapi di acara olahraga · peserta asli dengan izin",
-    },
     clinicExercise: {
       src: null,
       alt: "Area latihan klinik ELPIORA",
@@ -353,40 +316,26 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig;
 
-export type NavChild = { label: string; href: string };
-export type NavItem = { label: string; href?: string; children?: NavChild[] };
+export type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
 
-/**
- * Main navigation (blueprint section B). Items whose pages are gated stay out of the
- * menu until the gate opens (antislop R-18, R-24).
- */
 export const navigation: NavItem[] = [
-  { label: "Home", href: "/" },
+  { label: "Beranda", href: "/" },
+  { label: "Tentang", href: "/tentang" },
   {
-    label: "About",
-    href: "/about",
+    label: "Layanan",
+    href: "/layanan",
     children: [
-      { label: "About ELPIORA", href: "/about" },
-      { label: "Our Approach", href: "/about/our-approach" },
-      ...(siteConfig.team.length > 0 ? [{ label: "Our Team", href: "/about/our-team" }] : []),
+      { label: "Semua Layanan", href: "/layanan" },
+      ...siteConfig.services.map((s) => ({ label: s.title, href: `/layanan/${s.id}` })),
     ],
   },
-  {
-    label: "Services",
-    href: "/services",
-    children: [{ label: "All Services", href: "/services" }, ...siteConfig.services.map((s) => ({ label: s.title, href: `/services/${s.id}` }))],
-  },
-  { label: "Conditions", href: "/conditions" },
   { label: "Home Visit", href: "/home-visit" },
-  {
-    label: "Corporate & Events",
-    children: [
-      { label: "Corporate Wellness", href: "/corporate-wellness" },
-      { label: "Event Physiotherapy", href: "/event-physiotherapy" },
-    ],
-  },
-  ...(siteConfig.publish.education ? [{ label: "Education", href: "/education" }] : []),
+  { label: "Fasilitas", href: "/fasilitas" },
+  // antislop R-18/R-24: the testimonials page is linked only once real, consented testimonials exist
+  ...(siteConfig.testimonials.length > 0 ? [{ label: "Testimoni", href: "/testimoni" }] : []),
+  { label: "FAQ", href: "/faq" },
+  { label: "Kontak", href: "/kontak" },
 ];
 
-/** Booking page: the destination of every "book" CTA. */
-export const BOOKING_PATH = "/booking";
+/** The on-site booking form — the primary destination of every "book" CTA. */
+export const BOOKING_PATH = "/kontak#formulir";

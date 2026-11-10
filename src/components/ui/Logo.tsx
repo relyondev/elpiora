@@ -20,7 +20,7 @@ export function Logo({ tone = "on-light", variant = "lockup", className = "", pr
 
   return (
     <Image
-      src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${asset.src}`}
+      src={asset.src}
       alt={logo.alt}
       width={asset.width}
       height={asset.height}

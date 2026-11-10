@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
-/**
- * Per-page metadata. Blueprint SEO titles already end with the brand, so they are used verbatim
- * (`absolute`). Canonical and Open Graph URLs appear only once NEXT_PUBLIC_SITE_URL is set.
- * `index: false` keeps a page out of search while its content is still pending.
- */
-export function pageMeta(title: string, description: string, path: string, opts: { index?: boolean } = {}): Metadata {
-  const url = siteConfig.siteUrl ? `${siteConfig.siteUrl}${path === "/" ? "" : path}` : undefined;
+/** Per-page metadata; canonical/OG URL only once NEXT_PUBLIC_SITE_URL is configured. */
+export function pageMeta(title: string, description: string, path: string): Metadata {
   return {
-    title: { absolute: title },
+    title,
     description,
     alternates: siteConfig.siteUrl ? { canonical: path } : undefined,
-    openGraph: { title, description, url },
-    ...(opts.index === false ? { robots: { index: false, follow: true } } : {}),
+    openGraph: { title: `${title} | ELPIORA`, description, url: siteConfig.siteUrl ? `${siteConfig.siteUrl}${path === "/" ? "" : path}` : undefined },
   };
 }
+
+export const routes = [
+  "/",
+  "/tentang",
+  "/layanan",
+  ...siteConfig.services.map((s) => `/layanan/${s.id}`),
+  "/home-visit",
+  "/fasilitas",
+  ...(siteConfig.testimonials.length > 0 ? ["/testimoni"] : []),
+  "/faq",
+  "/kontak",
+];

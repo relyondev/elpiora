@@ -4,32 +4,27 @@
 
 A multi-page website in Bahasa Indonesia (`id-ID`) with an on-site booking form. The layout follows the page mockups in `docs/brand/mockup-0*.webp`; facts come only from `src/config/site.ts`.
 
-**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · `next/font` (EB Garamond Bold headlines, Montserrat, Kaushan Script). No UI or animation libraries.
+**Stack:** Next.js 15 (App Router) · TypeScript · Tailwind CSS v4 · `next/font` (Playfair Display, Montserrat, Kaushan Script). No UI or animation libraries.
 
 **Visual direction (v3):** the official ELPIORA logo plus the #ELPIORAINSIDE poster. See `docs/design-system.md`.
 
 ## Pages
 
-Structure follows the Content Blueprint. URLs are English, copy is Bahasa Indonesia.
-
 | Route | Content |
 |---|---|
-| `/` | Hero, benefits, condition navigator, 6 services, care steps, home visit, corporate and events, about teaser, FAQ, CTA |
-| `/about`, `/about/our-approach` | Story, mission and vision (draft), values, approach |
-| `/about/our-team` | **Gated**: 404 until `team` in `site.ts` has real entries |
-| `/services`, `/services/[slug]` | Catalogue and 6 service detail pages (Dry Needling and Neurological flagged "menunggu konfirmasi") |
-| `/conditions`, `/conditions/[slug]` | Condition guides with red-flag box |
-| `/programs/[slug]` | Post-operative rehabilitation, healthy aging |
-| `/home-visit` | Home Visit service, process, coverage, form entry |
-| `/corporate-wellness`, `/event-physiotherapy` | Enquiry pages with lead form (`/api/enquiry`) |
-| `/booking` | Booking form (`?service=&type=clinic\|home` preselects) |
-| `/contact`, `/faq`, `/pricing` (noindex) | Contact, 18 Q&As in 4 groups, pricing placeholders |
-| `/privacy-policy`, `/terms`, `/medical-disclaimer` | Legal pages (privacy and terms are drafts for legal review) |
-| `/facilities`, `/patient-stories`, `/education` | **Gated**: 404 until `publish.*` flags / testimonials exist |
+| `/` Beranda | Hero, approach, services, care journey, home visit + testimonials, FAQ, CTA |
+| `/tentang` | Story, mission & vision (draft), brand traits, why ELPIORA, team, testimonials |
+| `/layanan` | Full service catalogue (anchors `#<service-id>`), care process, programmes, FAQ |
+| `/home-visit` | Who it's for, needs, process, benefits, coverage area, FAQ |
+| `/fasilitas` | Atmosphere mosaic, spaces, location & contact |
+| `/layanan/[id]` | 7 service detail pages: overview, suitability, session content, stages, FAQ, related |
+| `/testimoni` | Consented testimonials, publishing policy, how to share a story |
+| `/faq` | 24 Q&As in 6 topics with a topic index |
+| `/kontak` | **Booking form** (`#formulir`), contact card, booking steps, FAQ, corporate enquiry |
 
-Old Indonesian URLs (`/tentang`, `/layanan/...`, `/kontak`, ...) redirect permanently. Full map: `docs/site-structure.md`.
+Full routing and directory map: `docs/site-structure.md`.
 
-CTAs use `bookingHref(service?, type?)` from `src/lib/booking.ts`.
+Every "Buat Janji" CTA goes to `/kontak#formulir`. Service links use `/kontak?layanan=<id>#formulir` to pre-select the service.
 
 ## Run
 
@@ -42,7 +37,7 @@ npm run build && npm start
 
 ## Booking form delivery
 
-`/api/enquiry` (corporate and event forms) works the same way. The booking form validates on the client and again on the server (`src/app/api/booking/route.ts`). Where the request goes depends on configuration:
+The form validates on the client and again on the server (`src/app/api/booking/route.ts`). Where the request goes depends on configuration:
 
 | Configured | Result shown to the visitor |
 |---|---|

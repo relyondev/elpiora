@@ -1,14 +1,9 @@
 import { BOOKING_PATH, siteConfig } from "@/config/site";
 
-export type VisitKind = "clinic" | "home";
-
-/** Booking page URL, optionally pre-selecting a service and a visit type. */
-export function bookingHref(service?: string, type?: VisitKind): string {
-  const q = new URLSearchParams();
-  if (service) q.set("service", service);
-  if (type) q.set("type", type);
-  const qs = q.toString();
-  return `${BOOKING_PATH}${qs ? `?${qs}` : ""}#formulir`;
+/** Booking form URL, optionally with a service pre-selected. */
+export function bookingHref(serviceId?: string): string {
+  if (!serviceId) return BOOKING_PATH;
+  return `/kontak?layanan=${encodeURIComponent(serviceId)}#formulir`;
 }
 
 /** wa.me link with a prefilled message, or null while no number is configured. */
@@ -25,4 +20,11 @@ export function formatWhatsApp(digits: string): string {
     return `+62 ${local.slice(0, 3)}-${local.slice(3, 7)}-${local.slice(7)}`.replace(/-$/, "");
   }
   return `+${digits}`;
+}
+
+export function serviceTitle(id: string | null | undefined): string | null {
+  if (!id) return null;
+  if (id === "lainnya") return "Belum yakin / ingin berkonsultasi";
+  if (id === "korporat") return "Program korporat / event";
+  return siteConfig.services.find((s) => s.id === id)?.title ?? null;
 }

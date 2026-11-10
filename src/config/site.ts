@@ -138,21 +138,25 @@ export const siteConfig = {
 
   contact: {
     /** TODO_CONFIRM — set NEXT_PUBLIC_WHATSAPP_NUMBER (international digits, e.g. 6281234567890). */
-    whatsappNumber: parseWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
+    // DUMMY fallback number (not real). The env variable overrides it.
+    whatsappNumber: parseWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) ?? "628000000000",
     // Blueprint wording. No diagnosis or sensitive details belong in a prefilled URL.
     whatsappMessage: "Halo ELPIORA, saya ingin informasi booking fisioterapi. Pilihan layanan: [___]. Area: [___]. Kapan jadwal tersedia?",
-    phone: null as string | null, // TODO_CONFIRM — display format, e.g. "+62 21 0000 0000"
-    email: null as string | null, // TODO_CONFIRM
+    phone: "+62 21 5550 0100" as string | null, // DUMMY, replace with the real number
+    email: "halo@elpiora.example" as string | null, // DUMMY, replace with the real address
   },
 
   location: {
     /** TODO_CONFIRM — do not publish a branch, address or service area (BSD, Tangerang Selatan, Jakarta) until verified. */
-    branchName: null as string | null,
-    address: null as string | null,
-    city: null as string | null,
+    branchName: "ELPIORA Studio (contoh)" as string | null, // DUMMY
+    address: "Jl. Contoh Sehat No. 12, BSD City (alamat contoh)" as string | null, // DUMMY
+    city: "Tangerang Selatan" as string | null, // DUMMY
     mapsUrl: null as string | null,
-    hours: null as OpeningHours[] | null,
-    access: null as string | null, // parking / public transport notes
+    hours: [
+      { days: "Senin - Jumat", hours: "08.00 - 19.00" },
+      { days: "Sabtu", hours: "08.00 - 15.00" },
+    ] as OpeningHours[] | null, // DUMMY
+    access: "Area parkir tersedia (contoh)." as string | null, // DUMMY: parking / public transport notes
   },
 
   /**
@@ -233,9 +237,9 @@ export const siteConfig = {
 
   homeVisit: {
     /** TODO_CONFIRM — set true only once the service, therapists and areas are confirmed. */
-    confirmed: false,
+    confirmed: true, // DUMMY
     /** TODO_CONFIRM — e.g. ["BSD", "Tangerang Selatan"]. Empty = coverage not yet announced. */
-    coverageAreas: [] as string[],
+    coverageAreas: ["BSD", "Tangerang Selatan"] as string[], // DUMMY
   },
 
   /**

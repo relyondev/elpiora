@@ -63,9 +63,12 @@ export default function AboutPage() {
             <SectionIntro eyebrow="Siapa kami" titleId="who-title" title={<>Who <span className="accent">We Are</span></>} />
           </Reveal>
           <Reveal delay={100} className="col-span-4 space-y-5 text-[1.0625rem] leading-[1.8] text-body md:col-span-8 lg:col-span-6 lg:col-start-7">
+            <p className="font-serif text-[clamp(1.6rem,1.3rem+1vw,2.2rem)] leading-snug font-bold text-deep">
+              Bagi kami, keberhasilan fisioterapi bukan sekadar berkurangnya keluhan.
+            </p>
             <p>
-              Bagi kami, keberhasilan fisioterapi mencakup lebih dari berkurangnya keluhan. Kemajuan yang bermakna dapat berupa kembali berjalan lebih percaya
-              diri, bekerja dengan nyaman, berolahraga dengan aman, atau menjalani rutinitas sehari-hari secara lebih mandiri.
+              Kemajuan yang bermakna dapat berupa kembali berjalan lebih percaya diri, bekerja dengan nyaman, berolahraga dengan aman, atau menjalani
+              rutinitas sehari-hari secara lebih mandiri.
             </p>
             <p>
               Karena itu, ELPIORA mengedepankan penilaian individual, komunikasi, serta latihan dan dukungan yang relevan dengan kehidupan pasien.

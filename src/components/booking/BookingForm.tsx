@@ -144,7 +144,7 @@ export function BookingForm() {
     setStatus({ kind: "submitting" });
     const summary = bookingSummary(values);
     try {
-      const res = await fetch("/api/booking", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api/booking`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

@@ -34,7 +34,7 @@ export function ImagePlate({
     return (
       <div className={`relative overflow-hidden bg-mint-100 ${className}`}>
         <Image
-          src={image.src}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${image.src}`}
           alt={image.alt}
           fill
           sizes={sizes}

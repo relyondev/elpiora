@@ -55,7 +55,7 @@ export function LeadForm({ kind }: { kind: EnquiryKind }) {
     setStatus({ kind: "submitting" });
     const wa = whatsappHref(enquirySummary(kind, values));
     try {
-      const res = await fetch("/api/enquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind, values, consent, website }) });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/api/enquiry`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ kind, values, consent, website }) });
       const data = (await res.json().catch(() => ({}))) as { delivered?: boolean; fields?: Record<string, string> };
       if (res.status === 422 && data.fields) {
         setErrors(data.fields);

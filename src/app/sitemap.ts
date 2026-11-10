@@ -3,6 +3,8 @@ import { siteConfig } from "@/config/site";
 import { siteRoutes } from "@/lib/routes";
 
 // TODO_CONFIRM: the sitemap lists pages once NEXT_PUBLIC_SITE_URL is set.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.siteUrl;
   if (!base) return [];

@@ -247,13 +247,39 @@ export const siteConfig = {
    * Add members only with real names, verified qualifications, real portraits
    * and their consent.
    */
-  team: [] as TeamMember[],
+  team: [
+    {
+      name: "(Nama Tim Trial) Fisioterapis 1",
+      role: "Fisioterapis (contoh)",
+      credentials: "(Trial) Kualifikasi menunggu data asli",
+      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
+      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
+    },
+    {
+      name: "(Nama Tim Trial) Fisioterapis 2",
+      role: "Fisioterapis (contoh)",
+      credentials: "(Trial) Kualifikasi menunggu data asli",
+      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
+      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
+    },
+    {
+      name: "(Nama Tim Trial) Fisioterapis 3",
+      role: "Fisioterapis (contoh)",
+      credentials: "(Trial) Kualifikasi menunggu data asli",
+      bio: "(Nama Tim Trial) Profil contoh untuk uji tampilan. Ganti dengan data tim yang sebenarnya sebelum peluncuran.",
+      photo: { src: null, alt: "Foto anggota tim (trial)", brief: "Potret profesional fisioterapis, cahaya alami" },
+    },
+  ] as TeamMember[], // DUMMY,
 
   /**
    * TODO_CONFIRM — publish only real testimonials with written consent.
    * Never paraphrase into stronger claims; no star ratings unless verified.
    */
-  testimonials: [] as Testimonial[],
+  testimonials: [
+    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien A", context: "Contoh", consentOnFile: true },
+    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien B", context: "Contoh", consentOnFile: true },
+    { quote: "(Testimoni Trial) Teks testimoni contoh untuk uji tampilan, bukan ulasan pasien nyata.", name: "(Testimoni Trial) Pasien C", context: "Contoh", consentOnFile: true },
+  ] as Testimonial[], // DUMMY,
 
   images: {
     hero: {

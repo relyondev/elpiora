@@ -10,7 +10,6 @@ import { siteConfig } from "@/config/site";
 import { contactFaq } from "@/content/faq";
 import { bookingHref, whatsappHref } from "@/lib/booking";
 import { pageMeta } from "@/lib/meta";
-import { ChatIcon } from "@/components/ui/Icon";
 
 export const metadata = pageMeta(
   "Kontak & Buat Janji",
@@ -25,7 +24,6 @@ export default function KontakPage() {
   return (
     <main id="konten">
       <PageHero
-        note={{ label: "Setelah Anda mengirim", text: "Tim menghubungi Anda untuk konfirmasi jadwal", Icon: ChatIcon }}
         eyebrow="Kontak"
         title={
           <>
@@ -35,9 +33,9 @@ export default function KontakPage() {
         lead={<p>Ajukan janji, tanyakan layanan, atau diskusikan kebutuhan Anda. Kami siap membantu Anda bergerak lebih baik.</p>}
         actions={
           <>
-            <LinkButton variant="champagne" href="#formulir">Isi Formulir</LinkButton>
+            <LinkButton href="#formulir">Isi Formulir</LinkButton>
             {wa ? (
-              <LinkButton variant="secondary-on-dark" href={wa} external>
+              <LinkButton href={wa} external variant="secondary" arrow={false}>
                 Chat via WhatsApp
               </LinkButton>
             ) : null}

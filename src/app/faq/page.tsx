@@ -6,7 +6,6 @@ import { LinkButton } from "@/components/ui/Button";
 import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { faqCategories } from "@/content/faq";
 import { pageMeta } from "@/lib/meta";
-import { ChatIcon } from "@/components/ui/Icon";
 
 export const metadata = pageMeta(
   "FAQ: Pertanyaan yang Sering Diajukan",
@@ -18,7 +17,6 @@ export default function FaqPage() {
   return (
     <main id="konten">
       <PageHero
-        note={{ label: "Belum menemukan jawaban?", text: "Tanyakan lewat formulir janji", Icon: ChatIcon }}
         eyebrow="FAQ"
         title={
           <>
@@ -28,8 +26,8 @@ export default function FaqPage() {
         lead={<p>Kumpulan jawaban seputar fisioterapi, janji temu, sesi pertama, layanan, hingga privasi data Anda.</p>}
         actions={
           <>
-            <LinkButton variant="champagne" href="#topik">Pilih Topik Pertanyaan</LinkButton>
-            <LinkButton variant="secondary-on-dark" href={BOOKING_PATH}>
+            <LinkButton href="#topik">Pilih Topik Pertanyaan</LinkButton>
+            <LinkButton href={BOOKING_PATH} variant="champagne">
               Buat Janji
             </LinkButton>
           </>

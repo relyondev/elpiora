@@ -42,21 +42,20 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
   return (
     <main id="konten">
       <PageHero
-        note={{ label: service.label, text: unconfirmed ? "Ketersediaan menunggu konfirmasi" : "Dimulai dengan konsultasi dan asesmen", Icon: Icon }}
         eyebrow={service.title}
         parents={[{ label: "Layanan", href: "/layanan" }]}
         title={service.title}
         lead={
           <>
-            <p className="font-serif text-[1.6rem] leading-snug font-bold text-gold-light">{detail.headline}</p>
+            <p className="font-serif text-[1.6rem] leading-snug font-semibold text-accent italic">{detail.headline}</p>
             <p className="mt-4">{service.description}</p>
             {unconfirmed ? <PlaceholderTag className="mt-4">Ketersediaan menunggu konfirmasi</PlaceholderTag> : null}
           </>
         }
         actions={
           <>
-            <LinkButton variant="champagne" href={bookingHref(service.id)}>{unconfirmed ? "Tanyakan Ketersediaan" : "Ajukan Janji"}</LinkButton>
-            <LinkButton variant="secondary-on-dark" href="/layanan">
+            <LinkButton href={bookingHref(service.id)}>{unconfirmed ? "Tanyakan Ketersediaan" : "Ajukan Janji"}</LinkButton>
+            <LinkButton href="/layanan" variant="champagne">
               Semua Layanan
             </LinkButton>
           </>
@@ -126,7 +125,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<Pa
             {detail.sessionMayInclude.map((item, i) => (
               <Reveal as="li" key={item.title} delay={(i % 3) * 60}>
                 <div className="flex h-full flex-col rounded-[22px] bg-paper p-6 shadow-[0_1px_0_var(--elpiora-line)]">
-                  <span className="font-serif text-2xl font-bold text-accent" aria-hidden="true">
+                  <span className="font-serif text-2xl text-accent italic" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="t-h3 mt-3 !text-[1.3rem]">{item.title}</h3>

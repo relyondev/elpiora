@@ -56,7 +56,6 @@ export default function HomeVisitPage() {
   return (
     <main id="konten">
       <PageHero
-        note={{ label: "Area layanan", text: "Dikonfirmasi tim saat Anda mengajukan", Icon: PinIcon }}
         eyebrow="Home Visit"
         title={
           <>
@@ -73,8 +72,8 @@ export default function HomeVisitPage() {
         }
         actions={
           <>
-            <LinkButton variant="champagne" href={bookingHref("home-visit")}>Ajukan Home Visit</LinkButton>
-            <LinkButton variant="secondary-on-dark" href="#cara-kerja">
+            <LinkButton href={bookingHref("home-visit")}>Ajukan Home Visit</LinkButton>
+            <LinkButton href="#cara-kerja" variant="secondary" arrow={false}>
               Cara Kerjanya
             </LinkButton>
           </>

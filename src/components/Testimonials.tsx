@@ -31,7 +31,7 @@ export function TestimonialList({ limit, compact = false }: { limit?: number; co
         <Reveal as="li" key={`${t.name}-${i}`} delay={(i % 3) * 70}>
           <figure className="flex h-full flex-col rounded-[24px] bg-paper p-7 shadow-[0_1px_0_var(--elpiora-line)] md:p-8">
             <QuoteIcon className="size-9 text-gold" />
-            <blockquote className="mt-4 font-serif text-xl leading-relaxed font-medium text-deep">&ldquo;{t.quote}&rdquo;</blockquote>
+            <blockquote className="mt-4 font-serif text-xl leading-relaxed text-deep italic">&ldquo;{t.quote}&rdquo;</blockquote>
             <figcaption className="mt-auto pt-6 text-sm">
               <span className="font-semibold text-deep">{t.name}</span>
               {t.context ? <span className="block text-muted-text">{t.context}</span> : null}

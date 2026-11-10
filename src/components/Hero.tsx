@@ -1,9 +1,8 @@
 import { BOOKING_PATH, siteConfig } from "@/config/site";
-import { Banner, GlassCard } from "./Banner";
 import { LinkButton } from "./ui/Button";
-import { AssessmentIcon, LotusIcon, SpineIcon, SportIcon, WorkplaceIcon } from "./ui/Icon";
 import { ImagePlate } from "./ui/ImagePlate";
-import { BrushUnderline, MovementCurve, SpineDots } from "./ui/Ornaments";
+import { LotusIcon, SpineIcon, SportIcon, WorkplaceIcon } from "./ui/Icon";
+import { BrushUnderline, MovementCurve, SpineDots, WaveRibbons } from "./ui/Ornaments";
 
 const headline = [
   { text: "Bergerak", em: false },
@@ -22,11 +21,17 @@ const benefits = [
 
 export function Hero() {
   return (
-    <Banner labelledBy="hero-title">
-      <div className="px-5 pt-[calc(var(--header-h)+12px)] pb-8 md:px-10 md:pb-10 lg:px-14">
-        <div className="grid-12 items-center gap-y-12 pt-6 md:pt-10">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-[calc(var(--header-h)+28px)] md:pt-[calc(var(--header-h)+56px)]">
+      {/* calm mint light field behind the image column */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute top-[-10%] right-[-20%] h-[90%] w-[85%] rounded-full bg-[radial-gradient(closest-side,var(--elpiora-mint-100),rgb(223_242_231/0))] md:right-[-8%] md:w-[60%]" />
+        <WaveRibbons className="absolute inset-x-0 bottom-0 h-40 w-full md:h-56" />
+      </div>
+
+      <div className="shell">
+        <div className="grid-12 items-end gap-y-12">
           {/* ---- Copy ---- */}
-          <div className="col-span-4 md:col-span-12 lg:col-span-7">
+          <div className="col-span-4 md:col-span-12 lg:col-span-7 lg:pb-16">
             <p className="pill-hashtag fade-in" style={{ "--d": "0ms" } as React.CSSProperties}>
               #ElpioraInside <span aria-hidden="true">·</span> Physiotherapy &amp; Wellness
             </p>
@@ -51,61 +56,57 @@ export function Hero() {
             </p>
 
             <div className="fade-in mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={{ "--d": "640ms" } as React.CSSProperties}>
-              <LinkButton href={BOOKING_PATH} variant="champagne">
+              <LinkButton href={BOOKING_PATH}>
                 Jadwalkan Konsultasi
               </LinkButton>
-              <LinkButton href="/layanan" variant="secondary-on-dark">
+              <LinkButton href="/layanan" variant="champagne">
                 Lihat Daftar Layanan
               </LinkButton>
             </div>
           </div>
 
-          {/* ---- Visual + glass cards ---- */}
+          {/* ---- Art-directed image ---- */}
           <div className="relative col-span-4 md:col-span-8 md:col-start-3 lg:col-span-5 lg:col-start-8">
-            <MovementCurve draw className="pointer-events-none absolute -top-[10%] -left-[30%] z-10 h-[115%] w-[150%] md:-left-[40%]" />
-            <div className="fade-in relative mx-auto max-w-[460px] lg:mr-0" style={{ "--d": "260ms" } as React.CSSProperties}>
+            <MovementCurve draw className="pointer-events-none absolute -top-[12%] -left-[30%] z-10 h-[120%] w-[150%] md:-left-[45%]" />
+            <div className="fade-in relative" style={{ "--d": "260ms" } as React.CSSProperties}>
               <ImagePlate
                 image={siteConfig.images.hero}
                 variant="studio"
                 priority
-                sizes="(min-width: 1024px) 34vw, (min-width: 768px) 60vw, 100vw"
-                captionClassName="right-4 bottom-4 items-end text-right"
-                className="aspect-[4/4.6] w-full rounded-t-[999px] rounded-b-[28px]"
+                sizes="(min-width: 1024px) 40vw, (min-width: 768px) 66vw, 100vw"
+                captionClassName="right-5 bottom-14 items-end text-right"
+                className="aspect-[4/5] max-h-[78svh] w-full rounded-t-[999px] rounded-b-[28px] shadow-[0_40px_80px_-40px_rgb(18_63_67/0.35)] lg:aspect-[4/5.4]"
               />
-              <SpineDots className="absolute top-[16%] -right-4 hidden h-[44%] text-gold md:block" />
-
-              <GlassCard Icon={AssessmentIcon} label="Langkah pertama" className="mt-3 md:absolute md:top-[10%] md:-right-8 md:mt-0 md:w-60">
-                Konsultasi &amp; asesmen gerak
-              </GlassCard>
-
-              <div
-                className="fade-in mt-3 rounded-[20px] border border-white/20 bg-deep/80 px-5 pt-3 pb-4 md:absolute md:bottom-[14%] md:-left-10 md:mt-0"
-                style={{ "--d": "900ms" } as React.CSSProperties}
-              >
-                <span className="t-script block -rotate-2 text-xl text-gold-light md:text-2xl">{siteConfig.brand.tagline}</span>
-                <BrushUnderline className="mt-1 h-2.5 w-full" />
-              </div>
+              {/* soft mint overlay for depth */}
+              <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-t-[999px] rounded-b-[28px] bg-[linear-gradient(180deg,rgb(223_242_231/0)_55%,rgb(223_242_231/0.35))]" />
+              <SpineDots className="absolute top-[18%] -right-3 hidden h-[46%] text-gold md:block" />
             </div>
+
+            {/* official tagline in the poster's brush script, with a gold brush underline */}
+            <p
+              className="fade-in absolute -bottom-6 left-4 z-20 rounded-[20px] bg-paper/95 px-6 pt-3 pb-4 shadow-[0_18px_40px_-18px_rgb(11_66_72/0.45)] md:-left-10"
+              style={{ "--d": "900ms" } as React.CSSProperties}
+            >
+              <span className="t-script block -rotate-3 text-xl text-deep md:text-2xl">{siteConfig.brand.tagline}</span>
+              <BrushUnderline className="mt-1 h-2.5 w-full" />
+            </p>
           </div>
         </div>
 
-        {/* ---- Benefits strip (poster wording), in the place of the reference's logo strip ---- */}
-        <ul
-          className="relative mt-14 grid gap-3 rounded-[24px] border border-white/15 bg-deep/45 p-3 sm:grid-cols-2 md:mt-16 lg:grid-cols-4"
-          aria-label="Manfaat fisioterapi bersama ELPIORA"
-        >
+        {/* ---- Benefits (poster wording + amber icon circles) ---- */}
+        <ul className="relative mt-20 grid gap-4 pb-16 sm:grid-cols-2 md:mt-24 lg:grid-cols-4 md:pb-24" aria-label="Manfaat fisioterapi bersama ELPIORA">
           {benefits.map(({ lead, strong, Icon }) => (
-            <li key={strong} className="flex items-center gap-3 rounded-[16px] px-3 py-2">
+            <li key={strong} className="flex items-center gap-4 rounded-full bg-paper py-2.5 pr-5 pl-2.5 shadow-[0_1px_0_var(--elpiora-line)]">
               <span className="icon-amber size-11" aria-hidden="true">
                 <Icon className="size-5" strokeWidth={1.8} />
               </span>
-              <span className="text-[0.9375rem] text-mint-100">
-                {lead} <strong className="font-bold text-white">{strong}</strong>
+              <span className="text-[0.9375rem] text-body">
+                {lead} <strong className="font-bold text-deep">{strong}</strong>
               </span>
             </li>
           ))}
         </ul>
       </div>
-    </Banner>
+    </section>
   );
 }

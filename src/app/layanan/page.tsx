@@ -11,7 +11,6 @@ import { BOOKING_PATH, siteConfig } from "@/config/site";
 import { servicesFaq } from "@/content/faq";
 import { bookingHref } from "@/lib/booking";
 import { pageMeta } from "@/lib/meta";
-import { AssessmentIcon } from "@/components/ui/Icon";
 
 export const metadata = pageMeta(
   "Layanan",
@@ -24,7 +23,6 @@ export default function LayananPage() {
   return (
     <main id="konten">
       <PageHero
-        note={{ label: "Mulai dari mana?", text: "Layanan ditentukan setelah konsultasi awal", Icon: AssessmentIcon }}
         eyebrow="Layanan"
         title={
           <>
@@ -34,8 +32,8 @@ export default function LayananPage() {
         lead={<p>Perawatan fisioterapi dan kesehatan gerak yang personal, untuk membantu Anda bergerak lebih baik dan kembali beraktivitas.</p>}
         actions={
           <>
-            <LinkButton variant="champagne" href={BOOKING_PATH}>Buat Janji</LinkButton>
-            <LinkButton variant="secondary-on-dark" href={bookingHref("lainnya")}>
+            <LinkButton href={BOOKING_PATH}>Buat Janji</LinkButton>
+            <LinkButton href={bookingHref("lainnya")} variant="secondary" arrow={false}>
               Bantu Saya Memilih
             </LinkButton>
           </>

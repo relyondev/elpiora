@@ -1,0 +1,13 @@
+scripts:
+  setup: ./scripts/orca-vm/setup.sh
+
+environmentRecipes:
+  - id: hostinger-ssh
+    name: Hostinger VPS (SSH)
+    create: ./scripts/orca-vm/hostinger-create.sh
+    destroy: none
+    timeoutSeconds:
+      create: 180
+    passEnv:
+      - SSH_AUTH_SOCK
+      - 'ELPIORA_SSH_*'

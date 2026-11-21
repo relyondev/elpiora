@@ -1,0 +1,8 @@
+{
+  "host": "187.127.220.68",
+  "username": "root",
+  "port": 22,
+  "projectRoot": "/srv/orca/elpiora",
+  "repoUrl": "https://github.com/relyondev/elpiora.git",
+  "repoRef": "claude/eager-wright-sh6oq7"
+}
